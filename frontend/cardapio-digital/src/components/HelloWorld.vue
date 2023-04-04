@@ -37,7 +37,7 @@ export default Vue.extend({
   },
 
   methods: {
-    async login(): Promise<void> {
+    login(this: any): void {
       try {
         debugger;
 
@@ -47,28 +47,27 @@ export default Vue.extend({
             senha: this.password,
           })
           .then(function (response) {
+            console.log("******TESTE*******")
            localStorage.setItem("token", response.data.token);
-           
           });
 
+          //this.$router("/")
+      
         //const token = response.token;
         //localStorage.setItem("token", token);
 
         console.log("******************");
         console.log(localStorage.getItem("token"));
 
-        api
-          .get("/empresa")
-          .then(function (response) {
-            console.log(response.data);
-            router.push({ path: "/about" });
-          })
-          .catch(function (error) {
-            console.error(error);
-          });
+
+
       } catch (error) {
         console.error(error);
       }
+
+
+
+
     },
   },
 });
