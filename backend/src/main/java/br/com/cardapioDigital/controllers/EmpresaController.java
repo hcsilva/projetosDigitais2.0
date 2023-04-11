@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @SecurityRequirement(name = "bearer-key")
 public class EmpresaController {
 
-
-
     @GetMapping
     public ResponseEntity getAllEmpresas(){
         return ResponseEntity.ok("você deu um getAll em todas as empresas");
