@@ -27,7 +27,6 @@ const routes: Array<RouteConfig> = [
       isAuthenticated: true
     }
   }
-
 ]
 
 const router = new VueRouter({
@@ -36,9 +35,7 @@ const router = new VueRouter({
   routes
 })
 
-
 router.beforeEach((to, from, next) => {
-  debugger
   let routerAuthCheck = index.state.logged;
 
   if (to.matched.some(record => record.meta.isAuthenticated)) {

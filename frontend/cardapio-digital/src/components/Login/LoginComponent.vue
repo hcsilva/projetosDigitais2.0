@@ -79,7 +79,6 @@ export default class LoginPage extends Vue {
 
     LoginService.getLogin(this.email, this.password)
       .then((response) => {
-        debugger
         this.$store.commit("setAuthToken", response.data.token);
         this.$router.push("/empresa");
       })

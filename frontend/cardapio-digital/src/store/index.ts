@@ -12,13 +12,12 @@ export default new Vuex.Store({
   },
   mutations: {
     setAuthToken(state, payload) {
-      debugger
       window.localStorage.authToken = payload;
       state.authToken = payload;
       state.logged = Boolean(state.authToken);
     },
 
-    setLogged(state, payload){
+    setLogged(state, payload) {
       state.logged = payload;
     }
   },

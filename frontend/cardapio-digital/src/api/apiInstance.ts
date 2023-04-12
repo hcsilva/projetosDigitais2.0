@@ -4,16 +4,24 @@ const axios = require('axios');
 
 axios.defaults.baseURL = 'http://localhost:8081/api';
 
-// axios.interceptors.response.use(
-//     (response: AxiosResponse) => {
-//         return response;
-//     },
-//     (error: AxiosError) => {
-//         if (error.response?.status === 403) {
-//           console.log("Erro Ao logar")
-//         }
-//         return Promise.reject(error);
-//     }
-// );
+axios.interceptors.response.use(
+    (response: AxiosResponse) => {
+        debugger
+
+        const token = localStorage.getItem('authToken');
+
+        if (token != null) {
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
+        }
+
+        return response;
+    },
+
+    (error: AxiosError) => {
+        return Promise.reject(error);
+    }
+);
+
+
 
 export default axios;
