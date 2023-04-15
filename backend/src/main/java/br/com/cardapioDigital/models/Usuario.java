@@ -1,5 +1,6 @@
 package br.com.cardapioDigital.models;
 
+import br.com.cardapioDigital.enums.SimNaoEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -24,8 +25,22 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "LOGIN", nullable = false, unique = true)
     private String login;
+
+    @Column(name = "SENHA")
     private String senha;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ATIVO")
+    private SimNaoEnum usuarioAtivo;
+
+    @Column(name = "NOME")
+    private String nome;
+
+    @Column(name = "TELEFONE")
+    private String telefone;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USUARIOS_PERMISSOES",
@@ -71,6 +86,6 @@ public class Usuario implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return SimNaoEnum.SIM.equals(this.usuarioAtivo);
     }
 }

@@ -1,7 +1,7 @@
 package br.com.cardapioDigital.controllers;
 
 import br.com.cardapioDigital.dtos.DadosTokenJWT;
-import br.com.cardapioDigital.dtos.UsuarioDto;
+import br.com.cardapioDigital.dtos.AutenticacaoDto;
 import br.com.cardapioDigital.models.Usuario;
 import br.com.cardapioDigital.services.TokenService;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ public class AutenticacaoController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity efetuarLogin(@RequestBody @Valid UsuarioDto usuarioDto) {
+    public ResponseEntity efetuarLogin(@RequestBody @Valid AutenticacaoDto usuarioDto) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(usuarioDto.getLogin(), usuarioDto.getSenha());
         var authentication = manager.authenticate(authenticationToken);
         var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
