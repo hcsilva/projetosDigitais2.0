@@ -6,7 +6,6 @@ axios.defaults.baseURL = 'http://localhost:8081/api';
 
 axios.interceptors.response.use(
     (response: AxiosResponse) => {
-        debugger
 
         const token = localStorage.getItem('authToken');
 

@@ -3,7 +3,8 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginComponent from '../components/Login/LoginComponent.vue'
 import EmpresaComponent from '../components/Empresa/EmpresaComponent.vue'
-import index from '../store/index'
+import UsuarioCadastro from '../components/Usuario/UsuarioCadastro.vue'
+import store from '../store/store'
 
 
 Vue.use(VueRouter)
@@ -18,6 +19,11 @@ const routes: Array<RouteConfig> = [
     path: '/login',
     name: 'Login',
     component: LoginComponent
+  },
+  {
+    path: '/casdastrarNovoUsuario',
+    name: 'Cadastrar Usuário',
+    component: UsuarioCadastro
   },
   {
     path: '/empresa',
@@ -36,7 +42,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  let routerAuthCheck = index.state.logged;
+  let routerAuthCheck = store.state.logged;
 
   if (to.matched.some(record => record.meta.isAuthenticated)) {
     if(routerAuthCheck){

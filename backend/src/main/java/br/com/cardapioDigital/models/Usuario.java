@@ -1,11 +1,10 @@
 package br.com.cardapioDigital.models;
 
+import br.com.cardapioDigital.dtos.UsuarioDto;
 import br.com.cardapioDigital.enums.SimNaoEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "USUARIOS")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -87,5 +87,9 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return SimNaoEnum.SIM.equals(this.usuarioAtivo);
+    }
+
+    public UsuarioDto convertEntityToDto() {
+        return new ModelMapper().map(this, UsuarioDto.class);
     }
 }
