@@ -2,6 +2,7 @@ package br.com.cardapioDigital.controllers;
 
 
 import br.com.cardapioDigital.dtos.UsuarioDto;
+import br.com.cardapioDigital.enums.SimNaoEnum;
 import br.com.cardapioDigital.models.Usuario;
 import br.com.cardapioDigital.services.UsuarioService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -34,6 +35,8 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioDto> saveUser(@RequestBody @Valid UsuarioDto usuarioDto, UriComponentsBuilder uriComponentsBuilder) {
+        usuarioDto.setUsuarioAtivo(SimNaoEnum.SIM);
+        usuarioDto.setSenha(usuarioService.passwordEncoder(usuarioDto.getSenha()));
         var usuarioSalvo = usuarioService.save(usuarioDto.convertDtoToEntity());
 
         var uri = uriComponentsBuilder.path("/api/usuario/{id}").buildAndExpand(usuarioSalvo.getId()).toUri();

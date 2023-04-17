@@ -4,7 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginComponent from '../components/Login/LoginComponent.vue'
 import EmpresaComponent from '../components/Empresa/EmpresaComponent.vue'
 import UsuarioCadastro from '../components/Usuario/UsuarioCadastro.vue'
-import store from '../store/store'
+import index from '../store'
 
 
 Vue.use(VueRouter)
@@ -42,7 +42,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  let routerAuthCheck = store.state.logged;
+  let routerAuthCheck = index.state.logged;
 
   if (to.matched.some(record => record.meta.isAuthenticated)) {
     if(routerAuthCheck){

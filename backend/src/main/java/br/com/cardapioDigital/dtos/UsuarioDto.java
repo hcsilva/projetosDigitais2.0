@@ -2,6 +2,7 @@ package br.com.cardapioDigital.dtos;
 
 import br.com.cardapioDigital.enums.SimNaoEnum;
 import br.com.cardapioDigital.models.Usuario;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,20 +14,20 @@ public class UsuarioDto {
 
     Long id;
 
+    @Email
     @NotBlank(message = "{usuario.login.campoObrigatorio}")
-    String login;
+    private String login;
 
     @NotBlank(message = "{usuario.senha.campoObrigatorio}")
-    String senha;
+    private String senha;
 
-    @NotBlank(message = "{usuario.ativo.campoObrigatorio}")
-    SimNaoEnum usuarioAtivo;
+    private SimNaoEnum usuarioAtivo;
 
     @NotBlank(message = "{usuario.nome.campoObrigatorio}")
-    String nome;
+    private String nome;
 
     @NotBlank(message = "{usuario.telefone.campoObrigatorio}")
-    String telefone;
+    private String telefone;
 
     public Usuario convertDtoToEntity() {
         return new ModelMapper().map(this, Usuario.class);
