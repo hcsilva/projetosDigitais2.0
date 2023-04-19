@@ -4,6 +4,8 @@ import HomeView from '../views/HomeView.vue'
 import LoginComponent from '../components/Login/LoginComponent.vue'
 import EmpresaComponent from '../components/Empresa/EmpresaComponent.vue'
 import UsuarioCadastro from '../components/Usuario/UsuarioCadastro.vue'
+import Menu from '../components/Menu/Menu.vue'
+import MenuItem from '../components/Menu/MenuItem.vue'
 import index from '../store'
 
 
@@ -24,6 +26,16 @@ const routes: Array<RouteConfig> = [
     path: '/casdastrarNovoUsuario',
     name: 'Cadastrar Usuário',
     component: UsuarioCadastro
+  },
+  {
+    path: '/menu',
+    name: 'Menu',
+    component: Menu
+  },
+  {
+    path: '/detail',
+    name: 'MenuItem',
+    component: MenuItem
   },
   {
     path: '/empresa',
