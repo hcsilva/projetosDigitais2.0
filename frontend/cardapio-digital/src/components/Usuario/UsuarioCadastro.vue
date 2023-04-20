@@ -108,7 +108,8 @@ export default class CadastroUsuario extends Vue {
         }, 3000);
       })
       .catch((error) => {
-        this.mensagem = error.response.data.errors.join("\n");
+        //error.response.data.errors.join("\n");
+        this.mensagem = 
         this.showMessagem = true;
         setTimeout(() => {
           this.showMessagem = false;
