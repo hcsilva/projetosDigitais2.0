@@ -1,14 +1,6 @@
 <template>
   <v-card class="mx-auto d-flex flex-column align-center" max-width="500">
-    <v-snackbar
-      v-model="snackbar.visible"
-      :timeout="2000"
-      top
-      color="success"
-      dark
-    >
-      {{ snackbar.message }}
-    </v-snackbar>
+    <SuccessMessage :message="mensagem" :show="showMessagem" />
 
     <v-card-title>Cadastro de Usuário</v-card-title>
     <v-card-text>
@@ -61,10 +53,15 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { Usuario } from "@/components/Usuario/UsuarioModel";
 import UsuarioService from "@/components/Usuario/UsuarioService";
 import vueMask from "v-mask";
+import SuccessMessage from "@/components/Snackbars/SuccessMessage.vue";
 
 Vue.use(vueMask);
 
-@Component({})
+@Component({
+  components: {
+    SuccessMessage,
+  },
+})
 export default class CadastroUsuario extends Vue {
   private nome: string = "";
   private telefone: string = "";
@@ -73,15 +70,9 @@ export default class CadastroUsuario extends Vue {
   private confirmarSenha: string = "";
   private termosDeUso: boolean = false;
   private valid: boolean = false;
-  private snackbar = {
-    visible: false,
-    message: "",
-  };
-
-  private showSnackbar(message: string) {
-    this.snackbar.message = message;
-    this.snackbar.visible = true;
-  }
+  private mensagem: string = "";
+  private showMessagem: boolean = false;
+  private tipoMessagem: string = "";
 
   private requiredRule = (v: any) => !!v || "Campo obrigatório";
   private emailRule = (v: string) => /.+@.+\..+/.test(v) || "E-mail inválido";
@@ -109,13 +100,19 @@ export default class CadastroUsuario extends Vue {
 
     UsuarioService.salvar(usuario)
       .then((response: any) => {
-        this.showSnackbar("Usuário criado com sucesso");
+        this.mensagem = "Usuário criado com sucesso";
+        this.showMessagem = true;
+
         setTimeout(() => {
           this.$router.push("/login");
         }, 3000);
       })
-      .catch((e: Error) => {
-        console.log(e);
+      .catch((error) => {
+        this.mensagem = error.response.data.errors.join("\n");
+        this.showMessagem = true;
+        setTimeout(() => {
+          this.showMessagem = false;
+        }, 2000);
       });
   }
 }

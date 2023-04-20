@@ -1,5 +1,6 @@
 package br.com.cardapioDigital.services;
 
+import br.com.cardapioDigital.dtos.UsuarioDto;
 import br.com.cardapioDigital.exceptions.ValidacaoException;
 import br.com.cardapioDigital.models.Usuario;
 import br.com.cardapioDigital.repositories.UsuarioRepository;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +20,12 @@ public class UsuarioService {
 
     @Transactional(readOnly = true)
     public Usuario findById(Long id) {
-       return usuarioRepository.findById(id)
-               .orElseThrow(() -> new ValidacaoException("usuario.idNaoEncontrado"));
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new ValidacaoException("usuario.idNaoEncontrado"));
     }
 
-    public Usuario save(Usuario usuario){
+    public Usuario save(Usuario usuario) {
+        validarNovoUsuario(usuario);
         return usuarioRepository.save(usuario);
     }
 
@@ -40,6 +41,17 @@ public class UsuarioService {
     public String passwordEncoder(String senha) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         return passwordEncoder.encode(senha);
+    }
+
+    private void validarNovoUsuario(Usuario usuario) {
+        if (usuario.getId() != null) {
+            return;
+        }
+
+        var usuarioEncontrado = usuarioRepository.findByLogin(usuario.getLogin());
+        if (usuarioEncontrado != null) {
+            throw new ValidacaoException("usuario.usuarioJaCriado");
+        }
     }
 
 }
