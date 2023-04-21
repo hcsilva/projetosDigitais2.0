@@ -1,7 +1,7 @@
 package br.com.cardapioDigital.dtos;
 
-import br.com.cardapioDigital.models.Empresa;
-import io.swagger.v3.oas.models.links.Link;
+
+import br.com.cardapioDigital.models.LinkWeb;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import org.modelmapper.ModelMapper;
 
 @Getter
 @Setter
-public class LinksDto {
+public class LinkWebDto {
 
     @NotEmpty(message = "{links.descricao.campoObrigatorio}")
     private String descricao;
@@ -23,8 +23,8 @@ public class LinksDto {
     @NotNull(message = "{links.empresa.campoObrigatorio}")
     private EmpresaDto empresa;
 
-    public Link convertDtoToEntity() {
-        return new ModelMapper().map(this, Link.class);
+    public LinkWeb convertDtoToEntity() {
+        return new ModelMapper().map(this, LinkWeb.class);
     }
 
 }

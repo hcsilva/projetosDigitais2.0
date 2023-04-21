@@ -23,7 +23,7 @@ public class HorarioFuncionamentoDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime segundaInicial;
 
-    public HorarioFuncionamento convertDTOToEntity() {
+    public HorarioFuncionamento convertDtoToEntity() {
         return new ModelMapper().map(this, HorarioFuncionamento.class);
     }
 }

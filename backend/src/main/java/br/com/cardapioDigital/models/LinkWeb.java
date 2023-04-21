@@ -1,7 +1,6 @@
 package br.com.cardapioDigital.models;
 
-import br.com.cardapioDigital.dtos.LinksDto;
-import br.com.cardapioDigital.dtos.UsuarioDto;
+import br.com.cardapioDigital.dtos.LinkWebDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.modelmapper.ModelMapper;
@@ -14,7 +13,7 @@ import org.modelmapper.ModelMapper;
 @Entity
 @Table(name = "LINKS")
 @EqualsAndHashCode(of = "id")
-public class Links extends VersionedEntity{
+public class LinkWeb extends VersionedEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +29,8 @@ public class Links extends VersionedEntity{
     @Column(name = "LINK", length = 100)
     private String link;
 
-    public LinksDto convertEntityToDto() {
-        return new ModelMapper().map(this, LinksDto.class);
+    public LinkWebDto convertEntityToDto() {
+        return new ModelMapper().map(this, LinkWebDto.class);
     }
 
 }

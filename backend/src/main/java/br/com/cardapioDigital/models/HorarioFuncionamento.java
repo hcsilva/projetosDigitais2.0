@@ -111,7 +111,7 @@ public class HorarioFuncionamento extends VersionedEntity {
     @Column(name = "DOMINGO_FIM_2")
     private LocalTime domingoFinal2;
 
-    public HorarioFuncionamentoDto convertEntityToDTO() {
+    public HorarioFuncionamentoDto convertEntityToDto() {
         return new ModelMapper().map(this, HorarioFuncionamentoDto.class);
     }
 }

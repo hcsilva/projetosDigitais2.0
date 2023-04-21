@@ -1,8 +1,8 @@
 package br.com.cardapioDigital.services;
 
 import br.com.cardapioDigital.exceptions.ValidacaoException;
-import br.com.cardapioDigital.models.Links;
-import br.com.cardapioDigital.repositories.LinksRepository;
+import br.com.cardapioDigital.models.LinkWeb;
+import br.com.cardapioDigital.repositories.LinkWebRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,28 +11,28 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class LinksService {
+public class LinkWebService {
 
     @Autowired
-    private LinksRepository linksRepository;
+    private LinkWebRepository linkRepository;
 
-    public Links save(Links links) {
-        return linksRepository.save(links);
+    public LinkWeb save(LinkWeb link) {
+        return linkRepository.save(link);
     }
 
     @Transactional(readOnly = true)
-    public Page<Links> findAll(Pageable pageable) {
-        return linksRepository.findAll(pageable);
+    public Page<LinkWeb> findAll(Pageable pageable) {
+        return linkRepository.findAll(pageable);
     }
 
     @Transactional(readOnly = true)
-    public Links findById(Long id) {
-        return linksRepository.findById(id)
+    public LinkWeb findById(Long id) {
+        return linkRepository.findById(id)
                 .orElseThrow(() -> new ValidacaoException("empresa.naoEncontrada"));
     }
 
-    public void delete(Links links) {
-        linksRepository.delete(links);
+    public void delete(LinkWeb link) {
+        linkRepository.delete(link);
     }
 
 }
