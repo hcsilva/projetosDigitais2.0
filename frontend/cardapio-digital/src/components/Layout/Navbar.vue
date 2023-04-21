@@ -1,7 +1,7 @@
 <template>
-  <v-app-bar color="indigo" dark app>
+  <v-app-bar color="primary" dark app>
     <v-toolbar-title>
-      <img src="logo.png" height="30px" />
+      <img src="../../assets/logo-fanta.png"  height="50px" />
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn text @click="goToLoginPage">Entrar</v-btn>

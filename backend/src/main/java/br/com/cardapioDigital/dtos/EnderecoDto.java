@@ -1,6 +1,8 @@
 package br.com.cardapioDigital.dtos;
 
 import br.com.cardapioDigital.enums.PaisEnum;
+import br.com.cardapioDigital.models.Empresa;
+import br.com.cardapioDigital.models.Endereco;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 @Getter
 @Setter
@@ -42,7 +45,7 @@ public class EnderecoDto {
 
     private String pais;
 
-    public EnderecoDto() {
-        this.pais = PaisEnum.BRA.getTwoDigitsCode();
+    public Endereco convertDtoToEntity() {
+        return new ModelMapper().map(this, Endereco.class);
     }
 }

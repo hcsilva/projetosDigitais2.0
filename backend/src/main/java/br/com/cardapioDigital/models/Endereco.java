@@ -1,7 +1,10 @@
 package br.com.cardapioDigital.models;
 
+import br.com.cardapioDigital.dtos.EnderecoDto;
+import br.com.cardapioDigital.dtos.UsuarioDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 @Getter
 @Setter
@@ -44,5 +47,9 @@ public class Endereco extends VersionedEntity {
 
     @Column(name = "PAIS")
     private String pais;
+
+    public EnderecoDto convertEntityToDto() {
+        return new ModelMapper().map(this, EnderecoDto.class);
+    }
 
 }

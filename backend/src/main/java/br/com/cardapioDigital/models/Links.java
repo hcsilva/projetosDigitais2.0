@@ -1,7 +1,10 @@
 package br.com.cardapioDigital.models;
 
+import br.com.cardapioDigital.dtos.LinksDto;
+import br.com.cardapioDigital.dtos.UsuarioDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 @Getter
 @Setter
@@ -26,4 +29,9 @@ public class Links extends VersionedEntity{
 
     @Column(name = "LINK", length = 100)
     private String link;
+
+    public LinksDto convertEntityToDto() {
+        return new ModelMapper().map(this, LinksDto.class);
+    }
+
 }

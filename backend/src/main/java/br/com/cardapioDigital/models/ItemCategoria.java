@@ -1,8 +1,11 @@
 package br.com.cardapioDigital.models;
 
+import br.com.cardapioDigital.dtos.ItemCategoriaDto;
+import br.com.cardapioDigital.dtos.UsuarioDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
 
@@ -63,4 +66,9 @@ public class ItemCategoria extends VersionedEntity {
 
     @Column(name = "DESTAQUE")
     private boolean destaque;
+
+    public ItemCategoriaDto convertEntityToDto() {
+        return new ModelMapper().map(this, ItemCategoriaDto.class);
+    }
+
 }

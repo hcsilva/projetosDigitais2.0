@@ -1,18 +1,20 @@
 package br.com.cardapioDigital.dtos;
 
+import br.com.cardapioDigital.models.Empresa;
+import br.com.cardapioDigital.models.Usuario;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.hibernate.validator.constraints.URL;
 import org.hibernate.validator.constraints.br.CNPJ;
+import org.modelmapper.ModelMapper;
 
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class EmpresaDto {
+
+    Long id;
 
     @NotEmpty(message = "{empresa.razaoSocial.campoObrigatorio}")
     private String razaoSocial;
@@ -43,4 +45,7 @@ public class EmpresaDto {
     @NotBlank(message = "{empresa.email.campoObrigatorio}")
     private String email;
 
+    public Empresa convertDtoToEntity() {
+        return new ModelMapper().map(this, Empresa.class);
+    }
 }

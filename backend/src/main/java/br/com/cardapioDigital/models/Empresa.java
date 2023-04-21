@@ -1,7 +1,10 @@
 package br.com.cardapioDigital.models;
 
+import br.com.cardapioDigital.dtos.EmpresaDto;
+import br.com.cardapioDigital.dtos.UsuarioDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 @Getter
 @Setter
@@ -62,7 +65,7 @@ public class Empresa extends VersionedEntity {
         this.fusoHorario = "Z";
     }
 
-    public Empresa(Long id) {
-        this.id = id;
+    public EmpresaDto convertEntityToDto() {
+        return new ModelMapper().map(this, EmpresaDto.class);
     }
 }

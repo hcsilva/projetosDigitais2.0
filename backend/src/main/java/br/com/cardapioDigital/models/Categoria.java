@@ -1,8 +1,11 @@
 package br.com.cardapioDigital.models;
 
 
+import br.com.cardapioDigital.dtos.CategoriaDto;
+import br.com.cardapioDigital.dtos.UsuarioDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 import java.io.Serializable;
 
@@ -35,4 +38,10 @@ public class Categoria extends VersionedEntity {
 
     @Column(name = "STATUS")
     private boolean status;
+
+    public CategoriaDto convertEntityToDto() {
+        return new ModelMapper().map(this, CategoriaDto.class);
+    }
+
+
 }

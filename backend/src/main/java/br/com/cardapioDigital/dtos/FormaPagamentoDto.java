@@ -26,7 +26,7 @@ public class FormaPagamentoDto {
     @NotNull(message = "{formaPagamento.visivel.campoObrigatorio}")
     private boolean visivel;
 
-    public FormaPagamento convertDTOToEntity() {
+    public FormaPagamento convertDtoToEntity() {
         return new ModelMapper().map(this, FormaPagamento.class);
     }
 }

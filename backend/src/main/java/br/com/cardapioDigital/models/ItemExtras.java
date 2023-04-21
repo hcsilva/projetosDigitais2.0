@@ -1,7 +1,10 @@
 package br.com.cardapioDigital.models;
 
+import br.com.cardapioDigital.dtos.ItemExtrasDto;
+import br.com.cardapioDigital.dtos.UsuarioDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 @Getter
 @Setter
@@ -26,4 +29,8 @@ public class ItemExtras extends VersionedEntity {
 
     @Column(name = "DESCRICAO", length = 250)
     private String descricao;
+
+    public ItemExtrasDto convertEntityToDto() {
+        return new ModelMapper().map(this, ItemExtrasDto.class);
+    }
 }

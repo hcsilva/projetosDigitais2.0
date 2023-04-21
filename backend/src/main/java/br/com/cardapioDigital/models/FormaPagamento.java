@@ -1,7 +1,10 @@
 package br.com.cardapioDigital.models;
 
+import br.com.cardapioDigital.dtos.FormaPagamentoDto;
+import br.com.cardapioDigital.dtos.UsuarioDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 @Getter
 @Setter
@@ -35,5 +38,10 @@ public class FormaPagamento extends VersionedEntity {
 
     @Column(name = "VISIVEL")
     private boolean visivel;
+
+    public FormaPagamentoDto convertEntityToDto() {
+        return new ModelMapper().map(this, FormaPagamentoDto.class);
+    }
+
 
 }
