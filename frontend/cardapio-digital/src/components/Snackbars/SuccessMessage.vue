@@ -1,5 +1,5 @@
 <template>
-  <v-alert type="error" top v-if="show">
+  <v-alert type="success" top v-if="show">
     {{ message }}
   </v-alert>
 </template>
