@@ -23,6 +23,7 @@ export default Vue.extend({
     logout() {
       this.$store.commit("setAuthToken", "");
       this.$router.push("/");
+      location.reload();
     },
   },
 });
