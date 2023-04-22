@@ -3,6 +3,8 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginComponent from '../components/Login/LoginComponent.vue'
 import EmpresaComponent from '../components/Empresa/EmpresaComponent.vue'
+import AdminView from '../views/AdminView.vue'
+import AdmMeusDadosView from '../views/AdmMeusDadosView.vue'
 import UsuarioCadastro from '../components/Usuario/UsuarioCadastro.vue'
 import Menu from '../components/Menu/Menu.vue'
 import MenuItem from '../components/Menu/MenuItem.vue'
@@ -41,6 +43,22 @@ const routes: Array<RouteConfig> = [
     path: '/empresa',
     name: 'Empresa',
     component: EmpresaComponent,
+    meta: {
+      isAuthenticated: true
+    }
+  },
+  {
+    path: '/admin',
+    name: 'AdminView',
+    component: AdminView,
+    meta: {
+      isAuthenticated: true
+    }
+  },
+  {
+    path: '/meus-dados',
+    name: 'Meus Dados',
+    component: AdmMeusDadosView,
     meta: {
       isAuthenticated: true
     }

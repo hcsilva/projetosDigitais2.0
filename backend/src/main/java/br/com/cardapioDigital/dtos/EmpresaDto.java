@@ -16,27 +16,27 @@ public class EmpresaDto {
 
     Long id;
 
-    @NotEmpty(message = "{empresa.razaoSocial.campoObrigatorio}")
+    //@NotEmpty(message = "{empresa.razaoSocial.campoObrigatorio}")
     private String razaoSocial;
 
-    @CNPJ(message = "{empresa.cnpj.invalido}")
+    //@CNPJ(message = "{empresa.cnpj.invalido}")
     private String cnpj;
 
-    private byte[] logo;
+    // private byte[] logo;
 
-    private byte[] imagemCapa;
+    // private byte[] imagemCapa;
 
-    private String descricao;
+//    private String descricao;
+//
+//    private String site;
+//
+//    @URL(message = "{empresa.urlInstragramInvalida}")
+//    private String instagram;
 
-    private String site;
+//    @URL(message = "{empresa.urlFacebookInvalida}")
+//    private String facebook;
 
-    @URL(message = "{empresa.urlInstragramInvalida}")
-    private String instagram;
-
-    @URL(message = "{empresa.urlFacebookInvalida}")
-    private String facebook;
-
-    private String whatsapp;
+//    private String whatsapp;
 
     @NotBlank(message = "{empresa.telefoneContato.campoObrigatorio}")
     private String telefoneContato;

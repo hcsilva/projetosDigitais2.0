@@ -90,7 +90,7 @@ export default class LoginPage extends Vue {
     LoginService.getLogin(this.email, this.password)
       .then((response) => {
         this.$store.commit("setAuthToken", response.data.token);
-        this.$router.push("/empresa");
+        this.$router.push("/admin");
       })
       .catch((e: Error) => {
         this.showSnackbar("Usuário ou senha inválidos");

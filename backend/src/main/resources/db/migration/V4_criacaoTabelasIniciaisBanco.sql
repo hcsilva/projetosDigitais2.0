@@ -1,7 +1,7 @@
 create table empresa (
   id serial not null,
   razao_social varchar(150) not null,
-  cnpj int,
+  cnpj varchar(20),
   logo oid,
   imagem_capa oid,
   descricao varchar(300),
