@@ -1,9 +1,12 @@
 package br.com.cardapioDigital.controllers;
 
 
+import br.com.cardapioDigital.dtos.EmpresaDto;
 import br.com.cardapioDigital.dtos.UsuarioDto;
 import br.com.cardapioDigital.enums.SimNaoEnum;
+import br.com.cardapioDigital.models.Empresa;
 import br.com.cardapioDigital.models.Usuario;
+import br.com.cardapioDigital.services.EmpresaService;
 import br.com.cardapioDigital.services.UsuarioService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -18,12 +21,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/usuario")
 @SecurityRequirement(name = "bearer-key")
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private EmpresaService empresaService;
 
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDto> getById(@PathVariable Long id) {
@@ -35,8 +43,18 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioDto> saveUser(@RequestBody @Valid UsuarioDto usuarioDto, UriComponentsBuilder uriComponentsBuilder) {
+
+        EmpresaDto emp = new EmpresaDto();
+        emp.setId(UUID.randomUUID());
+        emp.setRazaoSocial("");
+        emp.setEmail(usuarioDto.getLogin());
+        emp.setTelefoneContato(usuarioDto.getTelefone());
+        Empresa novaEmp = empresaService.save(emp.convertDtoToEntity());
+
         usuarioDto.setUsuarioAtivo(SimNaoEnum.SIM);
         usuarioDto.setSenha(usuarioService.passwordEncoder(usuarioDto.getSenha()));
+        usuarioDto.setIdEmpresa(novaEmp.getId());
+
         var usuarioSalvo = usuarioService.save(usuarioDto.convertDtoToEntity());
 
         var uri = uriComponentsBuilder.path("/api/usuario/{id}").buildAndExpand(usuarioSalvo.getId()).toUri();

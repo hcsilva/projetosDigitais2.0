@@ -1,5 +1,5 @@
 create table usuarios(
-  id uuid not null,
+  id serial not null,
   id_empresa uuid not null,
   login varchar(255) not null,
   senha varchar(255) not null,

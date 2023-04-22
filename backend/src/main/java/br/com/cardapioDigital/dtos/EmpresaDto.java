@@ -10,11 +10,13 @@ import org.hibernate.validator.constraints.URL;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.modelmapper.ModelMapper;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 public class EmpresaDto {
 
-    Long id;
+    UUID id;
 
     //@NotEmpty(message = "{empresa.razaoSocial.campoObrigatorio}")
     private String razaoSocial;

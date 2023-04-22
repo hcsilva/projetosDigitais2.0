@@ -8,11 +8,16 @@ import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 public class UsuarioDto {
 
     Long id;
+
+    // @NotBlank(message = "{usuario.idEmpresa.campoObrigatorio}")
+    UUID idEmpresa;
 
     @Email
     @NotBlank(message = "{usuario.login.campoObrigatorio}")

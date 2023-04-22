@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
@@ -16,8 +18,9 @@ import org.modelmapper.ModelMapper;
 public class Empresa extends VersionedEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private UUID id;
 
     @Column(name = "RAZAO_SOCIAL", length = 150)
     private String razaoSocial;

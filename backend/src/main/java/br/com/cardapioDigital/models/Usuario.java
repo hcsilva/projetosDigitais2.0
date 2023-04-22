@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "USUARIOS")
@@ -26,6 +27,9 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "ID_EMPRESA", nullable = false)
+    private UUID idEmpresa;
+
     @Column(name = "LOGIN", nullable = false, unique = true)
     private String login;
 
@@ -38,9 +42,6 @@ public class Usuario implements UserDetails {
 
     @Column(name = "NOME")
     private String nome;
-
-    @Column(name = "TELEFONE")
-    private String telefone;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USUARIOS_PERMISSOES",
