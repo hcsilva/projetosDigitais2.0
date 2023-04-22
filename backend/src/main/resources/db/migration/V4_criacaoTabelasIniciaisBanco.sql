@@ -1,5 +1,5 @@
 create table empresa (
-  id serial not null,
+  id uuid not null,
   razao_social varchar(150) not null,
   cnpj varchar(20),
   logo oid,
@@ -18,7 +18,7 @@ create table empresa (
 
 create table endereco (
   id serial not null,
-  id_empresa int not null,
+  id_empresa uuid not null,
   logradouro varchar not null,
   numero int not null,
   bairro varchar not null,
@@ -33,7 +33,7 @@ create table endereco (
 
 create table horario_funcionamento (
   id serial not null,
-  id_empresa int not null,
+  id_empresa uuid not null,
   segunda_ini numeric(5, 2),
   segunda_fim numeric(5, 2),
   segunda_ini_2 numeric(5, 2),
@@ -68,7 +68,7 @@ create table horario_funcionamento (
 
 create table forma_pagamento (
   id serial not null,
-  id_empresa int not null,
+  id_empresa uuid not null,
   dinheiro boolean default false,
   cartao_credito boolean default false,
   cartao_debito boolean default false,
@@ -80,7 +80,7 @@ create table forma_pagamento (
 
 create table links (
   id serial not null,
-  id_empresa int not null,
+  id_empresa uuid not null,
   descricao varchar(300) not null,
   link varchar(100) not null,
   primary key (id),
@@ -89,7 +89,7 @@ create table links (
 
 create table categoria (
   id serial not null,
-  id_empresa int not null,
+  id_empresa uuid not null,
   descricao varchar(100) not null,
   descricao_detalhada varchar(250) not null,
   label_mini_prato varchar(30),
@@ -100,7 +100,7 @@ create table categoria (
 
 create table item_categoria (
   id serial not null,
-  id_empresa int not null,
+  id_empresa uuid not null,
   id_categoria int not null,
   descricao_detalhada varchar(250) not null,
   descricao_simples varchar(100) not null,
@@ -120,7 +120,7 @@ create table item_categoria (
 
 create table item_extras (
   id serial not null,
-  id_empresa int not null,
+  id_empresa uuid not null,
   id_item_categoria int not null,
   descricao_detalhada varchar(250) not null,
   primary key (id),

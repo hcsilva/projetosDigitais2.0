@@ -7,9 +7,9 @@ create table permissoes(
 
 create table usuarios_permissoes(
     usuario_id integer NOT NULL,
-    permissao_id integer NOT NULL,
-    CONSTRAINT fk_permissoes_usuarios_permissoes FOREIGN KEY (permissao_id)
-        REFERENCES permissoes (id),
-    CONSTRAINT fk_usuarios_usuarios_permissoes FOREIGN KEY (usuario_id)
-        REFERENCES usuarios(id)
+    permissao_id integer NOT NULL
+--    CONSTRAINT fk_permissoes_usuarios_permissoes FOREIGN KEY (permissao_id)
+--        REFERENCES permissoes (id),
+--    CONSTRAINT fk_usuarios_usuarios_permissoes FOREIGN KEY (usuario_id)
+--        REFERENCES usuarios(id)
 );

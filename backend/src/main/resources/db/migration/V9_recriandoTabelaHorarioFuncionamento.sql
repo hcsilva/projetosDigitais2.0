@@ -2,7 +2,7 @@ drop table horario_funcionamento;
 
 create table horario_funcionamento (
   id serial not null,
-  id_empresa int not null,
+  id_empresa uuid not null,
   segunda_ini time without time zone,
   segunda_fim time without time zone,
   segunda_ini_2 time without time zone,
