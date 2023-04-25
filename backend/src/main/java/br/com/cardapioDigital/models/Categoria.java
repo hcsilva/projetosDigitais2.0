@@ -8,6 +8,9 @@ import lombok.*;
 import org.modelmapper.ModelMapper;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -21,7 +24,7 @@ public class Categoria extends VersionedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "ID_EMPRESA")
@@ -38,6 +41,10 @@ public class Categoria extends VersionedEntity {
 
     @Column(name = "STATUS")
     private boolean status;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "categoria")
+//    List<ItemCategoria> itensCategorias = new ArrayList<>();
 
     public CategoriaDto convertEntityToDto() {
         return new ModelMapper().map(this, CategoriaDto.class);

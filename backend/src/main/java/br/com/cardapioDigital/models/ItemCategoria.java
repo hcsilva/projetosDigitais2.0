@@ -8,6 +8,9 @@ import lombok.*;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -21,7 +24,7 @@ public class ItemCategoria extends VersionedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @JsonIgnore
     @ManyToOne
@@ -67,8 +70,11 @@ public class ItemCategoria extends VersionedEntity {
     @Column(name = "DESTAQUE")
     private boolean destaque;
 
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "itemCategoria")
+//    private List<ItemExtras> itensExtras = new ArrayList<>();
+
     public ItemCategoriaDto convertEntityToDto() {
         return new ModelMapper().map(this, ItemCategoriaDto.class);
     }
-
 }

@@ -16,7 +16,6 @@ public class UsuarioDto {
 
     Long id;
 
-    // @NotBlank(message = "{usuario.idEmpresa.campoObrigatorio}")
     UUID idEmpresa;
 
     @Email

@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
@@ -17,10 +19,10 @@ import org.modelmapper.ModelMapper;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CategoriaDto {
 
-    private Long id;
+    private UUID id;
 
     @NotNull(message = "{categoria.empresa.campoObrigatorio}")
-    private Long empresaId;
+    private UUID empresaId;
 
     @NotBlank(message = "{categoria.descricao.campoObrigatorio}")
     private String descricaoSimples;

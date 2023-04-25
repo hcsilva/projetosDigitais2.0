@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("api/empresa")
 @SecurityRequirement(name = "bearer-key")
@@ -42,13 +44,13 @@ public class EmpresaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmpresaDto> findById(@PathVariable Long id) {
+    public ResponseEntity<EmpresaDto> findById(@PathVariable UUID id) {
         Empresa empresa = empresaService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(empresa.convertEntityToDto());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEmpresa(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Void> deleteEmpresa(@PathVariable UUID id) {
         Empresa empresa = empresaService.findById(id);
 
         try {
@@ -61,7 +63,7 @@ public class EmpresaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EmpresaDto> updateEmpresa(@PathVariable Long id, @RequestBody @Valid EmpresaDto empresaDto) {
+    public ResponseEntity<EmpresaDto> updateEmpresa(@PathVariable UUID id, @RequestBody @Valid EmpresaDto empresaDto) {
         var empresa = empresaService.findById(id);
         var empresaAtualizada = empresaDto.convertDtoToEntity();
         empresaAtualizada.setId(empresa.getId());

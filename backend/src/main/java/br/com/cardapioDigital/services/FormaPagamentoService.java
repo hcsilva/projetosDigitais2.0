@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class FormaPagamentoService {
@@ -26,7 +28,7 @@ public class FormaPagamentoService {
     }
 
     @Transactional(readOnly = true)
-    public FormaPagamento findById(Long id) {
+    public FormaPagamento findById(UUID id) {
         return formaPagamentoRepository.findById(id)
                 .orElseThrow(() -> new ValidacaoException("formaPagamento.naoEncontrada"));
     }

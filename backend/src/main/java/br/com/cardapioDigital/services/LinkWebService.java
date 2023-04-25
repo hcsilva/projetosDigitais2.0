@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class LinkWebService {
@@ -26,7 +28,7 @@ public class LinkWebService {
     }
 
     @Transactional(readOnly = true)
-    public LinkWeb findById(Long id) {
+    public LinkWeb findById(UUID id) {
         return linkRepository.findById(id)
                 .orElseThrow(() -> new ValidacaoException("empresa.naoEncontrada"));
     }

@@ -9,9 +9,13 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 import org.modelmapper.ModelMapper;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 public class LinkWebDto {
+
+    private UUID id;
 
     @NotEmpty(message = "{links.descricao.campoObrigatorio}")
     private String descricao;
@@ -21,7 +25,7 @@ public class LinkWebDto {
     private String link;
 
     @NotNull(message = "{links.empresa.campoObrigatorio}")
-    private EmpresaDto empresa;
+    private UUID empresa;
 
     public LinkWeb convertDtoToEntity() {
         return new ModelMapper().map(this, LinkWeb.class);

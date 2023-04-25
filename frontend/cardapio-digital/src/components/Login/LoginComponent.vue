@@ -89,7 +89,7 @@ export default class LoginPage extends Vue {
 
     LoginService.getLogin(this.email, this.password)
       .then((response) => {
-        this.$store.commit("setAuthToken", response.data.token);
+        this.$store.commit("setAuthToken", response.data);
         this.$router.push("/admin");
       })
       .catch((e: Error) => {

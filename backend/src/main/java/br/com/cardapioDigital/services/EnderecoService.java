@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class EnderecoService {
@@ -31,7 +33,7 @@ public class EnderecoService {
     }
 
     @Transactional(readOnly = true)
-    public Endereco findById(Long id) {
+    public Endereco findById(UUID id) {
         return enderecoRepository.findById(id)
                 .orElseThrow(
                         () -> new ValidacaoException("endereco.naoEncontrada"));

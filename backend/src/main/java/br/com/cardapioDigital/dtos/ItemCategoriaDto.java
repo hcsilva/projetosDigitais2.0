@@ -9,6 +9,7 @@ import lombok.*;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -21,13 +22,13 @@ public class ItemCategoriaDto {
 
     private static ModelMapper modelMapper = new ModelMapper();
 
-    private Long id;
+    private UUID id;
 
     @NotNull(message = "{itemCategoria.empresa.campoObrigatorio}")
-    private Long empresaId;
+    private UUID empresaId;
 
     @NotNull(message = "{itemCategoria.categoria.campoObrigatorio}")
-    private Long categoriaId;
+    private UUID categoriaId;
 
     @NotBlank(message = "{itemCategoria.descricaoDetalhada.campoObrigatorio}")
     private String descricaoDetalhada;

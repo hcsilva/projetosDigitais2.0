@@ -24,7 +24,7 @@ public class TokenService {
             return JWT.create()
                     .withIssuer("API Cardápio Digital")
                     .withSubject(usuario.getLogin())
-                    .withClaim("id", usuario.getId())
+                    .withClaim("id", usuario.getId().toString())
                     .withExpiresAt(dataExpiracao())
                     .sign(algoritmo);
         } catch (JWTCreationException exception) {

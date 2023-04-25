@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("api/endereco")
 @SecurityRequirement(name = "bearer-key")
@@ -24,7 +26,7 @@ public class EnderecoController {
     private EnderecoService enderecoService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<EnderecoDto> getById(@PathVariable Long id) {
+    public ResponseEntity<EnderecoDto> getById(@PathVariable UUID id) {
         var endereco = enderecoService.findById(id);
         return ResponseEntity.ok().body(endereco.convertEntityToDto());
     }
@@ -37,7 +39,7 @@ public class EnderecoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EnderecoDto> updateUser(@PathVariable Long id, @RequestBody @Valid EnderecoDto enderecoDto) {
+    public ResponseEntity<EnderecoDto> updateUser(@PathVariable UUID id, @RequestBody @Valid EnderecoDto enderecoDto) {
         var endereco = enderecoService.findById(id);
         var enderecoAtualizado = enderecoDto.convertDtoToEntity();
         enderecoAtualizado.setId(endereco.getId());
@@ -55,7 +57,7 @@ public class EnderecoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
         var user = enderecoService.findById(id);
         enderecoService.delete(user);
         return ResponseEntity.noContent().build();

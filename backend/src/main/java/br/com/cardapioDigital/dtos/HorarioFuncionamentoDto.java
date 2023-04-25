@@ -8,6 +8,7 @@ import lombok.*;
 import org.modelmapper.ModelMapper;
 
 import java.time.LocalTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,11 +18,15 @@ import java.time.LocalTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class HorarioFuncionamentoDto {
 
-    private Long id;
+    private UUID id;
+
     @NotNull(message = "{horariofuncionamento.empresa.campoObrigatorio}")
     private Long empresaId;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime segundaInicial;
+
+    private UUID empresa_id;
 
     public HorarioFuncionamento convertDtoToEntity() {
         return new ModelMapper().map(this, HorarioFuncionamento.class);

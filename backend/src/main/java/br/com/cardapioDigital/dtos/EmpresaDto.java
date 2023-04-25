@@ -16,29 +16,29 @@ import java.util.UUID;
 @Setter
 public class EmpresaDto {
 
-    UUID id;
+    private UUID id;
 
-    //@NotEmpty(message = "{empresa.razaoSocial.campoObrigatorio}")
-    private String razaoSocial;
+    @NotEmpty(message = "{empresa.razaoSocial.campoObrigatorio}")
+    private String nomeEstabelecimento;
 
-    //@CNPJ(message = "{empresa.cnpj.invalido}")
+    @CNPJ(message = "{empresa.cnpj.invalido}")
     private String cnpj;
 
-    // private byte[] logo;
+     private byte[] logo;
 
-    // private byte[] imagemCapa;
+     private byte[] imagemCapa;
 
-//    private String descricao;
-//
-//    private String site;
-//
-//    @URL(message = "{empresa.urlInstragramInvalida}")
-//    private String instagram;
+    private String descricao;
 
-//    @URL(message = "{empresa.urlFacebookInvalida}")
-//    private String facebook;
+    private String site;
 
-//    private String whatsapp;
+    @URL(message = "{empresa.urlInstragramInvalida}")
+    private String instagram;
+
+    @URL(message = "{empresa.urlFacebookInvalida}")
+    private String facebook;
+
+    private String whatsapp;
 
     @NotBlank(message = "{empresa.telefoneContato.campoObrigatorio}")
     private String telefoneContato;

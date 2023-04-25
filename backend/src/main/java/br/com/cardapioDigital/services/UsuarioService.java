@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class UsuarioService {
@@ -19,7 +21,7 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Transactional(readOnly = true)
-    public Usuario findById(Long id) {
+    public Usuario findById(UUID id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new ValidacaoException("usuario.idNaoEncontrado"));
     }
@@ -52,6 +54,11 @@ public class UsuarioService {
         if (usuarioEncontrado != null) {
             throw new ValidacaoException("usuario.usuarioJaCriado");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Usuario findUsuarioByLogin(String login){
+        return usuarioRepository.findUsuarioByLogin(login);
     }
 
 }

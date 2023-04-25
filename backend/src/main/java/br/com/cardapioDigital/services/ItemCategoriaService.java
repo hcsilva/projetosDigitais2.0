@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class ItemCategoriaService {
@@ -26,7 +28,7 @@ public class ItemCategoriaService {
     }
 
     @Transactional(readOnly = true)
-    public ItemCategoria findById(Long id) {
+    public ItemCategoria findById(UUID id) {
         return itemCategoriaRepository.findById(id)
                 .orElseThrow(() -> new ValidacaoException("itemCategoria.naoEncontrada"));
     }

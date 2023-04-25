@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,13 +17,13 @@ import org.modelmapper.ModelMapper;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemExtrasDto {
 
-    private Long id;
+    private UUID id;
 
     @NotNull(message = "{itemExtras.empresa.campoObrigatorio}")
-    private Long idEmpresa;
+    private UUID idEmpresa;
 
     @NotNull(message = "{itemExtras.categoria.campoObrigatorio}")
-    private Long idCategoria;
+    private UUID idCategoria;
 
     @NotBlank(message = "{itemExtras.descricao.campoObrigatorio}")
     private String descricao;

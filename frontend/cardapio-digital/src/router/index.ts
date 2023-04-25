@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import LoginComponent from '../components/Login/LoginComponent.vue'
 import EmpresaComponent from '../components/Empresa/EmpresaComponent.vue'
 import AdminView from '../views/AdminView.vue'
@@ -8,6 +7,7 @@ import AdmMeusDadosView from '../views/AdmMeusDadosView.vue'
 import UsuarioCadastro from '../components/Usuario/UsuarioCadastro.vue'
 import Menu from '../components/Menu/Menu.vue'
 import MenuItem from '../components/Menu/MenuItem.vue'
+import ApresentacaoComponent from '../components/Apresentacao/ApresentacaoComponent.vue'
 import index from '../store'
 
 
@@ -16,8 +16,8 @@ Vue.use(VueRouter)
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'inicio',
+    component: ApresentacaoComponent
   },
   {
     path: '/login',

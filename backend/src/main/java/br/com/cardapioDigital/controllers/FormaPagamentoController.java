@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("api/formaPagamento")
 @SecurityRequirement(name = "bearer-key")
@@ -24,7 +26,7 @@ public class FormaPagamentoController {
     private FormaPagamentoService formaPagamentoService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<FormaPagamentoDto> getById(@PathVariable Long id) {
+    public ResponseEntity<FormaPagamentoDto> getById(@PathVariable UUID id) {
         var formaPagamento = formaPagamentoService.findById(id);
         return ResponseEntity.ok().body(formaPagamento.convertEntityToDto());
     }
@@ -37,7 +39,7 @@ public class FormaPagamentoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FormaPagamentoDto> updateUser(@PathVariable Long id, @RequestBody @Valid FormaPagamentoDto formaPagamentoDto) {
+    public ResponseEntity<FormaPagamentoDto> updateUser(@PathVariable UUID id, @RequestBody @Valid FormaPagamentoDto formaPagamentoDto) {
         var formaPagamento = formaPagamentoService.findById(id);
         var formaPagamentoAtualizado = formaPagamentoDto.convertDtoToEntity();
         formaPagamentoAtualizado.setId(formaPagamento.getId());
@@ -55,7 +57,7 @@ public class FormaPagamentoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
         var formaPagamento = formaPagamentoService.findById(id);
         formaPagamentoService.delete(formaPagamento);
         return ResponseEntity.noContent().build();

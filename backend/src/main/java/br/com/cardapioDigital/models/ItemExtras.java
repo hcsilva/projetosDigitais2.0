@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
@@ -17,7 +19,7 @@ import org.modelmapper.ModelMapper;
 public class ItemExtras extends VersionedEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "ID_EMPRESA")

@@ -1,6 +1,6 @@
 create table empresa (
   id uuid not null,
-  razao_social varchar(150) not null,
+  nome_estabelecimento varchar(255) not null,
   cnpj varchar(20),
   logo oid,
   imagem_capa oid,
@@ -10,14 +10,13 @@ create table empresa (
   facebook varchar(100),
   whatsapp varchar(20),
   telefone_contato varchar(20) not null,
-  email varchar(50) not null,
   idioma varchar(5) not null,
   fuso varchar(10) not null,
   primary key (id)
 );
 
 create table endereco (
-  id serial not null,
+  id uuid not null,
   id_empresa uuid not null,
   logradouro varchar not null,
   numero int not null,
@@ -32,7 +31,7 @@ create table endereco (
 );
 
 create table horario_funcionamento (
-  id serial not null,
+  id uuid not null,
   id_empresa uuid not null,
   segunda_ini numeric(5, 2),
   segunda_fim numeric(5, 2),
@@ -67,7 +66,7 @@ create table horario_funcionamento (
 );
 
 create table forma_pagamento (
-  id serial not null,
+  id uuid not null,
   id_empresa uuid not null,
   dinheiro boolean default false,
   cartao_credito boolean default false,
@@ -79,7 +78,7 @@ create table forma_pagamento (
 );
 
 create table links (
-  id serial not null,
+  id uuid not null,
   id_empresa uuid not null,
   descricao varchar(300) not null,
   link varchar(100) not null,
@@ -88,7 +87,7 @@ create table links (
 );
 
 create table categoria (
-  id serial not null,
+  id uuid not null,
   id_empresa uuid not null,
   descricao varchar(100) not null,
   descricao_detalhada varchar(250) not null,
@@ -99,9 +98,9 @@ create table categoria (
 );
 
 create table item_categoria (
-  id serial not null,
+  id uuid not null,
   id_empresa uuid not null,
-  id_categoria int not null,
+  id_categoria uuid not null,
   descricao_detalhada varchar(250) not null,
   descricao_simples varchar(100) not null,
   foto oid,
@@ -119,9 +118,9 @@ create table item_categoria (
 );
 
 create table item_extras (
-  id serial not null,
+  id uuid not null,
   id_empresa uuid not null,
-  id_item_categoria int not null,
+  id_item_categoria uuid not null,
   descricao_detalhada varchar(250) not null,
   primary key (id),
   constraint fk_item_categoria_empresa foreign key (id_empresa) references empresa,

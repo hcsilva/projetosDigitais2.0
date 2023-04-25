@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -29,7 +30,7 @@ public class EmpresaService {
     }
 
     @Transactional(readOnly = true)
-    public Empresa findById(Long id){
+    public Empresa findById(UUID id){
       return empresaRepository.findById(id)
                 .orElseThrow(() -> new ValidacaoException("empresa.naoEncontrada"));
     }

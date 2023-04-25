@@ -1,4 +1,6 @@
 package br.com.cardapioDigital.dtos;
 
-public record DadosTokenJWT(String token) {
+import java.util.UUID;
+
+public record DadosTokenJWT(String token, UUID empresaId) {
 }

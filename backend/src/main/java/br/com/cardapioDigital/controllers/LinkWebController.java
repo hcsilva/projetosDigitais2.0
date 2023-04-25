@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("api/link")
 @SecurityRequirement(name = "bearer-key")
@@ -24,7 +26,7 @@ public class LinkWebController {
     private LinkWebService linkService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<LinkWebDto> getById(@PathVariable Long id) {
+    public ResponseEntity<LinkWebDto> getById(@PathVariable UUID id) {
         var link = linkService.findById(id);
         return ResponseEntity.ok().body(link.convertEntityToDto());
     }
@@ -37,7 +39,7 @@ public class LinkWebController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LinkWebDto> updateUser(@PathVariable Long id, @RequestBody @Valid LinkWebDto linkDto) {
+    public ResponseEntity<LinkWebDto> updateUser(@PathVariable UUID id, @RequestBody @Valid LinkWebDto linkDto) {
         var link = linkService.findById(id);
         var linkAtualizado = linkDto.convertDtoToEntity();
         linkAtualizado.setId(link.getId());
@@ -55,7 +57,7 @@ public class LinkWebController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
         var link = linkService.findById(id);
         linkService.delete(link);
         return ResponseEntity.noContent().build();

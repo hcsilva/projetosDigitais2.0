@@ -34,7 +34,7 @@ public class UsuarioController {
     private EmpresaService empresaService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDto> getById(@PathVariable Long id) {
+    public ResponseEntity<UsuarioDto> getById(@PathVariable UUID id) {
         var usuario = usuarioService.findById(id);
         var usuarioDto = new UsuarioDto();
         BeanUtils.copyProperties(usuario, usuarioDto);
@@ -46,7 +46,7 @@ public class UsuarioController {
 
         EmpresaDto emp = new EmpresaDto();
         emp.setId(UUID.randomUUID());
-        emp.setRazaoSocial("");
+        emp.setNomeEstabelecimento("");
         emp.setEmail(usuarioDto.getLogin());
         emp.setTelefoneContato(usuarioDto.getTelefone());
         Empresa novaEmp = empresaService.save(emp.convertDtoToEntity());
@@ -62,7 +62,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioDto> updateUser(@PathVariable Long id, @RequestBody @Valid UsuarioDto usuarioDto) {
+    public ResponseEntity<UsuarioDto> updateUser(@PathVariable UUID id, @RequestBody @Valid UsuarioDto usuarioDto) {
         var usuario = usuarioService.findById(id);
         var usuarioAtualizado = usuarioDto.convertDtoToEntity();
         usuarioAtualizado.setId(usuario.getId());
@@ -80,7 +80,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
         var user = usuarioService.findById(id);
         usuarioService.delete(user);
         return ResponseEntity.noContent().build();

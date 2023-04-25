@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class HorarioFuncionamentoService {
@@ -26,7 +28,7 @@ public class HorarioFuncionamentoService {
     }
 
     @Transactional(readOnly = true)
-    public HorarioFuncionamento findById(Long id) {
+    public HorarioFuncionamento findById(UUID id) {
         return horarioFuncionamentoRepository.findById(id)
                 .orElseThrow(() -> new ValidacaoException("horarioFuncionamento.naoEncontrada"));
     }

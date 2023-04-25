@@ -7,12 +7,14 @@ export default new Vuex.Store({
   state: {
     logged: false,
     authToken: "",
+    empresaId: "",
   },
   getters: {
   },
   mutations: {
     setAuthToken(state, payload) {
-      window.localStorage.authToken = payload;
+      window.localStorage.authToken = payload.token;
+      window.localStorage.empresaId = payload.empresaId;
       state.authToken = payload;
       state.logged = Boolean(state.authToken);
     },

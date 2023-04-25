@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
@@ -15,10 +17,10 @@ import org.modelmapper.ModelMapper;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FormaPagamentoDto {
 
-    private Long id;
+    private UUID id;
 
     @NotNull(message = "{formaPagamento.empresa.campoObrigatorio}")
-    private Long empresaId;
+    private UUID empresaId;
     private boolean dinheiro;
     private boolean cartaoCredito;
     private boolean cartaoDebito;

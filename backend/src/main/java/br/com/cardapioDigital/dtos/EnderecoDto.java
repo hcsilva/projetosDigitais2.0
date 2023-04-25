@@ -10,12 +10,16 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class EnderecoDto {
+
+    private UUID id;
 
     @NotBlank(message = "{endereco.cep.campoObrigatorio}")
     @Size(max = 8, message = "{endereco.cep.tamanhoMaximoExcedido}")
@@ -39,7 +43,7 @@ public class EnderecoDto {
     private String estado;
 
     @NotNull(message = "{endereco.empresa.campoObrigatorio}")
-    private EmpresaDto empresa;
+    private UUID empresa;
 
     private String pais;
 

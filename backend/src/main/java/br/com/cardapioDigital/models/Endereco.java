@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
@@ -18,7 +20,7 @@ public class Endereco extends VersionedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")

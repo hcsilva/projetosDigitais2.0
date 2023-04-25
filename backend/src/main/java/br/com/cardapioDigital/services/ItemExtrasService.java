@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 public class ItemExtrasService {
 
@@ -26,7 +28,7 @@ public class ItemExtrasService {
     }
 
     @Transactional(readOnly = true)
-    public ItemExtras findById(Long id) {
+    public ItemExtras findById(UUID id) {
         return itemExtrasRepository.findById(id)
                 .orElseThrow(() -> new ValidacaoException("empresa.naoEncontrada"));
     }

@@ -7,6 +7,7 @@ import lombok.*;
 import org.modelmapper.ModelMapper;
 
 import java.time.LocalTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -20,7 +21,7 @@ public class HorarioFuncionamento extends VersionedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "ID_EMPRESA")

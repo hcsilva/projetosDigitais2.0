@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("api/horarioFuncionamento")
 @SecurityRequirement(name = "bearer-key")
@@ -24,7 +26,7 @@ public class HorarioFuncionamentoController {
     private HorarioFuncionamentoService horarioFuncionamentoService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<HorarioFuncionamentoDto> getById(@PathVariable Long id) {
+    public ResponseEntity<HorarioFuncionamentoDto> getById(@PathVariable UUID id) {
         var horarioFuncionamento = horarioFuncionamentoService.findById(id);
         return ResponseEntity.ok().body(horarioFuncionamento.convertEntityToDto());
     }
@@ -37,7 +39,7 @@ public class HorarioFuncionamentoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<HorarioFuncionamentoDto> updateUser(@PathVariable Long id, @RequestBody @Valid HorarioFuncionamentoDto horarioFuncionamentoDto) {
+    public ResponseEntity<HorarioFuncionamentoDto> updateUser(@PathVariable UUID id, @RequestBody @Valid HorarioFuncionamentoDto horarioFuncionamentoDto) {
         var horarioFuncionamento = horarioFuncionamentoService.findById(id);
         var horarioFuncionamentoAtualizado = horarioFuncionamentoDto.convertDtoToEntity();
         horarioFuncionamentoAtualizado.setId(horarioFuncionamento.getId());
@@ -55,7 +57,7 @@ public class HorarioFuncionamentoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
         var horarioFuncionamento = horarioFuncionamentoService.findById(id);
         horarioFuncionamentoService.delete(horarioFuncionamento);
         return ResponseEntity.noContent().build();
