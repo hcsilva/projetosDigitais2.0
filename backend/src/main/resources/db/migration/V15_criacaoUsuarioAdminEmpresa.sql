@@ -1,0 +1,1 @@
+alter table empresa add column email varchar(255);

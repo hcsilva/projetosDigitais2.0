@@ -1,6 +1,7 @@
 package br.com.cardapioDigital.dtos;
 
 import br.com.cardapioDigital.enums.SimNaoEnum;
+import br.com.cardapioDigital.models.Empresa;
 import br.com.cardapioDigital.models.Usuario;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -14,9 +15,11 @@ import java.util.UUID;
 @Setter
 public class UsuarioDto {
 
-    Long id;
+    UUID id;
 
     UUID idEmpresa;
+
+    private EmpresaDto empresa;
 
     @Email
     @NotBlank(message = "{usuario.login.campoObrigatorio}")

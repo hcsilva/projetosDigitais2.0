@@ -18,9 +18,10 @@ public class Empresa extends VersionedEntity {
 
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "NOME_ESTABELICIMENTO")
+    @Column(name = "NOME_ESTABELECIMENTO")
     private String nomeEstabelecimento;
 
     @Column(name = "CNPJ")
@@ -57,6 +58,9 @@ public class Empresa extends VersionedEntity {
 
     @Column(name = "FUSO", length = 10)
     private String fusoHorario;
+
+    @Column(name = "EMAIL", length = 10)
+    private String email;
 
     public Empresa() {
         this.idioma = "pt-BR";

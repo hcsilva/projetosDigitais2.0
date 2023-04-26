@@ -44,16 +44,16 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<UsuarioDto> saveUser(@RequestBody @Valid UsuarioDto usuarioDto, UriComponentsBuilder uriComponentsBuilder) {
 
-        EmpresaDto emp = new EmpresaDto();
-        emp.setId(UUID.randomUUID());
-        emp.setNomeEstabelecimento("");
-        emp.setEmail(usuarioDto.getLogin());
-        emp.setTelefoneContato(usuarioDto.getTelefone());
-        Empresa novaEmp = empresaService.save(emp.convertDtoToEntity());
+        EmpresaDto empresaDto = new EmpresaDto();
+        empresaDto.setNomeEstabelecimento("xis do polenta");
+        empresaDto.setEmail(usuarioDto.getLogin());
+        empresaDto.setTelefoneContato(usuarioDto.getTelefone());
 
+        usuarioDto.setEmpresa(empresaDto);
         usuarioDto.setUsuarioAtivo(SimNaoEnum.SIM);
         usuarioDto.setSenha(usuarioService.passwordEncoder(usuarioDto.getSenha()));
-        usuarioDto.setIdEmpresa(novaEmp.getId());
+
+        var usuarioC = usuarioDto.convertDtoToEntity();
 
         var usuarioSalvo = usuarioService.save(usuarioDto.convertDtoToEntity());
 

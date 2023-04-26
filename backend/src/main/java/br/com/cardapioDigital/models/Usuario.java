@@ -24,13 +24,14 @@ import java.util.UUID;
 public class Usuario implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "ID_EMPRESA", nullable = false)
-    private UUID idEmpresa;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "ID_EMPRESA")
+    private Empresa empresa;
 
-    @Column(name = "LOGIN", nullable = false, unique = true)
+    @Column(name = "LOGIN")
     private String login;
 
     @Column(name = "SENHA")
