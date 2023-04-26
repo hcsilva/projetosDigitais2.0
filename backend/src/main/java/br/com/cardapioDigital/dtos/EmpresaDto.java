@@ -1,11 +1,11 @@
 package br.com.cardapioDigital.dtos;
 
 import br.com.cardapioDigital.models.Empresa;
-import br.com.cardapioDigital.models.Usuario;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.modelmapper.ModelMapper;

@@ -1,7 +1,6 @@
 package br.com.cardapioDigital.models;
 
 import br.com.cardapioDigital.dtos.ItemExtrasDto;
-import br.com.cardapioDigital.dtos.UsuarioDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.modelmapper.ModelMapper;

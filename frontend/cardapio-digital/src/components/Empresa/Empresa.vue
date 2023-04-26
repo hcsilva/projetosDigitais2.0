@@ -38,7 +38,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { Empresa } from "@/components/Empresa/EmpresaModel";
 import EmpresaService from "@/components/Empresa/EmpresaService";
 import vueMask from "v-mask";
-import SuccessMessage from "@/components/Snackbars/SuccessMessage.vue";
+import SuccessMessage from "@/components/alerts/SuccessMessage.vue";
 
 Vue.use(vueMask);
 
@@ -55,6 +55,7 @@ export default class CadastroEmpresa extends Vue {
   mensagem: string = "";
   showMessagem: boolean = false;
   tipoMessagem: string = "";
+  valid:boolean = false;
 
   cadastrar() {
     const empresa: Empresa = {

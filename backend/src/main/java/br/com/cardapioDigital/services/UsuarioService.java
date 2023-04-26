@@ -1,6 +1,5 @@
 package br.com.cardapioDigital.services;
 
-import br.com.cardapioDigital.dtos.UsuarioDto;
 import br.com.cardapioDigital.exceptions.ValidacaoException;
 import br.com.cardapioDigital.models.Usuario;
 import br.com.cardapioDigital.repositories.UsuarioRepository;

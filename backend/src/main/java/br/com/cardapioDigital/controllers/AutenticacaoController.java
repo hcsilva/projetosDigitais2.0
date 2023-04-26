@@ -1,9 +1,8 @@
 package br.com.cardapioDigital.controllers;
 
-import br.com.cardapioDigital.dtos.DadosTokenJWT;
 import br.com.cardapioDigital.dtos.AutenticacaoDto;
+import br.com.cardapioDigital.dtos.DadosTokenJWT;
 import br.com.cardapioDigital.models.Usuario;
-import br.com.cardapioDigital.services.EmpresaService;
 import br.com.cardapioDigital.services.TokenService;
 import br.com.cardapioDigital.services.UsuarioService;
 import jakarta.validation.Valid;

@@ -1,7 +1,6 @@
 package br.com.cardapioDigital.models;
 
 import br.com.cardapioDigital.dtos.ItemCategoriaDto;
-import br.com.cardapioDigital.dtos.UsuarioDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -70,9 +69,9 @@ public class ItemCategoria extends VersionedEntity {
     @Column(name = "DESTAQUE")
     private boolean destaque;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "itemCategoria")
-//    private List<ItemExtras> itensExtras = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "itemCategoria")
+    private List<ItemExtras> itensExtras = new ArrayList<>();
 
     public ItemCategoriaDto convertEntityToDto() {
         return new ModelMapper().map(this, ItemCategoriaDto.class);

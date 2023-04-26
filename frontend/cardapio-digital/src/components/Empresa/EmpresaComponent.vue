@@ -16,8 +16,6 @@ export default Vue.extend({
   methods: {
     buscarEmpresas() {
       
-
-
     },
 
     logout() {

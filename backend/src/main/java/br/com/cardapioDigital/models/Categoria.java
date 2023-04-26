@@ -2,12 +2,10 @@ package br.com.cardapioDigital.models;
 
 
 import br.com.cardapioDigital.dtos.CategoriaDto;
-import br.com.cardapioDigital.dtos.UsuarioDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -42,9 +40,9 @@ public class Categoria extends VersionedEntity {
     @Column(name = "STATUS")
     private boolean status;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "categoria")
-//    List<ItemCategoria> itensCategorias = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "categoria")
+    List<ItemCategoria> itensCategorias = new ArrayList<>();
 
     public CategoriaDto convertEntityToDto() {
         return new ModelMapper().map(this, CategoriaDto.class);

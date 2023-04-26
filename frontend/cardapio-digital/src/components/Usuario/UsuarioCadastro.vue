@@ -55,7 +55,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { Usuario } from "@/components/Usuario/UsuarioModel";
 import UsuarioService from "@/components/Usuario/UsuarioService";
 import vueMask from "v-mask";
-import SuccessMessage from "@/components/Snackbars/SuccessMessage.vue";
+import SuccessMessage from "@/components/alerts/SuccessMessage.vue";
 
 Vue.use(vueMask);
 
