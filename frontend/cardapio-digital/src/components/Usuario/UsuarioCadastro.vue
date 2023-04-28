@@ -8,7 +8,7 @@
         <v-form ref="form" v-model="valid">
           <v-text-field
             v-model="nome"
-            label="Nome"
+            label="Nome Completo"
             :rules="[requiredRule]"
           ></v-text-field>
           <v-text-field
@@ -21,6 +21,11 @@
             v-model="email"
             label="E-mail"
             :rules="[requiredRule, emailRule]"
+          ></v-text-field>
+          <v-text-field
+            v-model="nomeEstabelecimento"
+            label="Nome Estabelecimento"
+            :rules="[requiredRule]"
           ></v-text-field>
           <v-text-field
             v-model="senha"
@@ -42,7 +47,11 @@
         </v-form>
       </v-card-text>
       <v-card-actions class="text-center">
-        <v-btn :disabled="!valid" color="primary" @click="cadastrar"
+        <v-btn
+          :disabled="!valid"
+          color="primary"
+          @click="cadastrar"
+          :loading="loading"
           >Cadastrar</v-btn
         >
       </v-card-actions>
@@ -51,8 +60,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import { Usuario } from "@/components/Usuario/UsuarioModel";
+import { Empresa } from "@/components/Empresa/EmpresaModel";
 import UsuarioService from "@/components/Usuario/UsuarioService";
 import vueMask from "v-mask";
 import SuccessMessage from "@/components/alerts/SuccessMessage.vue";
@@ -75,6 +85,8 @@ export default class CadastroUsuario extends Vue {
   mensagem: string = "";
   showMessagem: boolean = false;
   tipoMessagem: string = "";
+  nomeEstabelecimento: string = "";
+  loading: boolean = false;
 
   requiredRule = (v: any) => !!v || "Campo obrigatório";
   emailRule = (v: string) => /.+@.+\..+/.test(v) || "E-mail inválido";
@@ -92,11 +104,18 @@ export default class CadastroUsuario extends Vue {
   telefoneRule = (v: string) => (v && v.length >= 10) || "Telefone inválido";
 
   cadastrar() {
+    this.loading = true;
+    const empresa: Empresa = {
+      nomeEstabelecimento: this.nomeEstabelecimento,
+      telefoneContato: this.telefone,
+      email: this.email,
+    };
+
     const usuario: Usuario = {
       nome: this.nome,
-      telefone: this.telefone,
       login: this.email,
       senha: this.senha,
+      empresa: empresa,
     };
 
     UsuarioService.salvar(usuario)
@@ -104,11 +123,15 @@ export default class CadastroUsuario extends Vue {
         this.mensagem = "Usuário criado com sucesso";
         this.showMessagem = true;
 
+        this.loading = false;
+        this.limparCampos();
+        
         setTimeout(() => {
           this.$router.push("/login");
         }, 3000);
       })
       .catch((error) => {
+        this.loading = false;
         this.mensagem = error.response.data.errors.join("\n");
         this.showMessagem = true;
         setTimeout(() => {
@@ -116,5 +139,9 @@ export default class CadastroUsuario extends Vue {
         }, 2000);
       });
   }
+
+  limparCampos(this: any) {
+    this.$refs.form.reset();
+  };
 }
 </script>

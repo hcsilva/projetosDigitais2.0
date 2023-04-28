@@ -33,9 +33,6 @@ public class UsuarioDto {
     @NotBlank(message = "{usuario.nome.campoObrigatorio}")
     private String nome;
 
-    @NotBlank(message = "{usuario.telefone.campoObrigatorio}")
-    private String telefone;
-
     public Usuario convertDtoToEntity() {
         return new ModelMapper().map(this, Usuario.class);
     }

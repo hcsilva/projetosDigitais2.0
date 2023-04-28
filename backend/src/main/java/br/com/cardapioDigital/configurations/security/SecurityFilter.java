@@ -25,18 +25,14 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var naoPrecisaValidarToken = request.getHeader("X-Skip-Interceptor");
+        var tokenJWT = recuperarToken(request);
 
-        if (naoPrecisaValidarToken == null) {
-            var tokenJWT = recuperarToken(request);
+        if (tokenJWT != null) {
+            var subject = tokenService.getSubject(tokenJWT);
+            var usuario = usuarioRepository.findByLogin(subject);
 
-            if (tokenJWT != null) {
-                var subject = tokenService.getSubject(tokenJWT);
-                var usuario = usuarioRepository.findByLogin(subject);
-
-                var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
+            var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         filterChain.doFilter(request, response);

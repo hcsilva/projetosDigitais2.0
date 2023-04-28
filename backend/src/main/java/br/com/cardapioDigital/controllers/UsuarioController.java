@@ -1,10 +1,8 @@
 package br.com.cardapioDigital.controllers;
 
 
-import br.com.cardapioDigital.dtos.EmpresaDto;
 import br.com.cardapioDigital.dtos.UsuarioDto;
 import br.com.cardapioDigital.enums.SimNaoEnum;
-import br.com.cardapioDigital.models.Empresa;
 import br.com.cardapioDigital.models.Usuario;
 import br.com.cardapioDigital.services.EmpresaService;
 import br.com.cardapioDigital.services.UsuarioService;
@@ -43,17 +41,8 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioDto> saveUser(@RequestBody @Valid UsuarioDto usuarioDto, UriComponentsBuilder uriComponentsBuilder) {
-
-        EmpresaDto empresaDto = new EmpresaDto();
-        empresaDto.setNomeEstabelecimento("xis do polenta");
-        empresaDto.setEmail(usuarioDto.getLogin());
-        empresaDto.setTelefoneContato(usuarioDto.getTelefone());
-
-        usuarioDto.setEmpresa(empresaDto);
         usuarioDto.setUsuarioAtivo(SimNaoEnum.SIM);
         usuarioDto.setSenha(usuarioService.passwordEncoder(usuarioDto.getSenha()));
-
-        var usuarioC = usuarioDto.convertDtoToEntity();
 
         var usuarioSalvo = usuarioService.save(usuarioDto.convertDtoToEntity());
 

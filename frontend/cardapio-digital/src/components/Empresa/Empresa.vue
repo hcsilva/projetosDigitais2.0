@@ -7,8 +7,8 @@
       <v-card-text>
         <v-form ref="form" v-model="valid">
           <v-text-field
-            v-model="razaoSocial"
-            label="Razão Social"
+            v-model="nomeEstabelecimento"
+            label="Nome Estabelecimento"
           ></v-text-field>
           <v-text-field
             v-model="cnpj"
@@ -48,7 +48,7 @@ Vue.use(vueMask);
   },
 })
 export default class CadastroEmpresa extends Vue {
-  razaoSocial: string = "";
+  nomeEstabelecimento: string = "";
   cnpj: number = 0;
   email: string = "";
   telefone: string = "";
@@ -59,7 +59,7 @@ export default class CadastroEmpresa extends Vue {
 
   cadastrar() {
     const empresa: Empresa = {
-      razaoSocial: this.razaoSocial,
+      nomeEstabelecimento: this.nomeEstabelecimento,
       cnpj: this.cnpj,
       email: this.email,
       telefoneContato: this.telefone,

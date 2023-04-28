@@ -1,19 +1,18 @@
 import { Usuario } from "./UsuarioModel";
-import axios from "axios";
-
-axios.defaults.baseURL = "http://localhost:8081/api";
+import apiInstance from "@/api/apiInstance";
 
 class LoginService {
   salvar(usuario: Usuario): Promise<any> {
-    return axios.post("/usuario", usuario, {
+    return apiInstance.post("/usuario", usuario, {
       headers: {
         "X-Skip-Interceptor": true,
       },
     });
+
   }
 
   getLogin(login: string, senha: string): Promise<any> {
-    return axios.post(
+    return apiInstance.post(
       "/login",
       {
         login: login,
