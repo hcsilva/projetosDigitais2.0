@@ -56,6 +56,12 @@ export default class CadastroEmpresa extends Vue {
   showMessagem: boolean = false;
   tipoMessagem: string = "";
   valid:boolean = false;
+  items: []=[];
+
+  async mounted() {
+    this.items = await EmpresaService.buscar();
+    alert(this.items);
+  }
 
   cadastrar() {
     const empresa: Empresa = {

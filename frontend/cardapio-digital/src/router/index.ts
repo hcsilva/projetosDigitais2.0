@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import LoginComponent from "../components/Login/LoginComponent.vue";
 import EmpresaComponent from "../components/Empresa/EmpresaComponent.vue";
+import Empresa from "../components/Empresa/Empresa.vue";
 import AdminHome from "../components/Admin/AdminHome.vue";
 import UsuarioCadastro from "../components/Usuario/UsuarioCadastro.vue";
 import Menu from "../components/Menu/Menu.vue";
@@ -49,6 +50,14 @@ const routes: Array<RouteConfig> = [
     path: "/admin",
     name: "AdminHome",
     component: AdminHome,
+    meta: {
+      isAuthenticated: true,
+    },
+  },
+  {
+    path: "/meus-dados",
+    name: "Empresa",
+    component: Empresa,
     meta: {
       isAuthenticated: true,
     },

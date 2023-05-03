@@ -9,7 +9,7 @@ axios.interceptors.response.use(
         const token = localStorage.getItem('authToken');
 
         if (token != null) {
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
+            axios.defaults.headers.Authorization = 'Bearer ' + token;
         }
 
         return response;
