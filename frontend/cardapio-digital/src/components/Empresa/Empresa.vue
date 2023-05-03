@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-card class="mx-auto" max-width="900">
-      <SuccessMessage :message="mensagem" :show="showMessagem" />
+      <SuccessAlert :message="mensagem" :show="showMessagem" />
 
       <v-card-title>Dados da empresa</v-card-title>
       <v-card-text>
@@ -38,13 +38,13 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { Empresa } from "@/components/Empresa/EmpresaModel";
 import EmpresaService from "@/components/Empresa/EmpresaService";
 import vueMask from "v-mask";
-import SuccessMessage from "@/components/alerts/SuccessMessage.vue";
+import SuccessAlert from "@/components/alerts/SuccessAlert.vue";
 
 Vue.use(vueMask);
 
 @Component({
   components: {
-    SuccessMessage,
+    SuccessAlert,
   },
 })
 export default class CadastroEmpresa extends Vue {

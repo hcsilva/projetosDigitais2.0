@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-card class="mx-auto" max-width="400">
-      <SuccessMessage :message="mensagem" :show="showMessagem" />
+      <SuccessAlert :message="mensagem" :show="showMessagem" />
 
       <v-card-title>Cadastro de Usuário</v-card-title>
       <v-card-text>
@@ -65,13 +65,13 @@ import { Usuario } from "@/components/Usuario/UsuarioModel";
 import { Empresa } from "@/components/Empresa/EmpresaModel";
 import UsuarioService from "@/components/Usuario/UsuarioService";
 import vueMask from "v-mask";
-import SuccessMessage from "@/components/alerts/SuccessMessage.vue";
+import SuccessAlert from "@/components/alerts/SuccessAlert.vue";
 
 Vue.use(vueMask);
 
 @Component({
   components: {
-    SuccessMessage,
+    SuccessAlert,
   },
 })
 export default class CadastroUsuario extends Vue {
@@ -113,7 +113,7 @@ export default class CadastroUsuario extends Vue {
 
     const usuario: Usuario = {
       nome: this.nome,
-      login: this.email,
+      login: this.email.toLowerCase(),
       senha: this.senha,
       empresa: empresa,
     };

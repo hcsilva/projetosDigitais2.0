@@ -1,5 +1,6 @@
 <template>
-  <Navbar />
+  <div>Apresentacao Component</div>
+
 </template>
 
 <script lang="ts">
