@@ -18,9 +18,6 @@ export default Vue.extend({
   components: { Navbar, AdmNavbar },
   computed: {
     navbarComponent(): string {
-      console.log(localStorage.getItem("authToken"));
-      console.log(index.state.logged);
-
       if (
         (localStorage.getItem("authToken") == null ||
           localStorage.getItem("authToken") == "undefined") &&

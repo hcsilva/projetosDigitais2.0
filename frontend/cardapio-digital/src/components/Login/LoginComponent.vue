@@ -20,6 +20,7 @@
             label="Email"
             required
           ></v-text-field>
+          
           <v-text-field
             v-model="password"
             :rules="senhaRules"
@@ -29,6 +30,7 @@
             label="Senha"
             required
           ></v-text-field>
+
           <v-row class="mt-4">
             <v-col>
               <v-btn color="primary" block @click="login()">Entrar</v-btn>

@@ -1,14 +1,13 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import LoginComponent from "../components/Login/LoginComponent.vue";
-import EmpresaComponent from "../components/Empresa/EmpresaComponent.vue";
 import Empresa from "../components/Empresa/Empresa.vue";
 import AdminHome from "../components/Admin/AdminHome.vue";
 import UsuarioCadastro from "../components/Usuario/UsuarioCadastro.vue";
 import Menu from "../components/Menu/Menu.vue";
 import MenuItem from "../components/Menu/MenuItem.vue";
 import ApresentacaoComponent from "../components/Apresentacao/ApresentacaoComponent.vue";
-import index from "../store";
+import LinkWeb from "@/components/LinksWeb/LinkWebComponent.vue";
 
 Vue.use(VueRouter);
 
@@ -39,14 +38,6 @@ const routes: Array<RouteConfig> = [
     component: MenuItem,
   },
   {
-    path: "/empresa",
-    name: "Empresa",
-    component: EmpresaComponent,
-    meta: {
-      isAuthenticated: true,
-    },
-  },
-  {
     path: "/admin",
     name: "AdminHome",
     component: AdminHome,
@@ -58,6 +49,14 @@ const routes: Array<RouteConfig> = [
     path: "/meus-dados",
     name: "Empresa",
     component: Empresa,
+    meta: {
+      isAuthenticated: true,
+    },
+  },
+  {
+    path: "/link",
+    name: "Link",
+    component: LinkWeb,
     meta: {
       isAuthenticated: true,
     },

@@ -25,6 +25,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import LinkWebService from "./LinkWebService";
 
 @Component
 export default class LinkWeb extends Vue {
@@ -39,9 +40,11 @@ export default class LinkWeb extends Vue {
   ];
 
   salvar(this: any) {
-    if (this.$refs.form.validate()) {
-      console.log("salvar");
-    }
+    // if (this.$refs.form.validate()) {
+    //   console.log("salvar");
+    // }
+
+    LinkWebService.getById();
   }
 
   openLink() {

@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
@@ -9,8 +9,7 @@ export default new Vuex.Store({
     authToken: "",
     empresaId: "",
   },
-  getters: {
-  },
+  getters: {},
   mutations: {
     setAuthToken(state, payload) {
       window.localStorage.authToken = payload.token;
@@ -21,10 +20,15 @@ export default new Vuex.Store({
 
     setLogged(state, payload) {
       state.logged = payload;
-    }
+    },
+
+    clearToken(state) {
+      window.localStorage.removeItem("authToken");
+      window.localStorage.removeItem("empresaId");
+      state.authToken = "";
+      state.logged = false;
+    },
   },
-  actions: {
-  },
-  modules: {
-  }
-})
+  actions: {},
+  modules: {},
+});

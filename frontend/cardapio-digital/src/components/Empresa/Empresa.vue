@@ -10,14 +10,8 @@
             v-model="nomeEstabelecimento"
             label="Nome Estabelecimento"
           ></v-text-field>
-          <v-text-field
-            v-model="cnpj"
-            label="CNPJ"
-          ></v-text-field>
-          <v-text-field
-            v-model="email"
-            label="Email"
-          ></v-text-field>
+          <v-text-field v-model="cnpj" label="CNPJ"></v-text-field>
+          <v-text-field v-model="email" label="Email"></v-text-field>
           <v-text-field
             v-model="telefone"
             label="Telefone Contato"
@@ -25,9 +19,7 @@
         </v-form>
       </v-card-text>
       <v-card-actions class="text-center">
-        <v-btn color="primary" @click="cadastrar"
-          >Cadastrar</v-btn
-        >
+        <v-btn color="primary" @click="cadastrar">Cadastrar</v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -55,12 +47,20 @@ export default class CadastroEmpresa extends Vue {
   mensagem: string = "";
   showMessagem: boolean = false;
   tipoMessagem: string = "";
-  valid:boolean = false;
-  items: []=[];
+  valid: boolean = false;
+  items: Empresa[] = [];
 
   async mounted() {
-    this.items = await EmpresaService.buscar();
-    alert(this.items);
+    EmpresaService.buscar()
+      .then((response: any) => {
+        this.mensagem = "Usuário criado com sucesso";
+        this.showMessagem = true;
+
+        this.items.push(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   cadastrar() {
@@ -71,22 +71,22 @@ export default class CadastroEmpresa extends Vue {
       telefoneContato: this.telefone,
     };
 
-    EmpresaService.salvar(empresa)
-      .then((response: any) => {
-        this.mensagem = "Empresa salva com sucesso";
-        this.showMessagem = true;
+    // EmpresaService.salvar(empresa)
+    //   .then((response: any) => {
+    //     this.mensagem = "Empresa salva com sucesso";
+    //     this.showMessagem = true;
 
-        setTimeout(() => {
-          this.$router.push("/admin");
-        }, 3000);
-      })
-      .catch((error) => {
-        this.mensagem = error.response.data.errors.join("\n");
-        this.showMessagem = true;
-        setTimeout(() => {
-          this.showMessagem = false;
-        }, 2000);
-      });
+    //     setTimeout(() => {
+    //       this.$router.push("/admin");
+    //     }, 3000);
+    //   })
+    //   .catch((error) => {
+    //     this.mensagem = error.response.data.errors.join("\n");
+    //     this.showMessagem = true;
+    //     setTimeout(() => {
+    //       this.showMessagem = false;
+    //     }, 2000);
+    //   });
   }
 }
 </script>
