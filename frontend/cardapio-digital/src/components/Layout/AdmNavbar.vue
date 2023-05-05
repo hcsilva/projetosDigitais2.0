@@ -16,7 +16,7 @@ import Vue from "vue";
 export default Vue.extend({
   methods: {
     logout() {
-      this.$store.commit("clearToken");
+      this.$store.dispatch("clearToken");
       this.$router.push("/");
       location.reload();
     },

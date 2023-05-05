@@ -26,7 +26,8 @@ public class LinkWebController {
     private LinkWebService linkService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<LinkWebDto> getById(@PathVariable UUID id) {
+    public ResponseEntity<LinkWebDto> getById(@PathVariable UUID id, @RequestAttribute String idTenant) {
+        System.out.println(idTenant);
         var link = linkService.findById(id);
         return ResponseEntity.ok().body(link.convertEntityToDto());
     }

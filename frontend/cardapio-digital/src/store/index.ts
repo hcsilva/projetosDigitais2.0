@@ -6,29 +6,29 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     logged: false,
-    authToken: "",
-    empresaId: "",
+    authToken: null,
+    idTenant: null,
   },
   getters: {},
+
   mutations: {
     setAuthToken(state, payload) {
+      debugger;
       window.localStorage.authToken = payload.token;
-      window.localStorage.empresaId = payload.empresaId;
-      state.authToken = payload;
+      window.localStorage.idTenant = payload.empresaId;
+      state.authToken = payload.token;
+      state.idTenant = payload.empresaId;
       state.logged = Boolean(state.authToken);
     },
 
     setLogged(state, payload) {
       state.logged = payload;
     },
-
-    clearToken(state) {
-      window.localStorage.removeItem("authToken");
-      window.localStorage.removeItem("empresaId");
-      state.authToken = "";
-      state.logged = false;
+  },
+  actions: {
+    clearToken() {
+      window.localStorage.clear();
     },
   },
-  actions: {},
   modules: {},
 });
