@@ -44,7 +44,8 @@ public class EmpresaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmpresaDto> findById(@PathVariable UUID id) {
+    public ResponseEntity<EmpresaDto> findById(@PathVariable UUID id, @RequestAttribute String idTenant) {
+        System.out.println(idTenant);
         Empresa empresa = empresaService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(empresa.convertEntityToDto());
     }
@@ -55,7 +56,7 @@ public class EmpresaController {
 
         try {
             empresaService.delete(empresa);
-        }catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new ValidacaoException("empresa.naoPodeSerExcluidaPoisExistemDependencias");
         }
 

@@ -13,7 +13,6 @@ export default new Vuex.Store({
 
   mutations: {
     setAuthToken(state, payload) {
-      debugger;
       window.localStorage.authToken = payload.token;
       window.localStorage.idTenant = payload.empresaId;
       state.authToken = payload.token;
