@@ -2,7 +2,9 @@
   <v-app>
     <component :is="navbarComponent" />
     <v-main>
-      <router-view />
+      <transition mode="out-in">
+        <router-view />
+      </transition>
     </v-main>
   </v-app>
 </template>

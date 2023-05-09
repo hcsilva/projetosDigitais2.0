@@ -8,6 +8,7 @@ import Menu from "../components/Menu/Menu.vue";
 import MenuItem from "../components/Menu/MenuItem.vue";
 import ApresentacaoComponent from "../components/Apresentacao/ApresentacaoComponent.vue";
 import LinkWeb from "@/components/LinksWeb/LinkWebComponent.vue";
+import LinkWebList from "@/components/LinksWeb/LinkWebList.vue";
 
 Vue.use(VueRouter);
 
@@ -56,7 +57,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/link",
     name: "Link",
-    component: LinkWeb,
+    component: LinkWebList,
     meta: {
       isAuthenticated: true,
     },
