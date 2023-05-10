@@ -1,15 +1,11 @@
 <template>
   <v-container fluid>
     <v-card class="mx-auto" max-width="400">
-      <v-snackbar
-        v-model="snackbar.visible"
-        :timeout="3000"
-        top
-        color="error"
-        dark
-      >
-        {{ snackbar.message }}
-      </v-snackbar>
+      <ErrorAlert
+        :message="mensagem"
+        :show="showMessagem"
+        @showErrorAlert="showMessagem = false"
+      />
 
       <v-card-title class="text-center">Faça login</v-card-title>
       <v-card-text>
@@ -20,7 +16,7 @@
             label="Email"
             required
           ></v-text-field>
-          
+
           <v-text-field
             v-model="password"
             :rules="senhaRules"
@@ -56,13 +52,20 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import LoginService from "./LoginService";
+import ErrorAlert from "@/components/ComponentesGerais/alerts/ErrorAlert.vue";
 
-@Component
+@Component({
+  components: {
+    ErrorAlert,
+  },
+})
 export default class LoginPage extends Vue {
   email: string = "";
   password: string = "";
   showPassword: boolean = false;
   isFormValid: boolean = true;
+  mensagem: string = "";
+  showMessagem: boolean = false;
   snackbar = {
     visible: false,
     message: "",
@@ -95,7 +98,8 @@ export default class LoginPage extends Vue {
         this.$router.push("/admin");
       })
       .catch((e: Error) => {
-        this.showSnackbar("Usuário ou senha inválidos");
+        this.mensagem = "Usuário ou senha inválidos";
+        this.showMessagem = true;
       });
   }
 

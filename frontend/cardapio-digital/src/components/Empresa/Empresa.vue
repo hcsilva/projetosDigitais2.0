@@ -30,7 +30,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { Empresa } from "@/components/Empresa/EmpresaModel";
 import EmpresaService from "@/components/Empresa/EmpresaService";
 import vueMask from "v-mask";
-import SuccessAlert from "@/components/alerts/SuccessAlert.vue";
+import SuccessAlert from "@/components/ComponentesGerais/alerts/SuccessAlert.vue";
 
 Vue.use(vueMask);
 

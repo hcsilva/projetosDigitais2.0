@@ -65,7 +65,7 @@ import { Usuario } from "@/components/Usuario/UsuarioModel";
 import { Empresa } from "@/components/Empresa/EmpresaModel";
 import UsuarioService from "@/components/Usuario/UsuarioService";
 import vueMask from "v-mask";
-import SuccessAlert from "@/components/alerts/SuccessAlert.vue";
+import SuccessAlert from "@/components/ComponentesGerais/alerts/SuccessAlert.vue";
 
 Vue.use(vueMask);
 
