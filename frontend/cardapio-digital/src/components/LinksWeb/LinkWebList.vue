@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import ModalComponent from "@/components/Modal/ModalComponent.vue";
+import ModalComponent from "@/components/ComponentesGerais/Modal/ModalComponent.vue";
 import LinkWebComponent from "@/components/LinksWeb/LinkWebComponent.vue";
 
 @Component({
