@@ -2,11 +2,16 @@ import { Empresa } from "./EmpresaModel";
 import apiInstance from "@/api/apiInstance";
 
 class EmpresaService {
+
+  salvar(empresa: Empresa): Promise<any> {
+    return apiInstance.put("/empresa/", empresa, {});
+  }
+
   async buscar(): Promise<Empresa> {
     const response = await apiInstance.get(
-      "/empresa/444e4ab6-e2fe-11ed-9720-54bf644c0de0"
+      "/empresa/"
     );
-    const empresa: Empresa = response;
+    const empresa: Empresa = response.data;
     return empresa;
   }
 }

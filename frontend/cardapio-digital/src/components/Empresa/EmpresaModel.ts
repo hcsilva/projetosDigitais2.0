@@ -1,11 +1,16 @@
 export interface Empresa {
   id?: string;
   nomeEstabelecimento: string;
-  cnpj?: number;
-  email: string;
-  telefoneContato: string;
+  cnpj: number;
+  logo: string;
+  imagemCapa: string;
   descricao?: string;
-  instagram?: string;
-  facebook?: string;
-  whatsapp?: string;
+  site: string;
+  instagram: string;
+  facebook: string;
+  whatsapp: string;
+  telefoneContato: string;
+  idioma: string;
+  fusoHorario: string;
+  email: string;
 }

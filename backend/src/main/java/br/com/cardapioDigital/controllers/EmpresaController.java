@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @RestController
@@ -43,10 +45,9 @@ public class EmpresaController {
         return ResponseEntity.ok().body(usuariosDto);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<EmpresaDto> findById(@PathVariable UUID id, @RequestAttribute String idTenant) {
-        System.out.println(idTenant);
-        Empresa empresa = empresaService.findById(id);
+    @GetMapping("/")
+    public ResponseEntity<EmpresaDto> findById(@RequestAttribute String idTenant) {
+        Empresa empresa = empresaService.findById(UUID.fromString(idTenant));
         return ResponseEntity.status(HttpStatus.OK).body(empresa.convertEntityToDto());
     }
 

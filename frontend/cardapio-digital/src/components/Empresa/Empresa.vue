@@ -1,27 +1,112 @@
 <template>
-  <v-container fluid>
-    <v-card class="mx-auto" max-width="900">
+  <v-container>
+    <v-card class="bg-card mx-auto pa-4 mt-6 rounded-lg" elevation="0" shaped>
       <SuccessAlert :message="mensagem" :show="showMessagem" />
 
-      <v-card-title>Dados da empresa</v-card-title>
+      <v-card-title class="mb-4 title">Dados da empresa</v-card-title>
       <v-card-text>
         <v-form ref="form" v-model="valid">
-          <v-text-field
-            v-model="nomeEstabelecimento"
-            label="Nome Estabelecimento"
-          ></v-text-field>
-          <v-text-field v-model="cnpj" label="CNPJ"></v-text-field>
-          <v-text-field v-model="email" label="Email"></v-text-field>
-          <v-text-field
-            v-model="telefone"
-            label="Telefone Contato"
-          ></v-text-field>
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="nomeEstabelecimento"
+                label="Nome Estabelecimento"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="cnpj"
+                label="CNPJ"
+                v-mask="'##.###.###/####-##'"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="telefone"
+                label="Telefone Contato"
+                :rules="[telefoneRule]"
+                v-mask="'(##) #####-####'"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="email"
+                label="Email"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+          </v-row>
         </v-form>
       </v-card-text>
-      <v-card-actions class="text-center">
-        <v-btn color="primary" @click="cadastrar">Cadastrar</v-btn>
-      </v-card-actions>
     </v-card>
+
+    <v-card class="bg-card mx-auto pa-4 mt-6 rounded-lg" elevation="0" shaped>
+      <v-card-title class="mb-4 title">Dados Públicos</v-card-title>
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="whatsapp"
+              label="WhatsApp"
+              :rules="[telefoneRule]"
+              v-mask="'(##) #####-####'"
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="website"
+              label="Website"
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="facebook"
+              label="Facebook"
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-text-field v-model="instagram" label="Instagram" outlined dense>
+            </v-text-field>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12">
+            <v-textarea
+              outlined
+              dense
+              label="Descrição"
+              v-model="descricao"
+            ></v-textarea>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+
+    <v-row class="d-flex flex-row-reverse mt-4">
+      <v-card-actions>
+        <v-btn color="primary" @click="cadastrar" elevation="0">Salvar Alterações</v-btn>
+      </v-card-actions>
+    </v-row>
   </v-container>
 </template>
 
@@ -44,23 +129,28 @@ export default class CadastroEmpresa extends Vue {
   cnpj: number = 0;
   email: string = "";
   telefone: string = "";
+  whatsapp: string = "";
+  site: string = "";
+  descricao?: string = "";
+
+  facebook: string = "";
+  instagram: string = "";
+
   mensagem: string = "";
   showMessagem: boolean = false;
   tipoMessagem: string = "";
   valid: boolean = false;
-  items: Empresa[] = [];
+  empresa = {} as Empresa;
+
+  requiredRule = (v: any) => !!v || "Campo obrigatório";
+  telefoneRule = (v: string) => (v && v.length >= 10) || "Número inválido";
 
   async mounted() {
-    EmpresaService.buscar()
-      .then((response: any) => {
-        this.mensagem = "Usuário criado com sucesso";
-        this.showMessagem = true;
-
-        this.items.push(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.empresa = await EmpresaService.buscar();
+    this.nomeEstabelecimento = this.empresa.nomeEstabelecimento;
+    this.cnpj = this.empresa.cnpj;
+    this.email = this.empresa.email;
+    this.telefone = this.empresa.telefoneContato;
   }
 
   cadastrar() {
@@ -69,24 +159,60 @@ export default class CadastroEmpresa extends Vue {
       cnpj: this.cnpj,
       email: this.email,
       telefoneContato: this.telefone,
+      logo: "",
+      imagemCapa: "",
+      descricao: "",
+      site: "",
+      instagram: this.instagram,
+      facebook: this.facebook,
+      whatsapp: "",
+      idioma: "",
+      fusoHorario: "",
     };
 
-    // EmpresaService.salvar(empresa)
-    //   .then((response: any) => {
-    //     this.mensagem = "Empresa salva com sucesso";
-    //     this.showMessagem = true;
+    EmpresaService.salvar(empresa)
+      .then((response: any) => {
+        this.mensagem = "Empresa salva com sucesso";
+        this.showMessagem = true;
 
-    //     setTimeout(() => {
-    //       this.$router.push("/admin");
-    //     }, 3000);
-    //   })
-    //   .catch((error) => {
-    //     this.mensagem = error.response.data.errors.join("\n");
-    //     this.showMessagem = true;
-    //     setTimeout(() => {
-    //       this.showMessagem = false;
-    //     }, 2000);
-    //   });
+        setTimeout(() => {
+          this.$router.push("/admin");
+        }, 3000);
+      })
+      .catch((error) => {
+        this.mensagem = error.response.data.errors.join("\n");
+        this.showMessagem = true;
+        setTimeout(() => {
+          this.showMessagem = false;
+        }, 2000);
+      });
   }
 }
 </script>
+
+<style scoped>
+.bg-card {
+  background-color: #f7f9fa;
+}
+.title {
+    color: #191c1f;
+    font-family: Nunito Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+.v-text-field--outlined >>> fieldset {
+  border-color: #c9ced4;
+  background-color: #ffffff;
+}
+.v-btn {
+    text-transform: unset !important;
+    font-size: 0.9rem;
+    font-weight: 350;
+    line-height: 1;
+}
+.col-sm-6,
+.col-12 {
+  padding: 0px 8px;
+}
+</style>

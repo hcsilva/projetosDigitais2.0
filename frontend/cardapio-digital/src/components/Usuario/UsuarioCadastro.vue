@@ -109,6 +109,16 @@ export default class CadastroUsuario extends Vue {
       nomeEstabelecimento: this.nomeEstabelecimento,
       telefoneContato: this.telefone,
       email: this.email,
+      cnpj: 0,
+      logo: '',
+      imagemCapa: '',
+      descricao: '',
+      site: '',
+      instagram: '',
+      facebook: '',
+      whatsapp: '',
+      idioma: '',
+      fusoHorario: '',
     };
 
     const usuario: Usuario = {
