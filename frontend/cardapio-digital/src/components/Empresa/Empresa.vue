@@ -1,6 +1,11 @@
 <template>
-  <v-container>
-    <v-card class="bg-card mx-auto pa-4 mt-6 rounded-lg" elevation="0" shaped>
+  <v-container fluid>
+    <v-card
+      class="bg-card mx-auto pa-4 mt-6 rounded-lg"
+      elevation="0"
+      shaped
+      max-width="1300"
+    >
       <SuccessAlert :message="mensagem" :show="showMessagem" />
 
       <v-card-title class="mb-4 title">Dados da empresa</v-card-title>
@@ -50,7 +55,12 @@
       </v-card-text>
     </v-card>
 
-    <v-card class="bg-card mx-auto pa-4 mt-6 rounded-lg" elevation="0" shaped>
+    <v-card
+      class="bg-card mx-auto pa-4 mt-6 rounded-lg"
+      elevation="0"
+      shaped
+      max-width="1300"
+    >
       <v-card-title class="mb-4 title">Dados Públicos</v-card-title>
       <v-card-text>
         <v-row>
@@ -99,16 +109,16 @@
             ></v-textarea>
           </v-col>
         </v-row>
+
+        <v-row class="d-flex flex-row-reverse mt-4">
+          <v-card-actions>
+            <v-btn color="primary" @click="cadastrar" elevation="0"
+              >Salvar Alterações</v-btn
+            >
+          </v-card-actions>
+        </v-row>
       </v-card-text>
     </v-card>
-
-    <v-row class="d-flex flex-row-reverse mt-4">
-      <v-card-actions>
-        <v-btn color="primary" @click="cadastrar" elevation="0"
-          >Salvar Alterações</v-btn
-        >
-      </v-card-actions>
-    </v-row>
   </v-container>
 </template>
 
