@@ -1,55 +1,32 @@
 <template>
-  <v-container fluid>
-    <v-row class="mt-4">
-      <v-col col="12">
-        <v-data-table
-          ref="dataTable"
-          disable-sort
-          :headers="headers"
-          style="font-size: 10px"
-          noDataText="Nenhum registro encontrado"
-          loading-text="Aguarde, carregando Links..."
-          :loading="tableLoading"
-          :items="items"
-          class="elevation-1"
-          :footer-props="{
-            itemsPerPageOptions: [10, 50, 100],
-            itemsPerPageText: 'Itens por Página',
-          }"
-        >
-          <template #item.link="{ item }">
-            {{ item.link }}
-          </template>
-
-          <template #item.acoes="{ item }">
-            <v-icon @click="editarItem(item)" small class="mr-2"
-              >mdi-pencil</v-icon
-            >
-            <v-icon @click="excluirItem(item)" small>mdi-delete</v-icon>
-          </template>
-        </v-data-table>
-      </v-col>
+  
+    <v-row justify="center" class="ma-2">
+      <v-col cols="12">
+        <DataTable :items="items" :headers="headers" :loadingTabela="false"
+      /></v-col>
     </v-row>
-  </v-container>
+
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import ModalComponent from "@/components/ComponentesGerais/Modal/ModalComponent.vue";
 import LinkWebComponent from "@/components/LinksWeb/LinkWebComponent.vue";
+import DataTable from "../ComponentesGerais/DataTable/DataTable.vue";
 
 @Component({
   components: {
     ModalComponent,
     LinkWebComponent,
+    DataTable,
   },
 })
 export default class LinkWeb extends Vue {
   tableLoading = false;
   headers = [
-    { text: "Descrição", value: "descricao" },
+    { text: "Descrição", value: "descricao", width: "40%" },
     { text: "Link", value: "link" },
-    { text: "Ações", value: "acoes", sortable: false },
+    { text: "Ações", value: "acoes", width: "10%"},
   ];
 
   items = [

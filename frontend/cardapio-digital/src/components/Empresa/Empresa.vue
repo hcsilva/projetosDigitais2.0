@@ -104,7 +104,9 @@
 
     <v-row class="d-flex flex-row-reverse mt-4">
       <v-card-actions>
-        <v-btn color="primary" @click="cadastrar" elevation="0">Salvar Alterações</v-btn>
+        <v-btn color="primary" @click="cadastrar" elevation="0"
+          >Salvar Alterações</v-btn
+        >
       </v-card-actions>
     </v-row>
   </v-container>
@@ -132,6 +134,7 @@ export default class CadastroEmpresa extends Vue {
   whatsapp: string = "";
   site: string = "";
   descricao?: string = "";
+  website?: string = "";
 
   facebook: string = "";
   instagram: string = "";
@@ -195,21 +198,22 @@ export default class CadastroEmpresa extends Vue {
   background-color: #f7f9fa;
 }
 .title {
-    color: #191c1f;
-    font-family: Nunito Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
-    font-size: 1.5rem;
-    font-weight: 400;
-    line-height: 1.5;
+  color: #191c1f;
+  font-family: Nunito Sans, -apple-system, BlinkMacSystemFont, Segoe UI,
+    Helvetica, Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
 }
 .v-text-field--outlined >>> fieldset {
   border-color: #c9ced4;
   background-color: #ffffff;
 }
 .v-btn {
-    text-transform: unset !important;
-    font-size: 0.9rem;
-    font-weight: 350;
-    line-height: 1;
+  text-transform: unset !important;
+  font-size: 0.9rem;
+  font-weight: 350;
+  line-height: 1;
 }
 .col-sm-6,
 .col-12 {
