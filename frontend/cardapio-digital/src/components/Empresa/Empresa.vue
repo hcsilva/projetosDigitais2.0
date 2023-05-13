@@ -1,6 +1,5 @@
 <template>
   <v-container fluid>
-
     <SuccessAlert :message="mensagem" :show="showMessage" />
     <ErrorAlert :message="mensagem" :show="showMessageError" />
 
@@ -65,63 +64,83 @@
     >
       <v-card-title class="mb-4 title">Dados Públicos</v-card-title>
       <v-card-text>
-        <v-row>
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="empresa.whatsapp"
-              label="WhatsApp"
-              :rules="[telefoneRule]"
-              v-mask="'(##) #####-####'"
-              outlined
-              dense
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="empresa.site"
-              label="Website"
-              outlined
-              dense
-            ></v-text-field>
-          </v-col>
-        </v-row>
+        <v-form ref="form" v-model="validDadosPublicos">
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="empresa.whatsapp"
+                label="WhatsApp"
+                :rules="[telefoneRule]"
+                v-mask="'(##) #####-####'"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="empresa.site"
+                label="Website"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+          </v-row>
 
-        <v-row>
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="empresa.facebook"
-              label="Facebook"
-              outlined
-              dense
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <v-text-field v-model="empresa.instagram" label="Instagram" outlined dense>
-            </v-text-field>
-          </v-col>
-        </v-row>
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="empresa.facebook"
+                label="Facebook"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="empresa.instagram"
+                label="Instagram"
+                outlined
+                dense
+              >
+              </v-text-field>
+            </v-col>
+          </v-row>
 
-        <v-row>
-          <v-col cols="12">
-            <v-textarea
-              outlined
-              dense
-              label="Descrição"
-              v-model="empresa.descricao"
-            ></v-textarea>
-          </v-col>
-        </v-row>
+          <v-row>
+            <v-col cols="12">
+              <v-textarea
+                outlined
+                dense
+                label="Descrição"
+                v-model="empresa.descricao"
+              ></v-textarea>
+            </v-col>
+          </v-row>
+        </v-form>
       </v-card-text>
     </v-card>
 
-    <v-row class="d-flex flex-row-reverse mt-4">
-          <v-card-actions>
-            <v-btn color="primary" :disabled="!valid" @click="atualizar" elevation="0"
-              >Salvar Alterações</v-btn
-            >
-          </v-card-actions>
-        </v-row>
+    <!-- <v-row class="d-flex flex-row-reverse mt-4">
+      <v-card-actions>
+        <v-btn
+          color="primary"
+          :disabled="!valid"
+          @click="atualizar"
+          elevation="0"
+          >Salvar Alterações</v-btn
+        >
+      </v-card-actions>
+    </v-row> -->
 
+    <v-footer fixed class="ma-2">
+      <v-row class="d-flex flex-row-reverse mt-4">
+        <v-card-actions>
+          <v-btn color="primary" fab :disabled="!valid || !validDadosPublicos" @click="atualizar">
+            <v-icon>mdi mdi-content-save</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-row>
+    </v-footer>
   </v-container>
 </template>
 
@@ -142,11 +161,11 @@ Vue.use(vueMask);
   },
 })
 export default class DadosEmpresa extends Vue {
-
   mensagem: string = "";
   showMessage: boolean = false;
   showMessageError: boolean = false;
   valid: boolean = false;
+  validDadosPublicos: boolean = false;
   empresa = {} as Empresa;
 
   requiredRule = (v: any) => !!v || "Campo obrigatório";
@@ -156,9 +175,14 @@ export default class DadosEmpresa extends Vue {
     this.empresa = await EmpresaService.buscar();
   }
 
+  scrollToTop() {
+    window.scrollTo(0, 0);
+  }
+
   atualizar() {
     const empresa: Empresa = this.empresa;
     this.showMessageError = false;
+    this.scrollToTop();
 
     EmpresaService.atualizar(empresa)
       .then((response: any) => {
@@ -183,6 +207,10 @@ export default class DadosEmpresa extends Vue {
 <style scoped>
 .container {
   max-width: 1300px;
+}
+
+.v-footer {
+  background-color: transparent;
 }
 
 .bg-card {
