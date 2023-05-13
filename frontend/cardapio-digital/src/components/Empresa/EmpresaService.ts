@@ -3,7 +3,7 @@ import apiInstance from "@/api/apiInstance";
 
 class EmpresaService {
 
-  salvar(empresa: Empresa): Promise<any> {
+  atualizar(empresa: Empresa): Promise<any> {
     return apiInstance.put("/empresa/", empresa, {});
   }
 

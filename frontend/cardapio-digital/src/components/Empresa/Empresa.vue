@@ -14,7 +14,7 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
-                v-model="nomeEstabelecimento"
+                v-model="empresa.nomeEstabelecimento"
                 label="Nome Estabelecimento"
                 outlined
                 dense
@@ -22,7 +22,7 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-text-field
-                v-model="cnpj"
+                v-model="empresa.cnpj"
                 label="CNPJ"
                 v-mask="'##.###.###/####-##'"
                 outlined
@@ -34,7 +34,7 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
-                v-model="telefone"
+                v-model="empresa.telefoneContato"
                 label="Telefone Contato"
                 :rules="[telefoneRule]"
                 v-mask="'(##) #####-####'"
@@ -44,7 +44,7 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-text-field
-                v-model="email"
+                v-model="empresa.email"
                 label="Email"
                 outlined
                 dense
@@ -66,7 +66,7 @@
         <v-row>
           <v-col cols="12" sm="6">
             <v-text-field
-              v-model="whatsapp"
+              v-model="empresa.whatsapp"
               label="WhatsApp"
               :rules="[telefoneRule]"
               v-mask="'(##) #####-####'"
@@ -76,7 +76,7 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field
-              v-model="website"
+              v-model="empresa.site"
               label="Website"
               outlined
               dense
@@ -87,14 +87,14 @@
         <v-row>
           <v-col cols="12" sm="6">
             <v-text-field
-              v-model="facebook"
+              v-model="empresa.facebook"
               label="Facebook"
               outlined
               dense
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6">
-            <v-text-field v-model="instagram" label="Instagram" outlined dense>
+            <v-text-field v-model="empresa.instagram" label="Instagram" outlined dense>
             </v-text-field>
           </v-col>
         </v-row>
@@ -105,14 +105,14 @@
               outlined
               dense
               label="Descrição"
-              v-model="descricao"
+              v-model="empresa.descricao"
             ></v-textarea>
           </v-col>
         </v-row>
 
         <v-row class="d-flex flex-row-reverse mt-4">
           <v-card-actions>
-            <v-btn color="primary" @click="cadastrar" elevation="0"
+            <v-btn color="primary" @click="atualizar" elevation="0"
               >Salvar Alterações</v-btn
             >
           </v-card-actions>
@@ -136,18 +136,7 @@ Vue.use(vueMask);
     SuccessAlert,
   },
 })
-export default class CadastroEmpresa extends Vue {
-  nomeEstabelecimento: string = "";
-  cnpj: number = 0;
-  email: string = "";
-  telefone: string = "";
-  whatsapp: string = "";
-  site: string = "";
-  descricao?: string = "";
-  website?: string = "";
-
-  facebook: string = "";
-  instagram: string = "";
+export default class DadosEmpresa extends Vue {
 
   mensagem: string = "";
   showMessagem: boolean = false;
@@ -160,44 +149,26 @@ export default class CadastroEmpresa extends Vue {
 
   async mounted() {
     this.empresa = await EmpresaService.buscar();
-    this.nomeEstabelecimento = this.empresa.nomeEstabelecimento;
-    this.cnpj = this.empresa.cnpj;
-    this.email = this.empresa.email;
-    this.telefone = this.empresa.telefoneContato;
   }
 
-  cadastrar() {
-    const empresa: Empresa = {
-      nomeEstabelecimento: this.nomeEstabelecimento,
-      cnpj: this.cnpj,
-      email: this.email,
-      telefoneContato: this.telefone,
-      logo: "",
-      imagemCapa: "",
-      descricao: "",
-      site: "",
-      instagram: this.instagram,
-      facebook: this.facebook,
-      whatsapp: "",
-      idioma: "",
-      fusoHorario: "",
-    };
+  atualizar() {
+    const empresa: Empresa = this.empresa;
 
-    EmpresaService.salvar(empresa)
+    EmpresaService.atualizar(empresa)
       .then((response: any) => {
-        this.mensagem = "Empresa salva com sucesso";
+        this.mensagem = "Dados atualizados com sucesso!";
         this.showMessagem = true;
 
         setTimeout(() => {
           this.$router.push("/admin");
-        }, 3000);
+        }, 2000);
       })
       .catch((error) => {
         this.mensagem = error.response.data.errors.join("\n");
         this.showMessagem = true;
         setTimeout(() => {
           this.showMessagem = false;
-        }, 2000);
+        }, 30000);
       });
   }
 }

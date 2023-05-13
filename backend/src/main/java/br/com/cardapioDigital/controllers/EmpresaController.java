@@ -64,13 +64,10 @@ public class EmpresaController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<EmpresaDto> updateEmpresa(@PathVariable UUID id, @RequestBody @Valid EmpresaDto empresaDto) {
-        var empresa = empresaService.findById(id);
+    @PutMapping("/")
+    public ResponseEntity<EmpresaDto> updateEmpresa(@RequestAttribute String idTenant, @RequestBody @Valid EmpresaDto empresaDto) {
         var empresaAtualizada = empresaDto.convertDtoToEntity();
-        empresaAtualizada.setId(empresa.getId());
         var empresaSalva = empresaService.save(empresaAtualizada);
-
         return ResponseEntity.status(HttpStatus.OK).body(empresaSalva.convertEntityToDto());
     }
 
