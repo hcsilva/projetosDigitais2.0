@@ -1,13 +1,15 @@
 <template>
   <v-container fluid>
+
+    <SuccessAlert :message="mensagem" :show="showMessage" />
+    <ErrorAlert :message="mensagem" :show="showMessageError" />
+
     <v-card
       class="bg-card mx-auto pa-4 mt-6 rounded-lg"
       elevation="0"
       shaped
       max-width="1300"
     >
-      <SuccessAlert :message="mensagem" :show="showMessagem" />
-
       <v-card-title class="mb-4 title">Dados da empresa</v-card-title>
       <v-card-text>
         <v-form ref="form" v-model="valid">
@@ -109,16 +111,17 @@
             ></v-textarea>
           </v-col>
         </v-row>
+      </v-card-text>
+    </v-card>
 
-        <v-row class="d-flex flex-row-reverse mt-4">
+    <v-row class="d-flex flex-row-reverse mt-4">
           <v-card-actions>
-            <v-btn color="primary" @click="atualizar" elevation="0"
+            <v-btn color="primary" :disabled="!valid" @click="atualizar" elevation="0"
               >Salvar Alterações</v-btn
             >
           </v-card-actions>
         </v-row>
-      </v-card-text>
-    </v-card>
+
   </v-container>
 </template>
 
@@ -128,19 +131,21 @@ import { Empresa } from "@/components/Empresa/EmpresaModel";
 import EmpresaService from "@/components/Empresa/EmpresaService";
 import vueMask from "v-mask";
 import SuccessAlert from "@/components/ComponentesGerais/alerts/SuccessAlert.vue";
+import ErrorAlert from "@/components/ComponentesGerais/alerts/ErrorAlert.vue";
 
 Vue.use(vueMask);
 
 @Component({
   components: {
     SuccessAlert,
+    ErrorAlert,
   },
 })
 export default class DadosEmpresa extends Vue {
 
   mensagem: string = "";
-  showMessagem: boolean = false;
-  tipoMessagem: string = "";
+  showMessage: boolean = false;
+  showMessageError: boolean = false;
   valid: boolean = false;
   empresa = {} as Empresa;
 
@@ -153,11 +158,12 @@ export default class DadosEmpresa extends Vue {
 
   atualizar() {
     const empresa: Empresa = this.empresa;
+    this.showMessageError = false;
 
     EmpresaService.atualizar(empresa)
       .then((response: any) => {
         this.mensagem = "Dados atualizados com sucesso!";
-        this.showMessagem = true;
+        this.showMessage = true;
 
         setTimeout(() => {
           this.$router.push("/admin");
@@ -165,9 +171,9 @@ export default class DadosEmpresa extends Vue {
       })
       .catch((error) => {
         this.mensagem = error.response.data.errors.join("\n");
-        this.showMessagem = true;
+        this.showMessageError = true;
         setTimeout(() => {
-          this.showMessagem = false;
+          this.showMessageError = false;
         }, 30000);
       });
   }
@@ -175,6 +181,10 @@ export default class DadosEmpresa extends Vue {
 </script>
 
 <style scoped>
+.container {
+  max-width: 1300px;
+}
+
 .bg-card {
   background-color: #f7f9fa;
 }
