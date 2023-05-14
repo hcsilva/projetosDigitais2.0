@@ -4,6 +4,7 @@
       <ErrorAlert
         :message="mensagem"
         :show="showMessagem"
+        :AlertType="AlertType.Success"
         @showErrorAlert="showMessagem = false"
       />
 
@@ -53,6 +54,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import LoginService from "./LoginService";
 import ErrorAlert from "@/components/ComponentesGerais/alerts/ErrorAlert.vue";
+import { AlertType } from "@/components/Enums/AlertType";
 
 @Component({
   components: {
@@ -60,6 +62,7 @@ import ErrorAlert from "@/components/ComponentesGerais/alerts/ErrorAlert.vue";
   },
 })
 export default class LoginPage extends Vue {
+  AlertType = AlertType;
   email: string = "";
   password: string = "";
   showPassword: boolean = false;
