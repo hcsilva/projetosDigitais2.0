@@ -13,4 +13,6 @@ export interface Empresa {
   idioma: string;
   fusoHorario: string;
   email: string;
+  dataCriacaoRegistro?: Date;
+  dataModificacaoRegistro?: Date;
 }

@@ -1,15 +1,21 @@
 <template>
-  <v-container>
-    <v-card class="bg-card mx-auto pa-4 mt-6 rounded-lg" elevation="0" shaped>
-      <SuccessAlert :message="mensagem" :show="showMessagem" />
+  <v-container fluid>
+    <SuccessAlert :message="mensagem" :show="showMessage" />
+    <ErrorAlert :message="mensagem" :show="showMessageError" />
 
+    <v-card
+      class="bg-card mx-auto pa-4 mt-6 rounded-lg"
+      elevation="0"
+      shaped
+      max-width="1300"
+    >
       <v-card-title class="mb-4 title">Dados da empresa</v-card-title>
       <v-card-text>
         <v-form ref="form" v-model="valid">
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
-                v-model="nomeEstabelecimento"
+                v-model="empresa.nomeEstabelecimento"
                 label="Nome Estabelecimento"
                 outlined
                 dense
@@ -17,7 +23,7 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-text-field
-                v-model="cnpj"
+                v-model="empresa.cnpj"
                 label="CNPJ"
                 v-mask="'##.###.###/####-##'"
                 outlined
@@ -29,7 +35,7 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
-                v-model="telefone"
+                v-model="empresa.telefoneContato"
                 label="Telefone Contato"
                 :rules="[telefoneRule]"
                 v-mask="'(##) #####-####'"
@@ -39,7 +45,7 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-text-field
-                v-model="email"
+                v-model="empresa.email"
                 label="Email"
                 outlined
                 dense
@@ -50,65 +56,91 @@
       </v-card-text>
     </v-card>
 
-    <v-card class="bg-card mx-auto pa-4 mt-6 rounded-lg" elevation="0" shaped>
+    <v-card
+      class="bg-card mx-auto pa-4 mt-6 rounded-lg"
+      elevation="0"
+      shaped
+      max-width="1300"
+    >
       <v-card-title class="mb-4 title">Dados Públicos</v-card-title>
       <v-card-text>
-        <v-row>
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="whatsapp"
-              label="WhatsApp"
-              :rules="[telefoneRule]"
-              v-mask="'(##) #####-####'"
-              outlined
-              dense
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="website"
-              label="Website"
-              outlined
-              dense
-            ></v-text-field>
-          </v-col>
-        </v-row>
+        <v-form ref="form" v-model="validDadosPublicos">
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="empresa.whatsapp"
+                label="WhatsApp"
+                :rules="[telefoneRule]"
+                v-mask="'(##) #####-####'"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="empresa.site"
+                label="Website"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+          </v-row>
 
-        <v-row>
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="facebook"
-              label="Facebook"
-              outlined
-              dense
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <v-text-field v-model="instagram" label="Instagram" outlined dense>
-            </v-text-field>
-          </v-col>
-        </v-row>
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="empresa.facebook"
+                label="Facebook"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="empresa.instagram"
+                label="Instagram"
+                outlined
+                dense
+              >
+              </v-text-field>
+            </v-col>
+          </v-row>
 
-        <v-row>
-          <v-col cols="12">
-            <v-textarea
-              outlined
-              dense
-              label="Descrição"
-              v-model="descricao"
-            ></v-textarea>
-          </v-col>
-        </v-row>
+          <v-row>
+            <v-col cols="12">
+              <v-textarea
+                outlined
+                dense
+                label="Descrição"
+                v-model="empresa.descricao"
+              ></v-textarea>
+            </v-col>
+          </v-row>
+        </v-form>
       </v-card-text>
     </v-card>
 
-    <v-row class="d-flex flex-row-reverse mt-4">
+    <!-- <v-row class="d-flex flex-row-reverse mt-4">
       <v-card-actions>
-        <v-btn color="primary" @click="cadastrar" elevation="0"
+        <v-btn
+          color="primary"
+          :disabled="!valid"
+          @click="atualizar"
+          elevation="0"
           >Salvar Alterações</v-btn
         >
       </v-card-actions>
-    </v-row>
+    </v-row> -->
+
+    <v-footer fixed class="ma-2">
+      <v-row class="d-flex flex-row-reverse mt-4">
+        <v-card-actions>
+          <v-btn color="primary" fab :disabled="!valid || !validDadosPublicos" @click="atualizar">
+            <v-icon>mdi mdi-content-save</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-row>
+    </v-footer>
   </v-container>
 </template>
 
@@ -118,31 +150,22 @@ import { Empresa } from "@/components/Empresa/EmpresaModel";
 import EmpresaService from "@/components/Empresa/EmpresaService";
 import vueMask from "v-mask";
 import SuccessAlert from "@/components/ComponentesGerais/alerts/SuccessAlert.vue";
+import ErrorAlert from "@/components/ComponentesGerais/alerts/ErrorAlert.vue";
 
 Vue.use(vueMask);
 
 @Component({
   components: {
     SuccessAlert,
+    ErrorAlert,
   },
 })
-export default class CadastroEmpresa extends Vue {
-  nomeEstabelecimento: string = "";
-  cnpj: number = 0;
-  email: string = "";
-  telefone: string = "";
-  whatsapp: string = "";
-  site: string = "";
-  descricao?: string = "";
-  website?: string = "";
-
-  facebook: string = "";
-  instagram: string = "";
-
+export default class DadosEmpresa extends Vue {
   mensagem: string = "";
-  showMessagem: boolean = false;
-  tipoMessagem: string = "";
+  showMessage: boolean = false;
+  showMessageError: boolean = false;
   valid: boolean = false;
+  validDadosPublicos: boolean = false;
   empresa = {} as Empresa;
 
   requiredRule = (v: any) => !!v || "Campo obrigatório";
@@ -150,50 +173,46 @@ export default class CadastroEmpresa extends Vue {
 
   async mounted() {
     this.empresa = await EmpresaService.buscar();
-    this.nomeEstabelecimento = this.empresa.nomeEstabelecimento;
-    this.cnpj = this.empresa.cnpj;
-    this.email = this.empresa.email;
-    this.telefone = this.empresa.telefoneContato;
   }
 
-  cadastrar() {
-    const empresa: Empresa = {
-      nomeEstabelecimento: this.nomeEstabelecimento,
-      cnpj: this.cnpj,
-      email: this.email,
-      telefoneContato: this.telefone,
-      logo: "",
-      imagemCapa: "",
-      descricao: "",
-      site: "",
-      instagram: this.instagram,
-      facebook: this.facebook,
-      whatsapp: "",
-      idioma: "",
-      fusoHorario: "",
-    };
+  scrollToTop() {
+    window.scrollTo(0, 0);
+  }
 
-    EmpresaService.salvar(empresa)
+  atualizar() {
+    const empresa: Empresa = this.empresa;
+    this.showMessageError = false;
+    this.scrollToTop();
+
+    EmpresaService.atualizar(empresa)
       .then((response: any) => {
-        this.mensagem = "Empresa salva com sucesso";
-        this.showMessagem = true;
+        this.mensagem = "Dados atualizados com sucesso!";
+        this.showMessage = true;
 
         setTimeout(() => {
           this.$router.push("/admin");
-        }, 3000);
+        }, 2000);
       })
       .catch((error) => {
         this.mensagem = error.response.data.errors.join("\n");
-        this.showMessagem = true;
+        this.showMessageError = true;
         setTimeout(() => {
-          this.showMessagem = false;
-        }, 2000);
+          this.showMessageError = false;
+        }, 30000);
       });
   }
 }
 </script>
 
 <style scoped>
+.container {
+  max-width: 1300px;
+}
+
+.v-footer {
+  background-color: transparent;
+}
+
 .bg-card {
   background-color: #f7f9fa;
 }

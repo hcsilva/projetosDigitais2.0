@@ -1,6 +1,8 @@
 package br.com.cardapioDigital.dtos;
 
 import br.com.cardapioDigital.models.Empresa;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -10,6 +12,8 @@ import org.hibernate.validator.constraints.URL;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -46,6 +50,10 @@ public class EmpresaDto {
     @Email(message = "{empresa.email.invalido}")
     @NotBlank(message = "{empresa.email.campoObrigatorio}")
     private String email;
+
+    private LocalDateTime dataCriacaoRegistro;
+
+    private LocalDateTime dataModificacaoRegistro;
 
     public Empresa convertDtoToEntity() {
         return new ModelMapper().map(this, Empresa.class);

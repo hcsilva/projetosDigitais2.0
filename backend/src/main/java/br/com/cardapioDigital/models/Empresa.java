@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
