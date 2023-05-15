@@ -1,7 +1,12 @@
 <template>
   <v-container fluid>
     <v-card class="mx-auto" max-width="400">
-      <SuccessAlert :message="mensagem" :show="showMessagem" />
+      <AlertMessage
+        :message="mensagem"
+        :show="showMessagem"
+        :type="alertType"
+        @showErrorAlert="showMessagem = false"
+      />
 
       <v-card-title>Cadastro de Usuário</v-card-title>
       <v-card-text>
@@ -65,16 +70,18 @@ import { Usuario } from "@/components/Usuario/UsuarioModel";
 import { Empresa } from "@/components/Empresa/EmpresaModel";
 import UsuarioService from "@/components/Usuario/UsuarioService";
 import vueMask from "v-mask";
-import SuccessAlert from "@/components/ComponentesGerais/alerts/SuccessAlert.vue";
+import { AlertType } from "../Enums/AlertType";
+import AlertMessage from "../ComponentesGerais/alerts/AlertMessage.vue";
 
 Vue.use(vueMask);
 
 @Component({
   components: {
-    SuccessAlert,
+    AlertMessage,
   },
 })
 export default class CadastroUsuario extends Vue {
+  alertType: AlertType | null = null;
   nome: string = "";
   telefone: string = "";
   email: string = "";
@@ -110,15 +117,15 @@ export default class CadastroUsuario extends Vue {
       telefoneContato: this.telefone,
       email: this.email,
       cnpj: 0,
-      logo: '',
-      imagemCapa: '',
-      descricao: '',
-      site: '',
-      instagram: '',
-      facebook: '',
-      whatsapp: '',
-      idioma: '',
-      fusoHorario: '',
+      logo: "",
+      imagemCapa: "",
+      descricao: "",
+      site: "",
+      instagram: "",
+      facebook: "",
+      whatsapp: "",
+      idioma: "",
+      fusoHorario: "",
     };
 
     const usuario: Usuario = {
@@ -131,11 +138,12 @@ export default class CadastroUsuario extends Vue {
     UsuarioService.salvar(usuario)
       .then((response: any) => {
         this.mensagem = "Usuário criado com sucesso";
+        this.alertType = AlertType.Success;
         this.showMessagem = true;
 
         this.loading = false;
         this.limparCampos();
-        
+
         setTimeout(() => {
           this.$router.push("/login");
         }, 3000);
@@ -143,15 +151,13 @@ export default class CadastroUsuario extends Vue {
       .catch((error) => {
         this.loading = false;
         this.mensagem = error.response.data.errors.join("\n");
+        this.alertType = AlertType.Error;
         this.showMessagem = true;
-        setTimeout(() => {
-          this.showMessagem = false;
-        }, 2000);
       });
   }
 
   limparCampos(this: any) {
     this.$refs.form.reset();
-  };
+  }
 }
 </script>

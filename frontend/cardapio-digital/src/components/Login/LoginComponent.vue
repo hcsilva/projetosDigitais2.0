@@ -1,10 +1,10 @@
 <template>
   <v-container fluid>
     <v-card class="mx-auto" max-width="400">
-      <ErrorAlert
+      <AlertMessage
         :message="mensagem"
         :show="showMessagem"
-        :AlertType="AlertType.Success"
+        :type="alertType"
         @showErrorAlert="showMessagem = false"
       />
 
@@ -53,31 +53,22 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import LoginService from "./LoginService";
-import ErrorAlert from "@/components/ComponentesGerais/alerts/ErrorAlert.vue";
 import { AlertType } from "@/components/Enums/AlertType";
+import AlertMessage from "../ComponentesGerais/alerts/AlertMessage.vue";
 
 @Component({
   components: {
-    ErrorAlert,
+    AlertMessage,
   },
 })
 export default class LoginPage extends Vue {
-  AlertType = AlertType;
+  alertType: AlertType | null = null;
   email: string = "";
   password: string = "";
   showPassword: boolean = false;
   isFormValid: boolean = true;
   mensagem: string = "";
   showMessagem: boolean = false;
-  snackbar = {
-    visible: false,
-    message: "",
-  };
-
-  private showSnackbar(message: string) {
-    this.snackbar.message = message;
-    this.snackbar.visible = true;
-  }
 
   get emailRules() {
     return [
@@ -102,6 +93,7 @@ export default class LoginPage extends Vue {
       })
       .catch((e: Error) => {
         this.mensagem = "Usuário ou senha inválidos";
+        this.alertType = AlertType.Error;
         this.showMessagem = true;
       });
   }

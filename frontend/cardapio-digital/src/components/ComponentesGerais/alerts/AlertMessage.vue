@@ -1,5 +1,5 @@
 <template>
-  <v-alert type="type" top v-if="show">
+  <v-alert :type="type" top v-if="show">
     {{ message }}
   </v-alert>
 </template>
@@ -11,7 +11,7 @@ import { AlertType } from "@/components/Enums/AlertType";
 @Component
 export default class AlertMessage extends Vue {
   @Prop({ required: true }) message!: string;
-  @Prop({ default: 2000 }) timeout!: number;
+  @Prop({ default: 3000 }) timeout!: number;
   @Prop({ required: true }) show!: boolean;
   @Prop({ required: true }) type!: AlertType;
 
