@@ -1,40 +1,39 @@
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios from "axios";
 import router from "@/router";
 import store from "@/store/index";
 
-const axios = require("axios");
+const instance = axios.create({
+  baseURL: "http://localhost:8081/api"
+});
 
-axios.defaults.baseURL = "http://localhost:8081/api";
-
-axios.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+instance.interceptors.request.use(
+  (config) => {
     const token = localStorage.getItem("authToken");
+    const idTenant = store.getters.getIdTenant;
 
-    if (token != null) {
-      if (config.headers) {
-        config.headers.Authorization = `Bearer ${token}`;
-        config.headers['IdTenant'] = store.state.idTenant;
-      }
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+      config.headers["IdTenant"] = idTenant;
     }
 
     return config;
   },
-  (error: AxiosError) => {
+  (error) => {
     return Promise.reject(error);
   }
 );
 
-axios.interceptors.response.use(
-  (response: AxiosResponse) => {
+instance.interceptors.response.use(
+  (response) => {
     return response;
   },
-  (error: AxiosError) => {
+  (error) => {
     if (error.response && error.response.status === 403) {
-      store.dispatch("clearToken")
+      store.dispatch("clearToken");
       router.push("/login");
     }
     return Promise.reject(error);
   }
 );
 
-export default axios;
+export default instance;

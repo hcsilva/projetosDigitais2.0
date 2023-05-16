@@ -72,6 +72,7 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
+                prepend-icon="mdi-whatsapp"
                 v-model="empresa.whatsapp"
                 label="WhatsApp"
                 :rules="[telefoneRule]"
@@ -82,6 +83,7 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-text-field
+                prepend-icon="mdi-web"
                 v-model="empresa.site"
                 label="Website"
                 outlined
@@ -93,6 +95,7 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
+                prepend-icon="mdi-facebook"
                 v-model="empresa.facebook"
                 label="Facebook"
                 outlined
@@ -102,6 +105,7 @@
             <v-col cols="12" sm="6">
               <v-text-field
                 v-model="empresa.instagram"
+                prepend-icon="mdi-instagram"
                 label="Instagram"
                 outlined
                 dense

@@ -63,8 +63,8 @@ import AlertMessage from "../ComponentesGerais/alerts/AlertMessage.vue";
 })
 export default class LoginPage extends Vue {
   alertType: AlertType | null = null;
-  email: string = "";
-  password: string = "";
+  email: string = "admin@cardapiodigital.com";
+  password: string = "123";
   showPassword: boolean = false;
   isFormValid: boolean = true;
   mensagem: string = "";
