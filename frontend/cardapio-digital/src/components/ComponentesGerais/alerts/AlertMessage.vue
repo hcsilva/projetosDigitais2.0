@@ -1,17 +1,19 @@
 <template>
-  <v-alert type="error" top v-if="show">
+  <v-alert :type="type" top v-if="show">
     {{ message }}
   </v-alert>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { AlertType } from "@/components/Enums/AlertType";
 
 @Component
-export default class SuccessMessage extends Vue {
+export default class AlertMessage extends Vue {
   @Prop({ required: true }) message!: string;
-  @Prop({ default: 2000 }) timeout!: number;
+  @Prop({ default: 3000 }) timeout!: number;
   @Prop({ required: true }) show!: boolean;
+  @Prop({ required: true }) type!: AlertType;
 
   private watcherShow(newValue: boolean, oldValue: boolean): void {
     setTimeout(() => {

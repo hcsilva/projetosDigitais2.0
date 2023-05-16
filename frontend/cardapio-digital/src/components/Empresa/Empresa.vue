@@ -1,7 +1,11 @@
 <template>
   <v-container fluid>
-    <SuccessAlert :message="mensagem" :show="showMessage" />
-    <ErrorAlert :message="mensagem" :show="showMessageError" />
+    <AlertMessage
+      :message="mensagem"
+      :show="showMessage"
+      :type="alertType"
+      @showErrorAlert="showMessage = true"
+    />
 
     <v-card
       class="bg-card mx-auto pa-4 mt-6 rounded-lg"
@@ -130,6 +134,7 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
+                prepend-icon="mdi-whatsapp"
                 v-model="empresa.whatsapp"
                 label="WhatsApp"
                 :rules="[telefoneRule]"
@@ -140,6 +145,7 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-text-field
+                prepend-icon="mdi-web"
                 v-model="empresa.site"
                 label="Website"
                 outlined
@@ -151,6 +157,7 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
+                prepend-icon="mdi-facebook"
                 v-model="empresa.facebook"
                 label="Facebook"
                 outlined
@@ -160,6 +167,7 @@
             <v-col cols="12" sm="6">
               <v-text-field
                 v-model="empresa.instagram"
+                prepend-icon="mdi-instagram"
                 label="Instagram"
                 outlined
                 dense
@@ -197,7 +205,12 @@
     <v-footer fixed class="ma-2">
       <v-row class="d-flex flex-row-reverse mt-4">
         <v-card-actions>
-          <v-btn color="primary" fab :disabled="!valid || !validDadosPublicos" @click="atualizar">
+          <v-btn
+            color="primary"
+            fab
+            :disabled="!valid || !validDadosPublicos"
+            @click="atualizar"
+          >
             <v-icon>mdi mdi-content-save</v-icon>
           </v-btn>
         </v-card-actions>
@@ -212,21 +225,20 @@ import { Empresa } from "@/components/Empresa/EmpresaModel";
 import { Endereco } from "@/components/Empresa/EnderecoModel";
 import EmpresaService from "@/components/Empresa/EmpresaService";
 import vueMask from "v-mask";
-import SuccessAlert from "@/components/ComponentesGerais/alerts/SuccessAlert.vue";
-import ErrorAlert from "@/components/ComponentesGerais/alerts/ErrorAlert.vue";
+import { AlertType } from "../Enums/AlertType";
+import AlertMessage from "../ComponentesGerais/alerts/AlertMessage.vue";
 
 Vue.use(vueMask);
 
 @Component({
   components: {
-    SuccessAlert,
-    ErrorAlert,
+    AlertMessage,
   },
 })
 export default class DadosEmpresa extends Vue {
+  alertType: AlertType | null = null;
   mensagem: string = "";
   showMessage: boolean = false;
-  showMessageError: boolean = false;
   valid: boolean = false;
   validDadosPublicos: boolean = false;
   empresa = {} as Empresa;
@@ -245,12 +257,12 @@ export default class DadosEmpresa extends Vue {
 
   atualizar() {
     const empresa: Empresa = this.empresa;
-    this.showMessageError = false;
     this.scrollToTop();
 
     EmpresaService.atualizar(empresa)
       .then((response: any) => {
         this.mensagem = "Dados atualizados com sucesso!";
+        this.alertType = AlertType.Success;
         this.showMessage = true;
 
         setTimeout(() => {
@@ -259,10 +271,8 @@ export default class DadosEmpresa extends Vue {
       })
       .catch((error) => {
         this.mensagem = error.response.data.errors.join("\n");
-        this.showMessageError = true;
-        setTimeout(() => {
-          this.showMessageError = false;
-        }, 30000);
+        this.showMessage = true;
+        this.alertType = AlertType.Error;
       });
   }
 }

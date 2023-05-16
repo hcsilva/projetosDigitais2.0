@@ -9,7 +9,16 @@ export default new Vuex.Store({
     authToken: null,
     idTenant: null,
   },
-  getters: {},
+  getters: {
+    getIdTenant: (state) => {
+      if (!state.idTenant) {
+        // Se o idTenant ainda não estiver definido no estado,
+        // verifique se ele está armazenado no localStorage e defina-o no estado
+        state.idTenant = window.localStorage.idTenant;
+      }
+      return state.idTenant;
+    }
+  },
 
   mutations: {
     setAuthToken(state, payload) {
