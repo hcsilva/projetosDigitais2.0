@@ -65,6 +65,68 @@
       <v-card-title class="mb-4 title">Dados Públicos</v-card-title>
       <v-card-text>
         <v-form ref="form" v-model="validDadosPublicos">
+
+
+          <v-row>
+            <v-col cols="12" lg="4" sm="6">
+              <v-text-field
+                v-model="endereco.cep"
+                label="CEP"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" lg="4" sm="6">
+              <v-text-field
+                v-model="endereco.estado"
+                label="Estado"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" lg="4" sm="6">
+              <v-text-field
+                v-model="endereco.cidade"
+                label="Cidade / Município"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+         
+            <v-col cols="12" lg="4" sm="6">
+              <v-text-field
+                v-model="endereco.logradouro"
+                label="Endereço"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" lg="2" sm="3">
+              <v-text-field
+                v-model="endereco.numero"
+                label="Número"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" lg="2" sm="3">
+              <v-text-field
+                v-model="endereco.complemento"
+                label="Complemento"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" lg="4" sm="6">
+              <v-text-field
+                v-model="endereco.bairro"
+                label="Bairro"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+          </v-row>
+
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
@@ -147,6 +209,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { Empresa } from "@/components/Empresa/EmpresaModel";
+import { Endereco } from "@/components/Empresa/EnderecoModel";
 import EmpresaService from "@/components/Empresa/EmpresaService";
 import vueMask from "v-mask";
 import SuccessAlert from "@/components/ComponentesGerais/alerts/SuccessAlert.vue";
@@ -167,6 +230,7 @@ export default class DadosEmpresa extends Vue {
   valid: boolean = false;
   validDadosPublicos: boolean = false;
   empresa = {} as Empresa;
+  endereco = {} as Endereco;
 
   requiredRule = (v: any) => !!v || "Campo obrigatório";
   telefoneRule = (v: string) => (v && v.length >= 10) || "Número inválido";
