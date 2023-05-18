@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -43,6 +44,10 @@ public class EnderecoDto {
     private UUID empresa;
 
     private String pais;
+
+    private LocalDateTime dataCriacaoRegistro;
+
+    private LocalDateTime dataModificacaoRegistro;
 
     public Endereco convertDtoToEntity() {
         return new ModelMapper().map(this, Endereco.class);
