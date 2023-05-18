@@ -184,6 +184,7 @@ export default class DadosEmpresa extends Vue {
   telefoneRule = (v: string) => (v && v.length >= 10) || "Número inválido";
 
   async mounted() {
+    //TODO - tratar erro
     this.empresa = await EmpresaService.buscar();
   }
 

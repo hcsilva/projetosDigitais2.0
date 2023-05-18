@@ -33,11 +33,18 @@ export default class LinkWeb extends Vue {
   descricao: string = "";
   link: string = "";
   linkValido = true;
+  id: string | null = null;
+
   urlRules = [
     (value: string) => !!value || "O link é obrigatório",
     (value: string) =>
       /^https?:\/\/\S+$/.test(value) || "O link precisa ser uma URL válida",
   ];
+
+  created() {
+    this.id = this.$route.params.id;
+    console.log("Entrou no Link como edição: " + this.id);
+  }
 
   salvar(this: any) {
     // if (this.$refs.form.validate()) {

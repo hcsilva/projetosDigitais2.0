@@ -30,7 +30,7 @@ public class EmpresaController {
     private EmpresaService empresaService;
 
     @PostMapping
-    public ResponseEntity<EmpresaDto> saveUser(@RequestBody @Valid EmpresaDto empresaDto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<EmpresaDto> saveEmpresa(@RequestBody @Valid EmpresaDto empresaDto, UriComponentsBuilder uriComponentsBuilder) {
         var empresaSalva = empresaService.save(empresaDto.convertDtoToEntity());
 
         var uri = uriComponentsBuilder.path("/api/empresa/{id}").buildAndExpand(empresaSalva.getId()).toUri();
@@ -39,16 +39,16 @@ public class EmpresaController {
 
     @GetMapping
     public ResponseEntity<Page<EmpresaDto>> findAll(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        Page<Empresa> usuarios = empresaService.findAll(pageable);
-        Page<EmpresaDto> usuariosDto = usuarios.map(empresa -> new Empresa().convertEntityToDto());
+        Page<Empresa> empresas = empresaService.findAll(pageable);
+        Page<EmpresaDto> empresasDto = empresas.map(Empresa::convertEntityToDto);
 
-        return ResponseEntity.ok().body(usuariosDto);
+        return ResponseEntity.ok().body(empresasDto);
     }
 
     @GetMapping("/")
     public ResponseEntity<EmpresaDto> findById(@RequestAttribute String idTenant) {
         Empresa empresa = empresaService.findById(UUID.fromString(idTenant));
-        return ResponseEntity.status(HttpStatus.OK).body(empresa.convertEntityToDto());
+        return ResponseEntity.ok().body(empresa.convertEntityToDto());
     }
 
     @DeleteMapping("/{id}")

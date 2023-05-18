@@ -13,8 +13,8 @@
     }"
   >
     <template #item.acoes="{ item }">
-      <v-icon @click="editarItem()" small class="mr-2">mdi-pencil</v-icon>
-      <v-icon @click="excluirItem()" small>mdi-delete</v-icon>
+      <v-icon @click="editarItem(item)" small class="mr-2">mdi-pencil</v-icon>
+      <v-icon @click="excluirItem(item)" small>mdi-delete</v-icon>
     </template>
   </v-data-table>
 </template>
@@ -28,12 +28,12 @@ export default class DataTable extends Vue {
   @Prop({ required: true }) headers!: any[];
   @Prop({ required: true }) loadingTabela!: boolean;
 
-  editarItem() {
-    this.$emit("editar");
+  editarItem(item: any) {
+    this.$emit("editar", item);
   }
 
-  excluirItem() {
-    this.$emit("deletar");
+  excluirItem(item: any) {
+    this.$emit("deletar", item);
   }
 }
 </script>

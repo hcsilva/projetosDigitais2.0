@@ -1,11 +1,13 @@
 <template>
-  
-    <v-row justify="center" class="ma-2">
-      <v-col cols="12">
-        <DataTable :items="items" :headers="headers" :loadingTabela="false"
-      /></v-col>
-    </v-row>
-
+  <v-row justify="center" class="ma-2">
+    <v-col cols="12">
+      <DataTable
+        :items="items"
+        :headers="headers"
+        :loadingTabela="false"
+        @editar="editarItem"
+    /></v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
@@ -26,7 +28,7 @@ export default class LinkWeb extends Vue {
   headers = [
     { text: "Descrição", value: "descricao", width: "40%" },
     { text: "Link", value: "link" },
-    { text: "Ações", value: "acoes", width: "10%"},
+    { text: "Ações", value: "acoes", width: "10%" },
   ];
 
   items = [
@@ -47,8 +49,10 @@ export default class LinkWeb extends Vue {
     },
   ];
 
-  editarItem(item: string) {
-    console.log("editar");
+  editarItem(item: any) {
+    const id = item.id;
+    this.$router.push(`/link/${id}/editar`);
+    console.log(item);
   }
 
   excluirItem(item: string) {}
