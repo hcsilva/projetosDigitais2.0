@@ -31,15 +31,22 @@ public class EnderecoController {
         return ResponseEntity.ok().body(endereco.convertEntityToDto());
     }
 
+    @GetMapping("/cep/{id}")
+    public ResponseEntity<EnderecoDto> getDadosByCep(@PathVariable Integer id) {
+        var endereco = enderecoService.findByCep(id);
+        return ResponseEntity.ok().body(endereco);
+    }
+
     @PostMapping
-    public ResponseEntity<EnderecoDto> saveUser(@RequestBody @Valid EnderecoDto enderecoDto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<EnderecoDto> saveEndereco(@RequestBody @Valid EnderecoDto enderecoDto, UriComponentsBuilder uriComponentsBuilder) {
+
         var enderecoSalvo = enderecoService.save(enderecoDto.convertDtoToEntity());
         var uri = uriComponentsBuilder.path("/api/usuario/{id}").buildAndExpand(enderecoSalvo.getId()).toUri();
         return ResponseEntity.created(uri).body(enderecoSalvo.convertEntityToDto());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EnderecoDto> updateUser(@PathVariable UUID id, @RequestBody @Valid EnderecoDto enderecoDto) {
+    public ResponseEntity<EnderecoDto> updateEndereco(@PathVariable UUID id, @RequestBody @Valid EnderecoDto enderecoDto) {
         var endereco = enderecoService.findById(id);
         var enderecoAtualizado = enderecoDto.convertDtoToEntity();
         enderecoAtualizado.setId(endereco.getId());
@@ -57,7 +64,7 @@ public class EnderecoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteEndereco(@PathVariable UUID id) {
         var user = enderecoService.findById(id);
         enderecoService.delete(user);
         return ResponseEntity.noContent().build();

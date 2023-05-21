@@ -70,67 +70,6 @@
       <v-card-text>
         <v-form ref="form" v-model="validDadosPublicos">
 
-
-          <v-row>
-            <v-col cols="12" lg="4" sm="6">
-              <v-text-field
-                v-model="endereco.cep"
-                label="CEP"
-                outlined
-                dense
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" lg="4" sm="6">
-              <v-text-field
-                v-model="endereco.estado"
-                label="Estado"
-                outlined
-                dense
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" lg="4" sm="6">
-              <v-text-field
-                v-model="endereco.cidade"
-                label="Cidade / Município"
-                outlined
-                dense
-              ></v-text-field>
-            </v-col>
-         
-            <v-col cols="12" lg="4" sm="6">
-              <v-text-field
-                v-model="endereco.logradouro"
-                label="Endereço"
-                outlined
-                dense
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" lg="2" sm="3">
-              <v-text-field
-                v-model="endereco.numero"
-                label="Número"
-                outlined
-                dense
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" lg="2" sm="3">
-              <v-text-field
-                v-model="endereco.complemento"
-                label="Complemento"
-                outlined
-                dense
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" lg="4" sm="6">
-              <v-text-field
-                v-model="endereco.bairro"
-                label="Bairro"
-                outlined
-                dense
-              ></v-text-field>
-            </v-col>
-          </v-row>
-
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
@@ -187,6 +126,85 @@
             </v-col>
           </v-row>
         </v-form>
+      </v-card-text>
+    </v-card>
+    
+
+    <v-card
+      class="bg-card mx-auto pa-4 mt-6 rounded-lg"
+      elevation="0"
+      shaped
+      max-width="1300"
+    >
+      <v-card-title class="mb-4 title">Endereço</v-card-title>
+      <v-card-text>
+        <v-form ref="form">
+
+          <v-row>
+            <v-col cols="12" lg="4" sm="6">
+              <v-text-field
+                v-model="endereco.cep"
+                label="CEP"
+                outlined
+                dense
+                v-mask="'#####-###'"
+                @change="buscarCEP"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" lg="4" sm="6">
+              <v-text-field
+                v-model="endereco.estado"
+                label="Estado"
+                outlined
+                dense
+                disabled
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" lg="4" sm="6">
+              <v-text-field
+                v-model="endereco.cidade"
+                label="Cidade / Município"
+                outlined
+                dense
+                disabled
+              ></v-text-field>
+            </v-col>
+         
+            <v-col cols="12" lg="4" sm="6">
+              <v-text-field
+                v-model="endereco.logradouro"
+                label="Endereço"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" lg="2" sm="3">
+              <v-text-field
+                v-model="endereco.numero"
+                label="Número"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" lg="2" sm="3">
+              <v-text-field
+                v-model="endereco.complemento"
+                label="Complemento"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" lg="4" sm="6">
+              <v-text-field
+                v-model="endereco.bairro"
+                label="Bairro"
+                outlined
+                dense
+              ></v-text-field>
+            </v-col>
+          </v-row>
+
+          </v-form>
       </v-card-text>
     </v-card>
 
@@ -256,9 +274,28 @@ export default class DadosEmpresa extends Vue {
     window.scrollTo(0, 0);
   }
 
+  async buscarCEP(){
+    if (this.endereco.cep != null){
+      this.endereco = await EmpresaService.carregarCEP(this.endereco.cep);
+    }
+  }
+
   atualizar() {
     const empresa: Empresa = this.empresa;
+    const endereco: Endereco = this.endereco;
     this.scrollToTop();
+
+    EmpresaService.atualizarEndereco(endereco)
+      .then((response: any) => {
+        this.mensagem = "Endereço atualizado com sucesso!";
+        this.alertType = AlertType.Success;
+        this.showMessage = true;
+      })
+      .catch((error) => {
+        this.mensagem = error.response.data.errors.join("\n");
+        this.showMessage = true;
+        this.alertType = AlertType.Error;
+      });
 
     EmpresaService.atualizar(empresa)
       .then((response: any) => {
