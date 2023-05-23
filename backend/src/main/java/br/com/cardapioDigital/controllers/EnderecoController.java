@@ -18,7 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/endereco")
+@RequestMapping("/api/endereco")
 @SecurityRequirement(name = "bearer-key")
 public class EnderecoController {
 
@@ -38,7 +38,7 @@ public class EnderecoController {
     }
 
     @PostMapping
-    public ResponseEntity<EnderecoDto> saveEndereco(@RequestBody @Valid EnderecoDto enderecoDto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<EnderecoDto> saveEndereco(@RequestBody EnderecoDto enderecoDto, UriComponentsBuilder uriComponentsBuilder) {
 
         var enderecoSalvo = enderecoService.save(enderecoDto.convertDtoToEntity());
         var uri = uriComponentsBuilder.path("/api/usuario/{id}").buildAndExpand(enderecoSalvo.getId()).toUri();

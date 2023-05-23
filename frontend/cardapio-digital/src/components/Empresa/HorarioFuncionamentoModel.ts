@@ -1,0 +1,33 @@
+export interface HorarioFuncionamento {
+  id?: string;
+  segundaIni?: string;
+  segundaFim?: string;
+  segundaIni2?: string;
+  segundaFim2?: string;
+  tercaIni?: string;
+  tercaFim?: string;
+  tercaIni2?: string;
+  tercaFim2?: string;
+  quartaIni?: string;
+  quartaFim?: string;
+  quartaIni2?: string;
+  quartaFim2?: string;
+  quintaIni?: string;
+  quintaFim?: string;
+  quintaIni2?: string;
+  quintaFim2?: string;
+  sextaIni?: string;
+  sextaFim?: string;
+  sextaIni2?: string;
+  sextaFim2?: string;
+  sabadoIni?: string;
+  sabadoFim?: string;
+  sabadoIni2?: string;
+  sabadoFim2?: string;
+  domingoIni?: string;
+  domingoFim?: string;
+  domingoIni2?: string;
+  domingoFim2?: string;
+  dataCriacaoRegistro?: Date;
+  dataModificacaoRegistro?: Date;
+}

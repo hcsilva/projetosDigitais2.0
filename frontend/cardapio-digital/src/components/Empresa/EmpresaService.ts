@@ -1,5 +1,5 @@
 import { Empresa } from "./EmpresaModel";
-import { Endereco } from "@/components/Empresa/EnderecoModel";
+import { Endereco } from "./EnderecoModel";
 import apiInstance from "@/api/apiInstance";
 
 class EmpresaService {
