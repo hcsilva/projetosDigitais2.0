@@ -22,6 +22,10 @@ public class Empresa extends VersionedEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ID_ENDERECO")
+    private Endereco endereco;
+
     @Column(name = "NOME_ESTABELECIMENTO")
     private String nomeEstabelecimento;
 

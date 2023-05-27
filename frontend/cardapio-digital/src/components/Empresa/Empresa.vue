@@ -740,6 +740,7 @@ export default class DadosEmpresa extends Vue {
   async mounted() {
     //TODO - tratar erro
     this.empresa = await EmpresaService.buscar();
+    this.endereco = this.empresa.endereco;
   }
 
   scrollToTop() {
@@ -830,16 +831,28 @@ export default class DadosEmpresa extends Vue {
     }
   }
 
+  removeCaracter(codNum: number, caracter: string): number{
+    const aux: string = codNum.toString();
+    return +aux.replace(caracter,"");
+  }
+
   atualizar() {
     const empresa: Empresa = this.empresa;
     const endereco: Endereco = this.endereco;
     this.scrollToTop();
 
-    EmpresaService.atualizarEndereco(endereco)
+    endereco.cep = this.removeCaracter(endereco.cep, "-");
+    empresa.endereco = endereco;
+
+    EmpresaService.atualizar(empresa)
       .then((response: any) => {
-        this.mensagem = "Endereço atualizado com sucesso!";
+        this.mensagem = "Dados atualizados com sucesso!";
         this.alertType = AlertType.Success;
         this.showMessage = true;
+
+        setTimeout(() => {
+          this.$router.push("/admin");
+        }, 2000);
       })
       .catch((error) => {
         this.mensagem = error.response.data.errors.join("\n");
@@ -847,21 +860,6 @@ export default class DadosEmpresa extends Vue {
         this.alertType = AlertType.Error;
       });
 
-    // EmpresaService.atualizar(empresa)
-    //   .then((response: any) => {
-    //     this.mensagem = "Dados atualizados com sucesso!";
-    //     this.alertType = AlertType.Success;
-    //     this.showMessage = true;
-
-    //     setTimeout(() => {
-    //       this.$router.push("/admin");
-    //     }, 2000);
-    //   })
-    //   .catch((error) => {
-    //     this.mensagem = error.response.data.errors.join("\n");
-    //     this.showMessage = true;
-    //     this.alertType = AlertType.Error;
-    //   });
   }
 }
 </script>

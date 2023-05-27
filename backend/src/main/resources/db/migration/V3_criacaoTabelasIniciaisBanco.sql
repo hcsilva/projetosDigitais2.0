@@ -1,5 +1,19 @@
+create table endereco (
+  id uuid not null,
+  logradouro varchar not null,
+  numero int not null,
+  bairro varchar not null,
+  complemento varchar,
+  cep int not null,
+  cidade varchar not null,
+  estado varchar not null,
+  pais varchar not null,
+  primary key (id)
+);
+
 create table empresa (
   id uuid not null,
+  id_endereco uuid,
   nome_estabelecimento varchar(255) not null,
   cnpj varchar(20),
   logo oid,
@@ -12,22 +26,8 @@ create table empresa (
   telefone_contato varchar(20) not null,
   idioma varchar(5) not null,
   fuso varchar(10) not null,
-  primary key (id)
-);
-
-create table endereco (
-  id uuid not null,
-  id_empresa uuid not null,
-  logradouro varchar not null,
-  numero int not null,
-  bairro varchar not null,
-  complemento varchar,
-  cep int not null,
-  cidade varchar not null,
-  estado varchar not null,
-  pais varchar not null,
   primary key (id),
-  constraint fk_endereco_empresa foreign key (id_empresa) references empresa
+  constraint fk_empresa_endereco foreign key (id_endereco) references endereco
 );
 
 create table horario_funcionamento (

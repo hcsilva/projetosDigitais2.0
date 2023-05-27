@@ -5,12 +5,12 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
+import java.lang.reflect.Type;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "ENDERECO")
@@ -18,12 +18,8 @@ import java.util.UUID;
 public class Endereco extends VersionedEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-    private Empresa empresa;
 
     @Column(name = "LOGRADOURO")
     private String logradouro;
@@ -48,6 +44,10 @@ public class Endereco extends VersionedEntity {
 
     @Column(name = "PAIS")
     private String pais;
+
+    public Endereco() {
+        this.pais = "Brazil";
+    }
 
     public EnderecoDto convertEntityToDto() {
         return new ModelMapper().map(this, EnderecoDto.class);
