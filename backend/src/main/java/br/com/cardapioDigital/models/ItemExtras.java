@@ -17,7 +17,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id")
 public class ItemExtras extends VersionedEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @ManyToOne

@@ -24,8 +24,7 @@ public class LinkWebDto {
     @NotEmpty(message = "{links.link.campoObrigatorio}")
     private String link;
 
-    @NotNull(message = "{links.empresa.campoObrigatorio}")
-    private UUID empresa;
+    private UUID empresaId;
 
     public LinkWeb convertDtoToEntity() {
         return new ModelMapper().map(this, LinkWeb.class);

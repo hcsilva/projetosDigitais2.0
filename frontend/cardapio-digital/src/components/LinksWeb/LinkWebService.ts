@@ -1,8 +1,12 @@
 import apiInstance from "@/api/apiInstance";
+import { LinkWeb } from "./LinkWebModel";
 
 class LinkWebService {
-  getById(): Promise<any> {
-    return apiInstance.get("/link/1");
+  async salvarLink(link: LinkWeb): Promise<LinkWeb> {
+    const response = await apiInstance.post("/link", link);
+    const linkSalvo: LinkWeb = response.data;
+
+    return linkSalvo;
   }
 }
 

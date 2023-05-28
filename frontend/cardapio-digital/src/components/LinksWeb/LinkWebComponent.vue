@@ -26,9 +26,10 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import LinkWebService from "./LinkWebService";
+import { LinkWeb } from "./LinkWebModel";
 
 @Component
-export default class LinkWeb extends Vue {
+export default class LinkWebComponent extends Vue {
   valid: boolean = false;
   descricao: string = "";
   link: string = "";
@@ -51,7 +52,12 @@ export default class LinkWeb extends Vue {
     //   console.log("salvar");
     // }
 
-    LinkWebService.getById();
+    const link: LinkWeb = {
+      descricao: "Teste Link",
+      link: "https://mail.google.com/mail/u/0/",
+    };
+
+    LinkWebService.salvarLink(link);
   }
 
   openLink() {

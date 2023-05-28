@@ -18,12 +18,15 @@ import java.util.UUID;
 public class LinkWeb extends VersionedEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "ID_EMPRESA")
+    @JoinColumn(name = "ID_EMPRESA", updatable = false, insertable = false)
     private Empresa empresa;
+
+    @Column(name="ID_EMPRESA")
+    private UUID empresaId;
 
     @Column(name = "DESCRICAO", length = 300)
     private String descricao;

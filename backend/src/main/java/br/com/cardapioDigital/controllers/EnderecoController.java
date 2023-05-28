@@ -39,8 +39,8 @@ public class EnderecoController {
 
     @PostMapping
     public ResponseEntity<EnderecoDto> saveEndereco(@RequestBody @Valid EnderecoDto enderecoDto, UriComponentsBuilder uriComponentsBuilder) {
-
-        var enderecoSalvo = enderecoService.save(enderecoDto.convertDtoToEntity());
+        var endereco = enderecoDto.convertDtoToEntity();
+        var enderecoSalvo = enderecoService.save(endereco);
         var uri = uriComponentsBuilder.path("/api/usuario/{id}").buildAndExpand(enderecoSalvo.getId()).toUri();
         return ResponseEntity.created(uri).body(enderecoSalvo.convertEntityToDto());
     }

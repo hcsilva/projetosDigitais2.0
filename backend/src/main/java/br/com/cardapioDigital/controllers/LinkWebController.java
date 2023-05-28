@@ -26,21 +26,22 @@ public class LinkWebController {
     private LinkWebService linkService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<LinkWebDto> getById(@PathVariable UUID id, @RequestAttribute String idTenant) {
-        System.out.println(idTenant);
+    public ResponseEntity<LinkWebDto> getById(@PathVariable UUID id) {
         var link = linkService.findById(id);
         return ResponseEntity.ok().body(link.convertEntityToDto());
     }
 
     @PostMapping
-    public ResponseEntity<LinkWebDto> saveUser(@RequestBody @Valid LinkWebDto linkDto, UriComponentsBuilder uriComponentsBuilder) {
-        var link = linkService.save(linkDto.convertDtoToEntity());
+    public ResponseEntity<LinkWebDto> saveLink(@RequestBody @Valid LinkWebDto linkDto, UriComponentsBuilder uriComponentsBuilder, @RequestAttribute String idTenant) {
+        linkDto.setEmpresaId(UUID.fromString(idTenant));
+        var linkConvert = linkDto.convertDtoToEntity();
+        var link = linkService.save(linkConvert);
         var uri = uriComponentsBuilder.path("/api/link/{id}").buildAndExpand(link.getId()).toUri();
         return ResponseEntity.created(uri).body(link.convertEntityToDto());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LinkWebDto> updateUser(@PathVariable UUID id, @RequestBody @Valid LinkWebDto linkDto) {
+    public ResponseEntity<LinkWebDto> updateLink(@PathVariable UUID id, @RequestBody @Valid LinkWebDto linkDto) {
         var link = linkService.findById(id);
         var linkAtualizado = linkDto.convertDtoToEntity();
         linkAtualizado.setId(link.getId());
@@ -58,7 +59,7 @@ public class LinkWebController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteLink(@PathVariable UUID id) {
         var link = linkService.findById(id);
         linkService.delete(link);
         return ResponseEntity.noContent().build();
