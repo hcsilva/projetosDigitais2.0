@@ -1,3 +1,5 @@
+import { Endereco } from "../Empresa/EnderecoModel";
+
 export interface Empresa {
   id?: string;
   nomeEstabelecimento: string;
@@ -15,4 +17,5 @@ export interface Empresa {
   email: string;
   dataCriacaoRegistro?: Date;
   dataModificacaoRegistro?: Date;
+  endereco: Endereco;
 }

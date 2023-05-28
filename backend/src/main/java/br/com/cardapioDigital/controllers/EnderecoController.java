@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -38,20 +40,17 @@ public class EnderecoController {
     }
 
     @PostMapping
-    public ResponseEntity<EnderecoDto> saveEndereco(@RequestBody @Valid EnderecoDto enderecoDto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<EnderecoDto> saveEndereco(@RequestAttribute String idTenant, @RequestBody EnderecoDto enderecoDto, UriComponentsBuilder uriComponentsBuilder) {
         var endereco = enderecoDto.convertDtoToEntity();
         var enderecoSalvo = enderecoService.save(endereco);
         var uri = uriComponentsBuilder.path("/api/usuario/{id}").buildAndExpand(enderecoSalvo.getId()).toUri();
         return ResponseEntity.created(uri).body(enderecoSalvo.convertEntityToDto());
+
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<EnderecoDto> updateEndereco(@PathVariable UUID id, @RequestBody @Valid EnderecoDto enderecoDto) {
-        var endereco = enderecoService.findById(id);
-        var enderecoAtualizado = enderecoDto.convertDtoToEntity();
-        enderecoAtualizado.setId(endereco.getId());
-        var enderecoSalvo = enderecoService.save(enderecoAtualizado);
-
+    @PutMapping("/")
+    public ResponseEntity<EnderecoDto> updateEndereco(@RequestBody EnderecoDto enderecoDto) {
+        var enderecoSalvo = enderecoService.save(enderecoDto.convertDtoToEntity());
         return ResponseEntity.status(HttpStatus.OK).body(enderecoSalvo.convertEntityToDto());
     }
 

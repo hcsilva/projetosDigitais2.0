@@ -12,9 +12,6 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class EnderecoDto {
 
     private UUID id;
@@ -39,11 +36,6 @@ public class EnderecoDto {
 
     @NotBlank(message = "{endereco.estado.campoObrigatorio}")
     private String estado;
-
-    @NotNull(message = "{endereco.empresa.campoObrigatorio}")
-    private UUID empresa;
-
-    private String pais;
 
     private LocalDateTime dataCriacaoRegistro;
 

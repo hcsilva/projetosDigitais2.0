@@ -19,6 +19,8 @@ public class EmpresaDto {
 
     private UUID id;
 
+    private EnderecoDto endereco;
+
     @NotEmpty(message = "{empresa.razaoSocial.campoObrigatorio}")
     private String nomeEstabelecimento;
 

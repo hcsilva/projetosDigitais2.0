@@ -1,5 +1,5 @@
 import { Empresa } from "./EmpresaModel";
-import { Endereco } from "@/components/Empresa/EnderecoModel";
+import { Endereco } from "./EnderecoModel";
 import apiInstance from "@/api/apiInstance";
 
 class EmpresaService {
@@ -18,7 +18,6 @@ class EmpresaService {
     return empresa;
   }
 
-
   //ENDEREÇO
 
   async carregarCEP(codCep: number): Promise<Endereco> {
@@ -30,21 +29,6 @@ class EmpresaService {
     endereco.cep = codCep;
     return endereco;
   }
-
-  atualizarEndereco(endereco: Endereco): Promise<any> {
-    let aux;
-
-    if(endereco.dataCriacaoRegistro != null){
-      alert("put");
-      aux = apiInstance.put("/endereco", endereco, {});
-    } else {
-      alert("post");
-      aux = apiInstance.post("/endereco", endereco, {});
-    }
-
-    return aux;
-  }
-
 
 }
 
