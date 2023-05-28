@@ -11,9 +11,45 @@ create table endereco (
   primary key (id)
 );
 
+create table horario_funcionamento (
+  id uuid not null,
+  segunda_ini time without time zone,
+  segunda_fim time without time zone,
+  segunda_ini_2 time without time zone,
+  segunda_fim_2 time without time zone,
+  terca_ini time without time zone,
+  terca_fim time without time zone,
+  terca_ini_2 time without time zone,
+  terca_fim_2 time without time zone,
+  quarta_ini time without time zone,
+  quarta_fim time without time zone,
+  quarta_ini_2 time without time zone,
+  quarta_fim_2 time without time zone,
+  quinta_ini time without time zone,
+  quinta_fim time without time zone,
+  quinta_ini_2 time without time zone,
+  quinta_fim_2 time without time zone,
+  sexta_ini time without time zone,
+  sexta_fim time without time zone,
+  sexta_ini_2 time without time zone,
+  sexta_fim_2 time without time zone,
+  sabado_ini time without time zone,
+  sabado_fim time without time zone,
+  sabado_ini_2 time without time zone,
+  sabado_fim_2 time without time zone,
+  domingo_ini time without time zone,
+  domingo_fim time without time zone,
+  domingo_ini_2 time without time zone,
+  domingo_fim_2 time without time zone,
+  data_alteracao TIMESTAMP NOT NULL DEFAULT NOW(),
+  data_criacao TIMESTAMP NOT NULL DEFAULT NOW(),
+  primary key (id)
+);
+
 create table empresa (
   id uuid not null,
   id_endereco uuid,
+  id_horario uuid,
   nome_estabelecimento varchar(255) not null,
   cnpj varchar(20),
   logo oid,
@@ -27,42 +63,8 @@ create table empresa (
   idioma varchar(5) not null,
   fuso varchar(10) not null,
   primary key (id),
-  constraint fk_empresa_endereco foreign key (id_endereco) references endereco
-);
-
-create table horario_funcionamento (
-  id uuid not null,
-  id_empresa uuid not null,
-  segunda_ini numeric(5, 2),
-  segunda_fim numeric(5, 2),
-  segunda_ini_2 numeric(5, 2),
-  segunda_fim_2 numeric(5, 2),
-  terca_ini numeric(5, 2),
-  terca_fim numeric(5, 2),
-  terca_ini_2 numeric(5, 2),
-  terca_fim_2 numeric(5, 2),
-  quarta_ini numeric(5, 2),
-  quarta_fim numeric(5, 2),
-  quarta_ini_2 numeric(5, 2),
-  quarta_fim_2 numeric(5, 2),
-  quinta_ini numeric(5, 2),
-  quinta_fim numeric(5, 2),
-  quinta_ini_2 numeric(5, 2),
-  quinta_fim_2 numeric(5, 2),
-  sexta_ini numeric(5, 2),
-  sexta_fim numeric(5, 2),
-  sexta_ini_2 numeric(5, 2),
-  sexta_fim_2 numeric(5, 2),
-  sabado_ini numeric(5, 2),
-  sabado_fim numeric(5, 2),
-  sabado_ini_2 numeric(5, 2),
-  sabado_fim_2 numeric(5, 2),
-  domingo_ini numeric(5, 2),
-  domingo_fim numeric(5, 2),
-  domingo_ini_2 numeric(5, 2),
-  domingo_fim_2 numeric(5, 2),
-  primary key (id),
-  constraint fk_horario_funcionamento_empresa foreign key (id_empresa) references empresa
+  constraint fk_empresa_endereco foreign key (id_endereco) references endereco,
+  constraint fk_empresa_horario foreign key (id_horario) references horario_funcionamento
 );
 
 create table forma_pagamento (

@@ -69,6 +69,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { Usuario } from "@/components/Usuario/UsuarioModel";
 import { Empresa } from "@/components/Empresa/EmpresaModel";
 import { Endereco } from "@/components/Empresa/EnderecoModel";
+import { HorarioFuncionamento } from "@/components/Empresa/HorarioFuncionamentoModel";
 import UsuarioService from "@/components/Usuario/UsuarioService";
 import vueMask from "v-mask";
 import { AlertType } from "../Enums/AlertType";
@@ -96,6 +97,7 @@ export default class CadastroUsuario extends Vue {
   nomeEstabelecimento: string = "";
   loading: boolean = false;
   endereco = {} as Endereco;
+  horario = {} as HorarioFuncionamento;
 
   requiredRule = (v: any) => !!v || "Campo obrigatório";
   emailRule = (v: string) => /.+@.+\..+/.test(v) || "E-mail inválido";
@@ -128,7 +130,7 @@ export default class CadastroUsuario extends Vue {
       whatsapp: "",
       idioma: "",
       fusoHorario: "",
-      endereco: this.endereco
+      horario: this.horario,
     };
 
     const usuario: Usuario = {
