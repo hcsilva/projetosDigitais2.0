@@ -1,4 +1,4 @@
-import { Endereco } from "../Empresa/EnderecoModel";
+import { Endereco } from "../Endereco/EnderecoModel";
 
 export interface Empresa {
   id?: string;

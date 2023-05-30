@@ -10,9 +10,6 @@
             required
           ></v-text-field>
           <v-text-field v-model="link" :rules="urlRules" label="Link">
-            <template #append>
-              <v-icon v-if="true">mdi-arrow-right</v-icon>
-            </template>
           </v-text-field>
         </v-form>
       </v-card-text>
@@ -51,13 +48,6 @@ export default class LinkWebComponent extends Vue {
     // if (this.$refs.form.validate()) {
     //   console.log("salvar");
     // }
-
-    const link: LinkWeb = {
-      descricao: "Teste Link",
-      link: "https://mail.google.com/mail/u/0/",
-    };
-
-    LinkWebService.salvarLink(link);
   }
 
   openLink() {
@@ -72,3 +62,9 @@ export default class LinkWebComponent extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.container {
+  max-width: 1300px;
+}
+</style>
