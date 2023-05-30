@@ -741,7 +741,7 @@ export default class DadosEmpresa extends Vue {
   async mounted() {
     //TODO - tratar erro
     this.empresa = await EmpresaService.buscar();
-    this.endereco = this.empresa.endereco;
+    this.endereco = this.empresa.endereco != null ? this.empresa.endereco : this.endereco;
   }
 
   scrollToTop() {
@@ -833,6 +833,9 @@ export default class DadosEmpresa extends Vue {
   }
 
   removeCaracter(codNum: number, caracter: string): number{
+
+    if(codNum == null || caracter == null) return 0;
+
     const aux: string = codNum.toString();
     return +aux.replace(caracter,"");
   }
@@ -842,8 +845,10 @@ export default class DadosEmpresa extends Vue {
     const endereco: Endereco = this.endereco;
     this.scrollToTop();
 
-    endereco.cep = this.removeCaracter(endereco.cep, "-");
-    empresa.endereco = endereco;
+    if(endereco.cep != null){
+      endereco.cep = this.removeCaracter(endereco.cep, "-");
+      empresa.endereco = endereco;
+    }
 
     EmpresaService.atualizar(empresa)
       .then((response: any) => {

@@ -26,6 +26,10 @@ public class Empresa extends VersionedEntity {
     @JoinColumn(name = "ID_ENDERECO")
     private Endereco endereco;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ID_HORARIO")
+    private HorarioFuncionamento horarioFuncionamento;
+
     @Column(name = "NOME_ESTABELECIMENTO")
     private String nomeEstabelecimento;
 

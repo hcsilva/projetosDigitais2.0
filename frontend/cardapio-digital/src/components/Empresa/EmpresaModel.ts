@@ -1,4 +1,7 @@
 import { Endereco } from "../Endereco/EnderecoModel";
+import { HorarioFuncionamento } from "../Empresa/HorarioFuncionamentoModel";
+
+
 
 export interface Empresa {
   id?: string;
@@ -17,5 +20,6 @@ export interface Empresa {
   email: string;
   dataCriacaoRegistro?: Date;
   dataModificacaoRegistro?: Date;
-  endereco: Endereco;
+  endereco?: Endereco;
+  horario: HorarioFuncionamento;
 }
