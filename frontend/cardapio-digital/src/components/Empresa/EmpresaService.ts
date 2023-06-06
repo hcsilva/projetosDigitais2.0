@@ -4,8 +4,6 @@ import apiInstance from "@/api/apiInstance";
 
 class EmpresaService {
 
-  // EMPRESA
-
   atualizar(empresa: Empresa): Promise<any> {
     return apiInstance.put("/empresa/", empresa, {});
   }
@@ -17,8 +15,6 @@ class EmpresaService {
     const empresa: Empresa = response.data;
     return empresa;
   }
-
-  //ENDEREÇO
 
   async carregarCEP(codCep: number): Promise<Endereco> {
     const aux: string = codCep.toString()
