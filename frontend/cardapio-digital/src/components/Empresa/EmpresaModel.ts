@@ -1,7 +1,5 @@
-import { Endereco } from "../Empresa/EnderecoModel";
-import { HorarioFuncionamento } from "../Empresa/HorarioFuncionamentoModel";
-
-
+import { Endereco } from "../Endereco/EnderecoModel";
+import { HorarioFuncionamento } from "../HorarioFuncionamento/HorarioFuncionamentoModel";
 
 export interface Empresa {
   id?: string;

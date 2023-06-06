@@ -68,8 +68,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Usuario } from "@/components/Usuario/UsuarioModel";
 import { Empresa } from "@/components/Empresa/EmpresaModel";
-import { Endereco } from "@/components/Empresa/EnderecoModel";
-import { HorarioFuncionamento } from "@/components/Empresa/HorarioFuncionamentoModel";
+import { Endereco } from "@/components/Endereco/EnderecoModel";
+import { HorarioFuncionamento } from "@/components/HorarioFuncionamento/HorarioFuncionamentoModel";
 import UsuarioService from "@/components/Usuario/UsuarioService";
 import vueMask from "v-mask";
 import { AlertType } from "../Enums/AlertType";

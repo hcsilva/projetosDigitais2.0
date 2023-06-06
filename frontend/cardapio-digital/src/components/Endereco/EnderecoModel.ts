@@ -1,4 +1,3 @@
-
 export interface Endereco {
   id?: string;
   cep: number;

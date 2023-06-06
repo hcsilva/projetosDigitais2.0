@@ -1,13 +1,15 @@
 <template>
-  <v-row justify="center" class="ma-2">
-    <v-col cols="12">
-      <DataTable
-        :items="items"
-        :headers="headers"
-        :loadingTabela="false"
-        @editar="editarItem"
-    /></v-col>
-  </v-row>
+  <v-container>
+    <v-row justify="center" class="ma-2">
+      <v-col cols="12">
+        <DataTable
+          :items="items"
+          :headers="headers"
+          :loadingTabela="false"
+          @editar="editarItem"
+      /></v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -64,5 +66,9 @@ export default class LinkWeb extends Vue {
 <style scoped>
 ::v-deep .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
   font-size: 15px !important;
+}
+
+.container {
+  max-width: 1300px;
 }
 </style>

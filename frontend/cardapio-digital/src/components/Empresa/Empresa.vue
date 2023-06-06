@@ -710,9 +710,10 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { Empresa } from "@/components/Empresa/EmpresaModel";
-import { Endereco } from "@/components/Empresa/EnderecoModel";
-import { HorarioFuncionamento } from "@/components/Empresa/HorarioFuncionamentoModel";
+import { Endereco } from "@/components/Endereco/EnderecoModel";
+import { HorarioFuncionamento } from "@/components/HorarioFuncionamento/HorarioFuncionamentoModel";
 import EmpresaService from "@/components/Empresa/EmpresaService";
+import EnderecoService from "../Endereco/EnderecoService";
 import vueMask from "v-mask";
 import { AlertType } from "../Enums/AlertType";
 import AlertMessage from "../ComponentesGerais/alerts/AlertMessage.vue";
@@ -749,7 +750,7 @@ export default class DadosEmpresa extends Vue {
 
   async buscarCEP() {
     if (this.endereco.cep != null) {
-      this.endereco = await EmpresaService.carregarCEP(this.endereco.cep);
+      this.endereco = await EnderecoService.carregarCEP(this.endereco.cep);
     }
   }
 
