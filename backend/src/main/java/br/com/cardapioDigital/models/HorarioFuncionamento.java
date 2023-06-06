@@ -23,10 +23,6 @@ public class HorarioFuncionamento extends VersionedEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_EMPRESA")
-    private Empresa empresa;
-
     @JsonFormat(pattern = "hh:mm")
     @Column(name = "SEGUNDA_INI")
     private LocalTime segundaInicial;
