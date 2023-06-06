@@ -844,7 +844,7 @@ export default class DadosEmpresa extends Vue {
     const endereco: Endereco = this.endereco;
     this.scrollToTop();
 
-    if(endereco.cep){
+    if(endereco.cep != null){
       endereco.cep = this.removeCaracter(endereco.cep, "-");
       empresa.endereco = endereco;
     }

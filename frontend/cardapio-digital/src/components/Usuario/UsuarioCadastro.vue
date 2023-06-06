@@ -68,6 +68,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Usuario } from "@/components/Usuario/UsuarioModel";
 import { Empresa } from "@/components/Empresa/EmpresaModel";
+import { Endereco } from "@/components/Empresa/EnderecoModel";
+import { HorarioFuncionamento } from "@/components/Empresa/HorarioFuncionamentoModel";
 import UsuarioService from "@/components/Usuario/UsuarioService";
 import vueMask from "v-mask";
 import { AlertType } from "../Enums/AlertType";
@@ -94,6 +96,8 @@ export default class CadastroUsuario extends Vue {
   tipoMessagem: string = "";
   nomeEstabelecimento: string = "";
   loading: boolean = false;
+  endereco = {} as Endereco;
+  horario = {} as HorarioFuncionamento;
 
   requiredRule = (v: any) => !!v || "Campo obrigatório";
   emailRule = (v: string) => /.+@.+\..+/.test(v) || "E-mail inválido";
@@ -116,6 +120,17 @@ export default class CadastroUsuario extends Vue {
       nomeEstabelecimento: this.nomeEstabelecimento,
       telefoneContato: this.telefone,
       email: this.email,
+      cnpj: 0,
+      logo: "",
+      imagemCapa: "",
+      descricao: "",
+      site: "",
+      instagram: "",
+      facebook: "",
+      whatsapp: "",
+      idioma: "",
+      fusoHorario: "",
+      horario: this.horario,
     };
 
     const usuario: Usuario = {
