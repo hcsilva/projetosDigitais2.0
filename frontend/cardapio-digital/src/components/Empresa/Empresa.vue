@@ -213,124 +213,34 @@
       <v-card-title class="mb-4 title">Horários de atendimento</v-card-title>
       <v-card-text>
         <v-form ref="form">
-          <v-row>
+          <v-row v-for="(linhaDia, idxDia) in diasHorarios" :key="idxDia">
             <v-col cols="2">
-              <v-subheader class="label-horario">Segunda-feira</v-subheader>
-            </v-col>
-            <v-col cols="12" sm="1">
               <v-text-field
-                class="centered-input"
-                v-model="horaFunc.segundaIni"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
+                class="label-horario"
+                v-model="descricaoDiaSemana[idxDia]"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="1">
+            <v-col
+              v-for="(horario, idxHorario) in linhaDia"
+              :key="idxHorario"
+              cols="12"
+              sm="1"
+            >
               <v-text-field
                 class="centered-input"
-                v-model="horaFunc.segundaFim"
-                placeholder="__:__"
+                v-model="diasHorarios[idxDia][idxHorario]"
                 outlined
                 dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.segundaIni2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
+                type="time"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.segundaFim2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-btn
-                elevation="0"
-                icon
-                color="primary"
-                @click="replicarParaDiaSeguinte(2)"
-              >
-                <v-icon dark> mdi mdi-arrow-collapse-down </v-icon>
-              </v-btn>
-              <v-btn
-                elevation="0"
-                icon
-                color="primary"
-                @click="limparHorarios(2)"
-              >
-                <v-icon dark> mdi-eraser </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
 
-          <v-row>
-            <v-col cols="2">
-              <v-subheader class="label-horario">Terça-feira</v-subheader>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.tercaIni"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.tercaFim"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.tercaIni2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.tercaFim2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
             <v-col cols="12" sm="1">
               <v-btn
                 elevation="0"
                 icon
                 color="primary"
-                @click="replicarParaDiaSeguinte(3)"
+                @click="replicarParaDiaSeguinte(idxDia)"
               >
                 <v-icon dark> mdi mdi-arrow-collapse-down </v-icon>
               </v-btn>
@@ -338,337 +248,7 @@
                 elevation="0"
                 icon
                 color="primary"
-                @click="limparHorarios(3)"
-              >
-                <v-icon dark> mdi-eraser </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="2">
-              <v-subheader class="label-horario">Quarta-feira</v-subheader>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.quartaIni"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.quartaFim"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.quartaIni2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.quartaFim2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-btn
-                elevation="0"
-                icon
-                color="primary"
-                @click="replicarParaDiaSeguinte(4)"
-              >
-                <v-icon dark> mdi mdi-arrow-collapse-down </v-icon>
-              </v-btn>
-              <v-btn
-                elevation="0"
-                icon
-                color="primary"
-                @click="limparHorarios(4)"
-              >
-                <v-icon dark> mdi-eraser </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="2">
-              <v-subheader class="label-horario">Quinta-feira</v-subheader>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.quintaIni"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.quintaFim"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.quintaIni2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.quintaFim2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-btn
-                elevation="0"
-                icon
-                color="primary"
-                @click="replicarParaDiaSeguinte(5)"
-              >
-                <v-icon dark> mdi mdi-arrow-collapse-down </v-icon>
-              </v-btn>
-              <v-btn
-                elevation="0"
-                icon
-                color="primary"
-                @click="limparHorarios(5)"
-              >
-                <v-icon dark> mdi-eraser </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="2">
-              <v-subheader class="label-horario">Sexta-feira</v-subheader>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.sextaIni"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.sextaFim"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.sextaIni2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.sextaFim2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-btn
-                elevation="0"
-                icon
-                color="primary"
-                @click="replicarParaDiaSeguinte(6)"
-              >
-                <v-icon dark> mdi mdi-arrow-collapse-down </v-icon>
-              </v-btn>
-              <v-btn
-                elevation="0"
-                icon
-                color="primary"
-                @click="limparHorarios(6)"
-              >
-                <v-icon dark> mdi-eraser </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="2">
-              <v-subheader class="label-horario">Sábado</v-subheader>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.sabadoIni"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.sabadoFim"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.sabadoIni2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.sabadoFim2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-btn
-                elevation="0"
-                icon
-                color="primary"
-                @click="replicarParaDiaSeguinte(7)"
-              >
-                <v-icon dark> mdi mdi-arrow-collapse-down </v-icon>
-              </v-btn>
-              <v-btn
-                elevation="0"
-                icon
-                color="primary"
-                @click="limparHorarios(7)"
-              >
-                <v-icon dark> mdi-eraser </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="2">
-              <v-subheader class="label-horario">Domingo</v-subheader>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.domingoIni"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.domingoFim"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.domingoIni2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-text-field
-                class="centered-input"
-                v-model="horaFunc.domingoFim2"
-                placeholder="__:__"
-                outlined
-                dense
-                v-mask="'##:##'"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="1">
-              <v-btn
-                elevation="0"
-                icon
-                color="primary"
-                @click="replicarParaDiaSeguinte(1)"
-              >
-                <v-icon dark> mdi mdi-arrow-collapse-down </v-icon>
-              </v-btn>
-              <v-btn
-                elevation="0"
-                icon
-                color="primary"
-                @click="limparHorarios(1)"
+                @click="limparHorarios(idxDia)"
               >
                 <v-icon dark> mdi-eraser </v-icon>
               </v-btn>
@@ -735,13 +315,28 @@ export default class DadosEmpresa extends Vue {
   endereco = {} as Endereco;
   horaFunc = {} as HorarioFuncionamento;
 
+  descricaoDiaSemana: string[] = [
+    "Domingo",
+    "Segunda-feira",
+    "Terça-feira",
+    "Quarta-feira",
+    "Quinta-feira",
+    "Sexta-feira",
+    "Sábado",
+  ];
+
+  diasHorarios: string[][] = Array(7)
+    .fill("")
+    .map(() => Array(4).fill(""));
+
   requiredRule = (v: any) => !!v || "Campo obrigatório";
   telefoneRule = (v: string) => (v && v.length >= 10) || "Número inválido";
 
   async mounted() {
     //TODO - tratar erro
     this.empresa = await EmpresaService.buscar();
-    this.endereco = this.empresa.endereco != null ? this.empresa.endereco : this.endereco;
+    this.endereco =
+      this.empresa.endereco != null ? this.empresa.endereco : this.endereco;
   }
 
   scrollToTop() {
@@ -754,90 +349,35 @@ export default class DadosEmpresa extends Vue {
     }
   }
 
-  limparHorarios(numDiaSemana: number) {
-    if (numDiaSemana === 2) {
-      this.horaFunc.segundaIni = "";
-      this.horaFunc.segundaFim = "";
-      this.horaFunc.segundaIni2 = "";
-      this.horaFunc.segundaFim2 = "";
-    } else if (numDiaSemana === 3) {
-      this.horaFunc.tercaIni = "";
-      this.horaFunc.tercaFim = "";
-      this.horaFunc.tercaIni2 = "";
-      this.horaFunc.tercaFim2 = "";
-    } else if (numDiaSemana === 4) {
-      this.horaFunc.quartaIni = "";
-      this.horaFunc.quartaFim = "";
-      this.horaFunc.quartaIni2 = "";
-      this.horaFunc.quartaFim2 = "";
-    } else if (numDiaSemana === 5) {
-      this.horaFunc.quintaIni = "";
-      this.horaFunc.quintaFim = "";
-      this.horaFunc.quintaIni2 = "";
-      this.horaFunc.quintaFim2 = "";
-    } else if (numDiaSemana === 6) {
-      this.horaFunc.sextaIni = "";
-      this.horaFunc.sextaFim = "";
-      this.horaFunc.sextaIni2 = "";
-      this.horaFunc.sextaFim2 = "";
-    } else if (numDiaSemana === 7) {
-      this.horaFunc.sabadoIni = "";
-      this.horaFunc.sabadoFim = "";
-      this.horaFunc.sabadoIni2 = "";
-      this.horaFunc.sabadoFim2 = "";
-    } else if (numDiaSemana === 1) {
-      this.horaFunc.domingoIni = "";
-      this.horaFunc.domingoFim = "";
-      this.horaFunc.domingoIni2 = "";
-      this.horaFunc.domingoFim2 = "";
+  limparHorarios(idxDia: number) {
+    let matrizAux: string[][] = this.diasHorarios.map((row) => [...row]);
+
+    for (let i = 0; i < matrizAux[idxDia].length; i++) {
+      matrizAux[idxDia][i] = "";
     }
+
+    this.diasHorarios = matrizAux;
   }
 
-  replicarParaDiaSeguinte(numDiaSemana: number) {
-    if (numDiaSemana === 2) {
-      this.horaFunc.tercaIni = this.horaFunc.segundaIni;
-      this.horaFunc.tercaFim = this.horaFunc.segundaFim;
-      this.horaFunc.tercaIni2 = this.horaFunc.segundaIni2;
-      this.horaFunc.tercaFim2 = this.horaFunc.segundaFim2;
-    } else if (numDiaSemana === 3) {
-      this.horaFunc.quartaIni = this.horaFunc.tercaIni;
-      this.horaFunc.quartaFim = this.horaFunc.tercaFim;
-      this.horaFunc.quartaIni2 = this.horaFunc.tercaIni2;
-      this.horaFunc.quartaFim2 = this.horaFunc.tercaFim2;
-    } else if (numDiaSemana === 4) {
-      this.horaFunc.quintaIni = this.horaFunc.quartaIni;
-      this.horaFunc.quintaFim = this.horaFunc.quartaFim;
-      this.horaFunc.quintaIni2 = this.horaFunc.quartaIni2;
-      this.horaFunc.quintaFim2 = this.horaFunc.quartaFim2;
-    } else if (numDiaSemana === 5) {
-      this.horaFunc.sextaIni = this.horaFunc.quintaIni;
-      this.horaFunc.sextaFim = this.horaFunc.quintaFim;
-      this.horaFunc.sextaIni2 = this.horaFunc.quintaIni2;
-      this.horaFunc.sextaFim2 = this.horaFunc.quintaFim2;
-    } else if (numDiaSemana === 6) {
-      this.horaFunc.sabadoIni = this.horaFunc.sextaIni;
-      this.horaFunc.sabadoFim = this.horaFunc.sextaFim;
-      this.horaFunc.sabadoIni2 = this.horaFunc.sextaIni2;
-      this.horaFunc.sabadoFim2 = this.horaFunc.sextaFim2;
-    } else if (numDiaSemana === 7) {
-      this.horaFunc.domingoIni = this.horaFunc.sabadoIni;
-      this.horaFunc.domingoFim = this.horaFunc.sabadoFim;
-      this.horaFunc.domingoIni2 = this.horaFunc.sabadoIni2;
-      this.horaFunc.domingoFim2 = this.horaFunc.sabadoFim2;
-    } else if (numDiaSemana === 1) {
-      this.horaFunc.segundaIni = this.horaFunc.domingoIni;
-      this.horaFunc.segundaFim = this.horaFunc.domingoFim;
-      this.horaFunc.segundaIni2 = this.horaFunc.domingoIni2;
-      this.horaFunc.segundaFim2 = this.horaFunc.domingoFim2;
+  replicarParaDiaSeguinte(idxDia: number) {
+    let matrizAux: string[][] = this.diasHorarios.map((row) => [...row]);
+
+    for (let i = 0; i < matrizAux[idxDia].length; i++) {
+      if (idxDia < matrizAux.length-1) {
+        matrizAux[idxDia + 1][i] = matrizAux[idxDia][i];
+      } else {
+        matrizAux[0][i] = matrizAux[idxDia][i];
+      }
     }
+
+    this.diasHorarios = matrizAux;
   }
 
-  removeCaracter(codNum: number, caracter: string): number{
-
-    if(codNum == null || caracter == null) return 0;
+  removeCaracter(codNum: number, caracter: string): number {
+    if (codNum == null || caracter == null) return 0;
 
     const aux: string = codNum.toString();
-    return +aux.replace(caracter,"");
+    return +aux.replace(caracter, "");
   }
 
   atualizar() {
@@ -845,7 +385,7 @@ export default class DadosEmpresa extends Vue {
     const endereco: Endereco = this.endereco;
     this.scrollToTop();
 
-    if(endereco.cep){
+    if (endereco.cep) {
       endereco.cep = this.removeCaracter(endereco.cep, "-");
       empresa.endereco = endereco;
     }
@@ -865,7 +405,6 @@ export default class DadosEmpresa extends Vue {
         this.showMessage = true;
         this.alertType = AlertType.Error;
       });
-
   }
 }
 </script>
