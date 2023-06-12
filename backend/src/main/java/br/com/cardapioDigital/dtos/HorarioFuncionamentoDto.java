@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
 
@@ -21,80 +22,77 @@ public class HorarioFuncionamentoDto {
 
     private UUID id;
 
-    @NotNull(message = "{horariofuncionamento.empresa.campoObrigatorio}")
-    private Long empresaId;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime segundaInicial;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime segundafinal;
+    private LocalTime segundaFinal;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime segundaInicial2;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime segundafinal2;
+    private LocalTime segundaFinal2;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime tercaInicial;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime tercafinal;
+    private LocalTime tercaFinal;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime tercaInicial2;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime tercafinal2;
+    private LocalTime tercaFinal2;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime quartaInicial;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime quartafinal;
+    private LocalTime quartaFinal;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime quartaInicial2;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime quartafinal2;
+    private LocalTime quartaFinal2;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime quintaInicial;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime quintafinal;
+    private LocalTime quintaFinal;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime quintaInicial2;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime quintafinal2;
+    private LocalTime quintaFinal2;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime sextaInicial;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime sextafinal;
+    private LocalTime sextaFinal;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime sextaInicial2;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime sextafinal2;
+    private LocalTime sextaFinal2;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime sabadoInicial;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime sabadofinal;
+    private LocalTime sabadoFinal;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime sabadoInicial2;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime sabadofinal2;
+    private LocalTime sabadoFinal2;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime domingoInicial;
@@ -107,6 +105,10 @@ public class HorarioFuncionamentoDto {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime domingoFinal2;
+
+    private LocalDateTime dataCriacaoRegistro;
+
+    private LocalDateTime dataModificacaoRegistro;
 
     public HorarioFuncionamento convertDtoToEntity() {
         return new ModelMapper().map(this, HorarioFuncionamento.class);

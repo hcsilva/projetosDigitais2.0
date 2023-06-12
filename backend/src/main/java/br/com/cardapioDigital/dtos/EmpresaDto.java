@@ -21,6 +21,8 @@ public class EmpresaDto {
 
     private EnderecoDto endereco;
 
+    private HorarioFuncionamentoDto horario;
+
     @NotEmpty(message = "{empresa.razaoSocial.campoObrigatorio}")
     private String nomeEstabelecimento;
 

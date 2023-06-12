@@ -313,7 +313,7 @@ export default class DadosEmpresa extends Vue {
   validDadosPublicos: boolean = false;
   empresa = {} as Empresa;
   endereco = {} as Endereco;
-  horaFunc = {} as HorarioFuncionamento;
+  horarios = {} as HorarioFuncionamento;
 
   descricaoDiaSemana: string[] = [
     "Domingo",
@@ -337,6 +337,11 @@ export default class DadosEmpresa extends Vue {
     this.empresa = await EmpresaService.buscar();
     this.endereco =
       this.empresa.endereco != null ? this.empresa.endereco : this.endereco;
+
+    if (this.empresa.horario != null) {
+      this.horarios = this.empresa.horario;
+      this.diasHorarios = this.carregarMatrizHorarios(this.empresa.horario);
+    }
   }
 
   scrollToTop() {
@@ -363,7 +368,7 @@ export default class DadosEmpresa extends Vue {
     let matrizAux: string[][] = this.diasHorarios.map((row) => [...row]);
 
     for (let i = 0; i < matrizAux[idxDia].length; i++) {
-      if (idxDia < matrizAux.length-1) {
+      if (idxDia < matrizAux.length - 1) {
         matrizAux[idxDia + 1][i] = matrizAux[idxDia][i];
       } else {
         matrizAux[0][i] = matrizAux[idxDia][i];
@@ -372,6 +377,109 @@ export default class DadosEmpresa extends Vue {
 
     this.diasHorarios = matrizAux;
   }
+
+  carregarMatrizHorarios(objeto: HorarioFuncionamento): string[][] {
+    const horarios: string[][] = Array(7)
+      .fill("")
+      .map(() => Array(4).fill(""));
+
+    horarios[0] = [
+      objeto.domingoInicial || "",
+      objeto.domingoFinal || "",
+      objeto.domingoInicial2 || "",
+      objeto.domingoFinal2 || "",
+    ];
+    horarios[1] = [
+      objeto.segundaInicial || "",
+      objeto.segundaFinal || "",
+      objeto.segundaInicial2 || "",
+      objeto.segundaFinal2 || "",
+    ];
+    horarios[2] = [
+      objeto.tercaInicial || "",
+      objeto.tercaFinal || "",
+      objeto.tercaInicial2 || "",
+      objeto.tercaFinal2 || "",
+    ];
+    horarios[3] = [
+      objeto.quartaInicial || "",
+      objeto.quartaFinal || "",
+      objeto.quartaInicial2 || "",
+      objeto.quartaFinal2 || "",
+    ];
+    horarios[4] = [
+      objeto.quintaInicial || "",
+      objeto.quintaFinal || "",
+      objeto.quintaInicial2 || "",
+      objeto.quintaFinal2 || "",
+    ];
+    horarios[5] = [
+      objeto.sextaInicial || "",
+      objeto.sextaFinal || "",
+      objeto.sextaInicial2 || "",
+      objeto.sextaFinal2 || "",
+    ];
+    horarios[6] = [
+      objeto.sabadoInicial || "",
+      objeto.sabadoFinal || "",
+      objeto.sabadoInicial2 || "",
+      objeto.sabadoFinal2 || "",
+    ];
+
+    return horarios;
+  }
+
+  carregaObjHorario(matriz: string[][]): HorarioFuncionamento {
+
+    this.horarios.domingoInicial = matriz[0][0];
+    this.horarios.domingoFinal = matriz[0][1];
+    this.horarios.domingoInicial2 = matriz[0][2];
+    this.horarios.domingoFinal2 = matriz[0][3];
+
+    this.horarios.segundaInicial = matriz[1][0];
+    this.horarios.segundaFinal = matriz[1][1];
+    this.horarios.segundaInicial2 = matriz[1][2];
+    this.horarios.segundaFinal2 = matriz[1][3];
+
+    this.horarios.tercaInicial = matriz[2][0];
+    this.horarios.tercaFinal = matriz[2][1];
+    this.horarios.tercaInicial2 = matriz[2][2];
+    this.horarios.tercaFinal2 = matriz[2][3];
+
+    this.horarios.quartaInicial = matriz[3][0];
+    this.horarios.quartaFinal = matriz[3][1];
+    this.horarios.quartaInicial2 = matriz[3][2];
+    this.horarios.quartaFinal2 = matriz[3][3];
+
+    this.horarios.quintaInicial = matriz[4][0];
+    this.horarios.quintaFinal = matriz[4][1];
+    this.horarios.quintaInicial2 = matriz[4][2];
+    this.horarios.quintaFinal2 = matriz[4][3];
+
+    this.horarios.sextaInicial = matriz[5][0];
+    this.horarios.sextaFinal = matriz[5][1];
+    this.horarios.sextaInicial2 = matriz[5][2];
+    this.horarios.sextaFinal2 = matriz[5][3];
+
+    this.horarios.sabadoInicial = matriz[6][0];
+    this.horarios.sabadoFinal = matriz[6][1];
+    this.horarios.sabadoInicial2 = matriz[6][2];
+    this.horarios.sabadoFinal2 = matriz[6][3];
+
+    return this.horarios;
+
+  }
+
+  verificarMatrizPreenchida(matriz: string[][]): boolean {
+  for (let i = 0; i < matriz.length; i++) {
+    for (let j = 0; j < matriz[i].length; j++) {
+      if (matriz[i][j] !== null && matriz[i][j] !== undefined && matriz[i][j] !== '') {
+        return true;
+      }
+    }
+  }
+  return false;
+}
 
   removeCaracter(codNum: number, caracter: string): number {
     if (codNum == null || caracter == null) return 0;
@@ -388,6 +496,10 @@ export default class DadosEmpresa extends Vue {
     if (endereco.cep) {
       endereco.cep = this.removeCaracter(endereco.cep, "-");
       empresa.endereco = endereco;
+    }
+
+    if (this.verificarMatrizPreenchida(this.diasHorarios)) {
+      empresa.horario = this.carregaObjHorario(this.diasHorarios);
     }
 
     EmpresaService.atualizar(empresa)

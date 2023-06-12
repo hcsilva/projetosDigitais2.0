@@ -28,19 +28,19 @@ public class HorarioFuncionamento extends VersionedEntity {
     private LocalTime segundaInicial;
 
     @Column(name = "SEGUNDA_FIM")
-    private LocalTime segundafinal;
+    private LocalTime segundaFinal;
 
     @Column(name = "SEGUNDA_INI_2")
     private LocalTime segundaInicial2;
 
     @Column(name = "SEGUNDA_FIM_2")
-    private LocalTime segundafinal2;
+    private LocalTime segundaFinal2;
 
     @Column(name = "TERCA_INI")
     private LocalTime tercaInicial;
 
     @Column(name = "TERCA_FIM")
-    private LocalTime tercafinal;
+    private LocalTime tercaFinal;
 
     @Column(name = "TERCA_INI_2")
     private LocalTime tercaInicial2;
@@ -52,7 +52,7 @@ public class HorarioFuncionamento extends VersionedEntity {
     private LocalTime quartaInicial;
 
     @Column(name = "QUARTA_FIM")
-    private LocalTime quartafinal;
+    private LocalTime quartaFinal;
 
     @Column(name = "QUARTA_INI_2")
     private LocalTime quartaInicial2;
@@ -64,7 +64,7 @@ public class HorarioFuncionamento extends VersionedEntity {
     private LocalTime quintaInicial;
 
     @Column(name = "QUINTA_FIM")
-    private LocalTime quintafinal;
+    private LocalTime quintaFinal;
 
     @Column(name = "QUINTA_INI_2")
     private LocalTime quintaInicial2;
@@ -76,7 +76,7 @@ public class HorarioFuncionamento extends VersionedEntity {
     private LocalTime sextaInicial;
 
     @Column(name = "SEXTA_FIM")
-    private LocalTime sextafinal;
+    private LocalTime sextaFinal;
 
     @Column(name = "SEXTA_INI_2")
     private LocalTime sextaInicial2;
@@ -88,7 +88,7 @@ public class HorarioFuncionamento extends VersionedEntity {
     private LocalTime sabadoInicial;
 
     @Column(name = "SABADO_FIM")
-    private LocalTime sabadofinal;
+    private LocalTime sabadoFinal;
 
     @Column(name = "SABADO_INI_2")
     private LocalTime sabadoInicial2;
@@ -100,7 +100,7 @@ public class HorarioFuncionamento extends VersionedEntity {
     private LocalTime domingoInicial;
 
     @Column(name = "DOMINGO_FIM")
-    private LocalTime domingofinal;
+    private LocalTime domingoFinal;
 
     @Column(name = "DOMINGO_INI_2")
     private LocalTime domingoInicial2;
