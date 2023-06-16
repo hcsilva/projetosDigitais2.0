@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <component :is="navbarComponent" />
-    <v-main>
+    <v-main class="ma-3">
       <transition mode="out-in">
         <router-view />
       </transition>

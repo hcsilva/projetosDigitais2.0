@@ -8,6 +8,7 @@ export default new Vuex.Store({
     logged: false,
     authToken: null,
     idTenant: null,
+    username: null,
   },
   getters: {
     getIdTenant: (state) => {
@@ -22,9 +23,11 @@ export default new Vuex.Store({
     setAuthToken(state, payload) {
       window.localStorage.authToken = payload.token;
       window.localStorage.idTenant = payload.empresaId;
+
       state.authToken = payload.token;
       state.idTenant = payload.empresaId;
       state.logged = Boolean(state.authToken);
+      state.username = payload.name;
     },
 
     setLogged(state, payload) {

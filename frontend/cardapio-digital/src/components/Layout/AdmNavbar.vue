@@ -1,25 +1,83 @@
 <template>
   <div>
-    <v-app-bar color="indigo" dark app>
-      <v-toolbar-title> <router-link to="/admin"> X-App </router-link> </v-toolbar-title>
-      <v-btn text class="ml-2" to="/meus-dados">Meus Dados</v-btn>
-      <v-btn text class="ml-2" to="/">Cardápio</v-btn>
-      <v-btn text class="ml-2" to="/link">Links</v-btn>
-      <v-spacer></v-spacer>
-      <v-btn text @click="logout()">sair</v-btn>
+    <v-navigation-drawer v-model="drawer" app :permanent="isLargeScreen" dark>
+      <v-list>
+        <v-list-item link to="/meus-dados">
+          <v-list-item-icon>
+            <v-icon color="deep-orange">mdi-account</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Meus dados</v-list-item-title>
+        </v-list-item>
+        <v-list-item link to="/cardapio">
+          <v-list-item-icon>
+            <v-icon color="deep-orange">mdi-food</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Cardápio</v-list-item-title>
+        </v-list-item>
+        <v-list-item link to="/link">
+          <v-list-item-icon>
+            <v-icon color="deep-orange">mdi-link</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Links</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    <v-app-bar app color="deep-orange">
+      <v-row align="center">
+        <v-col cols="auto">
+          <v-app-bar-nav-icon
+            @click.stop="toggleDrawer"
+            color="white"
+          ></v-app-bar-nav-icon>
+        </v-col>
+        <router-link to="/">
+          <v-col cols="auto">
+            <v-img
+              src="../../assets/logo-fanta.png"
+              max-height="40"
+              width="40"
+            ></v-img>
+          </v-col>
+        </router-link>
+        <v-col class="flex-grow-1"></v-col>
+        <v-col cols="auto">
+          <span class="mr-2" style="color: white">Bem vindo</span>
+          <span style="color: white"><strong>{{ usuario }}</strong> </span>
+        </v-col>
+        <v-col cols="auto">
+          <v-btn color="white" text @click="logout()">sair</v-btn>
+        </v-col>
+      </v-row>
     </v-app-bar>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-export default Vue.extend({
-  methods: {
-    logout() {
-      this.$store.dispatch("clearToken");
-      this.$router.push("/");
-      location.reload();
-    },
-  },
-});
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class AdmNavbar extends Vue {
+  drawer = false;
+  usuario = "";
+
+  mounted() {
+    this.usuario = this.$store.state.username;
+  }
+
+  get isLargeScreen(): boolean {
+    return this.$vuetify.breakpoint.mdAndUp;
+  }
+
+  toggleDrawer(): void {
+    if (!this.isLargeScreen) {
+      this.drawer = !this.drawer;
+    }
+  }
+
+  logout() {
+    this.$store.dispatch("clearToken");
+    this.$router.push("/");
+    location.reload();
+  }
+}
 </script>

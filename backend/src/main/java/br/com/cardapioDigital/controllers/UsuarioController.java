@@ -28,9 +28,6 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @Autowired
-    private EmpresaService empresaService;
-
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDto> getById(@PathVariable UUID id) {
         var usuario = usuarioService.findById(id);
