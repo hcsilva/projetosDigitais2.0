@@ -2,19 +2,19 @@
   <div>
     <v-navigation-drawer v-model="drawer" app :permanent="isLargeScreen" dark>
       <v-list>
-        <v-list-item link to="/meus-dados">
+        <v-list-item link to="meus-dados">
           <v-list-item-icon>
             <v-icon color="deep-orange">mdi-account</v-icon>
           </v-list-item-icon>
           <v-list-item-title>Meus dados</v-list-item-title>
         </v-list-item>
-        <v-list-item link to="/cardapio">
+        <v-list-item link to="cardapio">
           <v-list-item-icon>
             <v-icon color="deep-orange">mdi-food</v-icon>
           </v-list-item-icon>
           <v-list-item-title>Cardápio</v-list-item-title>
         </v-list-item>
-        <v-list-item link to="/link">
+        <v-list-item link to="link">
           <v-list-item-icon>
             <v-icon color="deep-orange">mdi-link</v-icon>
           </v-list-item-icon>

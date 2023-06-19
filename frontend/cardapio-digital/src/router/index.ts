@@ -9,6 +9,7 @@ import MenuItem from "../components/Menu/MenuItem.vue";
 import ApresentacaoComponent from "../components/Apresentacao/ApresentacaoComponent.vue";
 import LinkWebList from "@/components/LinksWeb/LinkWebList.vue";
 import LinkWebComponent from "@/components/LinksWeb/LinkWebComponent.vue";
+import LayoutBaseAdminComponent from "@/components/Layout/LayoutBaseAdminComponent.vue"
 
 Vue.use(VueRouter);
 
@@ -24,59 +25,66 @@ const routes: Array<RouteConfig> = [
     component: LoginComponent,
   },
   {
-    path: "/casdastrarNovoUsuario",
-    name: "Cadastrar Usuário",
-    component: UsuarioCadastro,
-  },
-  {
-    path: "/menu",
-    name: "Menu",
-    component: Menu,
-  },
-  {
-    path: "/detail",
-    name: "MenuItem",
-    component: MenuItem,
-  },
-  {
-    path: "/admin",
-    name: "AdminHome",
-    component: AdminHome,
-    meta: {
-      isAuthenticated: true,
-    },
-  },
-  {
-    path: "/meus-dados",
-    name: "Empresa",
-    component: Empresa,
-    meta: {
-      isAuthenticated: true,
-    },
-  },
-  {
-    path: "/link",
-    name: "Link",
-    component: LinkWebList,
-    meta: {
-      isAuthenticated: true,
-    },
-  },
-  {
-    path: "/link/:id/editar",
-    name: "EditarLink",
-    component: LinkWebComponent,
-    meta: {
-      isAuthenticated: true,
-    },
-  },
-  {
-    path: "/link/novo",
-    name: "novoLink",
-    component: LinkWebComponent,
-    meta: {
-      isAuthenticated: true,
-    },
+    path: "/home",
+    name: "home",
+    component: LayoutBaseAdminComponent,
+    children: [
+      {
+        path: "cadastrarNovoUsuario",
+        name: "cadastrar Usuário",
+        component: UsuarioCadastro,
+      },
+      {
+        path: "menu",
+        name: "menu",
+        component: Menu,
+      },
+      {
+        path: "detail",
+        name: "menuItem",
+        component: MenuItem,
+      },
+      {
+        path: "admin",
+        name: "adminHome",
+        component: AdminHome,
+        meta: {
+          isAuthenticated: true,
+        },
+      },
+      {
+        path: "meus-dados",
+        name: "empresa",
+        component: Empresa,
+        meta: {
+          isAuthenticated: true,
+        },
+      },
+      {
+        path: "link",
+        name: "link",
+        component: LinkWebList,
+        meta: {
+          isAuthenticated: true,
+        },
+      },
+      {
+        path: "link/:id/editar",
+        name: "editarLink",
+        component: LinkWebComponent,
+        meta: {
+          isAuthenticated: true,
+        },
+      },
+      {
+        path: "link/novo",
+        name: "novoLink",
+        component: LinkWebComponent,
+        meta: {
+          isAuthenticated: true,
+        },
+      },
+    ],
   },
 ];
 

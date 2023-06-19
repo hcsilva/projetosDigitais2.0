@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <component :is="navbarComponent" />
+   <!-- <component :is="navbarComponent" /> -->
     <v-main class="ma-3">
       <transition mode="out-in">
         <router-view />
@@ -20,17 +20,18 @@ export default Vue.extend({
   components: { Navbar, AdmNavbar },
   computed: {
     navbarComponent(): string {
-      if (
-        (localStorage.getItem("authToken") == null ||
-          localStorage.getItem("authToken") == "undefined") &&
-        !index.state.logged
-      ) {
+      const authToken = localStorage.getItem("authToken");
+      if ((authToken == null || authToken == "") && !index.state.logged) {
         return "Navbar";
       } else {
         return "AdmNavbar";
       }
     },
   },
+
+  created(){
+    console.log("Recriou a página");
+  }
 });
 </script>
 
