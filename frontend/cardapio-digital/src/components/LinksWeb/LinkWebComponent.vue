@@ -7,14 +7,15 @@
           <v-text-field
             v-model="descricao"
             label="Descrição"
-            required
+            :rules="descricaoRules"
           ></v-text-field>
           <v-text-field v-model="link" :rules="urlRules" label="Link">
           </v-text-field>
         </v-form>
       </v-card-text>
       <v-card-actions class="text-center">
-        <v-btn color="primary" @click="salvar">Salvar</v-btn>
+        <v-btn color="#F0A500" dark @click="salvar">Salvar</v-btn>
+        <v-btn color="error" dark @click="cancelar">Cancelar</v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -22,8 +23,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import LinkWebService from "./LinkWebService";
-import { LinkWeb } from "./LinkWebModel";
 
 @Component
 export default class LinkWebComponent extends Vue {
@@ -33,32 +32,26 @@ export default class LinkWebComponent extends Vue {
   linkValido = true;
   id: string | null = null;
 
-  urlRules = [
-    (value: string) => !!value || "O link é obrigatório",
-    (value: string) =>
-      /^https?:\/\/\S+$/.test(value) || "O link precisa ser uma URL válida",
-  ];
+  urlRules = [(value: string) => !!value || "O link é obrigatório"];
+
+  descricaoRules = [(value: string) => !!value || "A descrição é obrigatório"];
 
   created() {
     this.id = this.$route.params.id;
-    console.log("Entrou no Link como edição: " + this.id);
   }
 
   salvar(this: any) {
-    // if (this.$refs.form.validate()) {
-    //   console.log("salvar");
-    // }
+    if (this.$refs.form.validate()) {
+      console.log("salvar");
+    }
   }
 
   openLink() {
     window.open(this.link, "_blank");
   }
 
-  updated() {
-    this.linkValido =
-      this.link.length > 0 &&
-      this.urlRules.every((rule) => rule(this.link) === true);
-    console.log(this.linkValido);
+  cancelar() {
+    this.$router.push("/link");
   }
 }
 </script>

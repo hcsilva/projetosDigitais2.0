@@ -1,7 +1,9 @@
 import apiInstance from "@/api/apiInstance";
 import { LinkWeb } from "./LinkWebModel";
+import PageResult from "../PageResult/PageResult";
 
 class LinkWebService {
+
   async salvarLink(link: LinkWeb): Promise<LinkWeb> {
     const response = await apiInstance.post("/link", link);
     const linkSalvo: LinkWeb = response.data;
@@ -20,11 +22,11 @@ class LinkWebService {
     await apiInstance.delete(`/link/${linkId}`);
   }
 
-  async buscarTodosLinks(): Promise<LinkWeb[]> {
+  async buscarTodosLinks(): Promise<PageResult> {
     const response = await apiInstance.get("/link");
-    const links: LinkWeb[] = response.data;
+    const pageResult: PageResult = response.data;
 
-    return links;
+    return pageResult;
   }
 
   async buscarLinkPorId(linkId: string): Promise<LinkWeb> {

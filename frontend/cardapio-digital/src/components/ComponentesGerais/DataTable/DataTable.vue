@@ -4,7 +4,6 @@
     :headers="headers"
     :items="items"
     noDataText="Nenhum registro encontrado"
-    loading="loadingTabela"
     class="mt-2 pa-3 dataTableBorder"
     style="font-size: 10px"
     :footer-props="{
@@ -24,9 +23,8 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class DataTable extends Vue {
-  @Prop({ required: true }) items!: any[];
+  @Prop({ default: [] }) items!: any[];
   @Prop({ required: true }) headers!: any[];
-  @Prop({ required: true }) loadingTabela!: boolean;
 
   editarItem(item: any) {
     this.$emit("editar", item);

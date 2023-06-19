@@ -21,7 +21,11 @@
           <v-list-item-title>Links</v-list-item-title>
         </v-list-item>
       </v-list>
+      <v-footer class="mt-8">
+        <v-btn block color="white" text @click="logout()">Sair</v-btn>
+      </v-footer>
     </v-navigation-drawer>
+
     <v-app-bar app color="deep-orange">
       <v-row align="center">
         <v-col cols="auto">
@@ -30,19 +34,14 @@
             color="white"
           ></v-app-bar-nav-icon>
         </v-col>
-        <router-link to="/">
-          <v-col cols="auto">
-            <v-img
-              src="../../assets/logo-fanta.png"
-              max-height="40"
-              width="40"
-            ></v-img>
-          </v-col>
-        </router-link>
-        <v-col class="flex-grow-1"></v-col>
+        <v-spacer></v-spacer>
         <v-col cols="auto">
-          <span class="mr-2" style="color: white">Bem vindo</span>
-          <span style="color: white"><strong>{{ usuario }}</strong> </span>
+          <span class="mr-2" style="color: white; font-size: 14px"
+            >Bem vindo</span
+          >
+          <span style="color: white; font-size: 14px"
+            ><strong>{{ usuario }}</strong>
+          </span>
         </v-col>
         <v-col cols="auto">
           <v-btn color="white" text @click="logout()">sair</v-btn>
@@ -61,7 +60,7 @@ export default class AdmNavbar extends Vue {
   usuario = "";
 
   mounted() {
-    this.usuario = this.$store.state.username;
+    this.usuario = this.$store.getters.getUserName;
   }
 
   get isLargeScreen(): boolean {

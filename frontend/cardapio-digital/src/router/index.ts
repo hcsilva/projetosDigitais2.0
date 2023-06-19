@@ -70,6 +70,14 @@ const routes: Array<RouteConfig> = [
       isAuthenticated: true,
     },
   },
+  {
+    path: "/link/novo",
+    name: "novoLink",
+    component: LinkWebComponent,
+    meta: {
+      isAuthenticated: true,
+    },
+  },
 ];
 
 const router = new VueRouter({

@@ -1,12 +1,13 @@
 <template>
   <v-container>
+    <v-row class="pl-5">
+      <v-col>
+        <v-btn color="#F0A500" dark @click="adicionar()">Adicionar</v-btn>
+      </v-col>
+    </v-row>
     <v-row justify="center" class="ma-2">
       <v-col cols="12">
-        <DataTable
-          :items="items"
-          :headers="headers"
-          :loadingTabela="false"
-          @editar="editarItem"
+        <DataTable :items="links" :headers="headers" :loadingTabela="true"
       /></v-col>
     </v-row>
   </v-container>
@@ -17,6 +18,7 @@ import { Component, Vue } from "vue-property-decorator";
 import ModalComponent from "@/components/ComponentesGerais/Modal/ModalComponent.vue";
 import LinkWebComponent from "@/components/LinksWeb/LinkWebComponent.vue";
 import DataTable from "../ComponentesGerais/DataTable/DataTable.vue";
+import LinkWebService from "./LinkWebService";
 
 @Component({
   components: {
@@ -27,39 +29,38 @@ import DataTable from "../ComponentesGerais/DataTable/DataTable.vue";
 })
 export default class LinkWeb extends Vue {
   tableLoading = false;
+  links = new Array<LinkWeb>();
+  loadingDataTable: boolean = false;
+
+  mounted() {
+    LinkWebService.buscarTodosLinks()
+      .then((response: any) => {
+        console.log(response);
+        this.links = response.content;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    this.loadingDataTable = false;
+  }
+
   headers = [
     { text: "Descrição", value: "descricao", width: "40%" },
     { text: "Link", value: "link" },
     { text: "Ações", value: "acoes", width: "10%" },
   ];
 
-  items = [
-    {
-      id: 1,
-      descricao: "Teste 1",
-      link: "www.teste1.com.br",
-    },
-    {
-      id: 2,
-      descricao: "Teste 2",
-      link: "www.teste2.com.br",
-    },
-    {
-      id: 3,
-      descricao: "Teste 3",
-      link: "www.teste3.com.br",
-    },
-  ];
-
   editarItem(item: any) {
     const id = item.id;
     this.$router.push(`/link/${id}/editar`);
-    console.log(item);
   }
 
   excluirItem(item: string) {}
 
-  created() {}
+  adicionar() {
+    this.$router.push({ name: "novoLink" });
+  }
 }
 </script>
 
