@@ -21,9 +21,6 @@
           <v-list-item-title>Links</v-list-item-title>
         </v-list-item>
       </v-list>
-      <v-footer class="mt-8">
-        <v-btn block color="white" text @click="logout()">Sair</v-btn>
-      </v-footer>
     </v-navigation-drawer>
 
     <v-app-bar app color="deep-orange">

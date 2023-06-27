@@ -21,18 +21,14 @@ public class LinkWeb extends VersionedEntity{
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_EMPRESA", updatable = false, insertable = false)
-    private Empresa empresa;
-
     @Column(name="ID_EMPRESA")
     private UUID empresaId;
 
     @Column(name = "DESCRICAO", length = 300)
     private String descricao;
 
-    @Column(name = "LINK", length = 100)
-    private String link;
+    @Column(name = "URL", length = 100)
+    private String url;
 
     public LinkWebDto convertEntityToDto() {
         return new ModelMapper().map(this, LinkWebDto.class);

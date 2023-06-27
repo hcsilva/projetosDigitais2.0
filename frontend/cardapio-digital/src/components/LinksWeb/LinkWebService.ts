@@ -5,6 +5,7 @@ import PageResult from "../PageResult/PageResult";
 class LinkWebService {
 
   async salvarLink(link: LinkWeb): Promise<LinkWeb> {
+    debugger
     const response = await apiInstance.post("/link", link);
     const linkSalvo: LinkWeb = response.data;
 

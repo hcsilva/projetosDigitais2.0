@@ -1,11 +1,6 @@
 <template>
   <v-app>
-   <!-- <component :is="navbarComponent" /> -->
-    <v-main class="ma-3">
-      <transition mode="out-in">
-        <router-view />
-      </transition>
-    </v-main>
+    <router-view />
   </v-app>
 </template>
 
@@ -29,9 +24,9 @@ export default Vue.extend({
     },
   },
 
-  created(){
+  created() {
     console.log("Recriou a página");
-  }
+  },
 });
 </script>
 

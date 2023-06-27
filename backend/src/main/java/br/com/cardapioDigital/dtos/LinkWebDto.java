@@ -20,9 +20,8 @@ public class LinkWebDto {
     @NotEmpty(message = "{links.descricao.campoObrigatorio}")
     private String descricao;
 
-    @URL(message = "{links.urlInvalida}")
     @NotEmpty(message = "{links.link.campoObrigatorio}")
-    private String link;
+    private String url;
 
     private UUID empresaId;
 
