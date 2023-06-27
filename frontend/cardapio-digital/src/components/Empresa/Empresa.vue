@@ -19,6 +19,7 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
+                class="required-field"
                 v-model="empresa.nomeEstabelecimento"
                 label="Nome Estabelecimento"
                 outlined
@@ -27,6 +28,7 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-text-field
+                class="required-field"
                 v-model="empresa.cnpj"
                 label="CNPJ"
                 v-mask="'##.###.###/####-##'"
@@ -35,10 +37,10 @@
               ></v-text-field>
             </v-col>
           </v-row>
-
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
+                class="required-field"
                 v-model="empresa.telefoneContato"
                 label="Telefone Contato"
                 :rules="[telefoneRule]"
@@ -49,6 +51,7 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-text-field
+                class="required-field"
                 v-model="empresa.email"
                 label="Email"
                 outlined
@@ -72,6 +75,7 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-text-field
+                class="required-field"
                 prepend-icon="mdi-whatsapp"
                 v-model="empresa.whatsapp"
                 label="WhatsApp"
@@ -215,10 +219,9 @@
         <v-form ref="form">
           <v-row v-for="(linhaDia, idxDia) in diasHorarios" :key="idxDia">
             <v-col cols="2">
-              <v-text-field
-                class="label-horario"
-                v-model="descricaoDiaSemana[idxDia]"
-              ></v-text-field>
+              <div class="label-horario">
+                {{ descricaoDiaSemana[idxDia] }}
+              </div>
             </v-col>
             <v-col
               v-for="(horario, idxHorario) in linhaDia"
@@ -239,7 +242,7 @@
               <v-btn
                 elevation="0"
                 icon
-                color="primary"
+                color="#FF5722"
                 @click="replicarParaDiaSeguinte(idxDia)"
               >
                 <v-icon dark> mdi mdi-arrow-collapse-down </v-icon>
@@ -247,7 +250,7 @@
               <v-btn
                 elevation="0"
                 icon
-                color="primary"
+                color="#FF5722"
                 @click="limparHorarios(idxDia)"
               >
                 <v-icon dark> mdi-eraser </v-icon>
@@ -257,33 +260,13 @@
         </v-form>
       </v-card-text>
     </v-card>
-
     <v-row class="d-flex flex-row-reverse mt-4">
       <v-card-actions>
-        <v-btn
-          color="primary"
-          :disabled="!valid || !validDadosPublicos"
-          @click="atualizar"
-          elevation="0"
+        <v-btn color="primary" @click="atualizar" elevation="0"
           >Salvar Alterações</v-btn
-        >
-      </v-card-actions>
+        ></v-card-actions
+      >
     </v-row>
-
-    <!-- <v-footer fixed class="ma-2">
-      <v-row class="d-flex flex-row-reverse mt-4">
-        <v-card-actions>
-          <v-btn
-            color="primary"
-            fab
-            :disabled="!valid || !validDadosPublicos"
-            @click="atualizar"
-          >
-            <v-icon>mdi mdi-content-save</v-icon>
-          </v-btn>
-        </v-card-actions>
-      </v-row>
-    </v-footer> -->
   </v-container>
 </template>
 
@@ -430,7 +413,6 @@ export default class DadosEmpresa extends Vue {
   }
 
   carregaObjHorario(matriz: string[][]): HorarioFuncionamento {
-
     this.horarios.domingoInicial = matriz[0][0];
     this.horarios.domingoFinal = matriz[0][1];
     this.horarios.domingoInicial2 = matriz[0][2];
@@ -467,19 +449,22 @@ export default class DadosEmpresa extends Vue {
     this.horarios.sabadoFinal2 = matriz[6][3];
 
     return this.horarios;
-
   }
 
   verificarMatrizPreenchida(matriz: string[][]): boolean {
-  for (let i = 0; i < matriz.length; i++) {
-    for (let j = 0; j < matriz[i].length; j++) {
-      if (matriz[i][j] !== null && matriz[i][j] !== undefined && matriz[i][j] !== '') {
-        return true;
+    for (let i = 0; i < matriz.length; i++) {
+      for (let j = 0; j < matriz[i].length; j++) {
+        if (
+          matriz[i][j] !== null &&
+          matriz[i][j] !== undefined &&
+          matriz[i][j] !== ""
+        ) {
+          return true;
+        }
       }
     }
+    return false;
   }
-  return false;
-}
 
   removeCaracter(codNum: number, caracter: string): number {
     if (codNum == null || caracter == null) return 0;
@@ -509,7 +494,7 @@ export default class DadosEmpresa extends Vue {
         this.showMessage = true;
 
         setTimeout(() => {
-          this.$router.push("/admin");
+          this.$router.push("/home/admin");
         }, 2000);
       })
       .catch((error) => {
@@ -524,6 +509,12 @@ export default class DadosEmpresa extends Vue {
 <style scoped>
 .container {
   max-width: 1300px;
+}
+
+.required-field >>> label::before {
+  content: "*";
+  color: red;
+  margin-right: 4px;
 }
 
 .v-footer {
@@ -544,7 +535,6 @@ export default class DadosEmpresa extends Vue {
 .label-horario {
   font-size: 1rem;
   font-weight: 400;
-  margin-top: -15px;
 }
 .v-text-field--outlined >>> fieldset {
   border-color: #c9ced4;
@@ -564,4 +554,5 @@ export default class DadosEmpresa extends Vue {
 .centered-input >>> input {
   text-align: center;
 }
+
 </style>
