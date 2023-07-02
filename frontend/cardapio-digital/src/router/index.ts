@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import LoginComponent from "../components/Login/LoginComponent.vue";
 import Empresa from "../components/Empresa/Empresa.vue";
+import Cardapio from "../components/Cardapio/Cardapio.vue";
 import AdminHome from "../components/Admin/AdminHome.vue";
 import UsuarioCadastro from "../components/Usuario/UsuarioCadastro.vue";
 import Menu from "../components/Menu/Menu.vue";
@@ -56,6 +57,14 @@ const routes: Array<RouteConfig> = [
         path: "meus-dados",
         name: "empresa",
         component: Empresa,
+        meta: {
+          isAuthenticated: true,
+        },
+      },
+      {
+        path: "cardapio",
+        name: "cardapio",
+        component: Cardapio,
         meta: {
           isAuthenticated: true,
         },
