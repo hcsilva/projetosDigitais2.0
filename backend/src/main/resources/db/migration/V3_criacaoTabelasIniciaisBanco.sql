@@ -88,21 +88,37 @@ create table links (
   constraint fk_links_empresa foreign key (id_empresa) references empresa
 );
 
-create table categoria (
+create table cardapio (
   id uuid not null,
   id_empresa uuid not null,
   descricao varchar(100) not null,
   descricao_detalhada varchar(250) not null,
   label_mini_prato varchar(30),
   status boolean default false,
+  data_alteracao TIMESTAMP NOT NULL DEFAULT NOW(),
+  data_criacao TIMESTAMP NOT NULL DEFAULT NOW(),
   primary key (id),
-  constraint fk_categoria_empresa foreign key (id_empresa) references empresa
+  constraint fk_cardapio_empresa foreign key (id_empresa) references empresa
+);
+
+create table categoria (
+  id uuid not null,
+  id_empresa uuid not null,
+  id_cardapio uuid not null,
+  descricao varchar(100) not null,
+  descricao_detalhada varchar(250) not null,
+  label_mini_prato varchar(30),
+  status boolean default false,
+  primary key (id),
+  constraint fk_categoria_empresa foreign key (id_empresa) references empresa,
+  constraint fk_categoria_cardapio foreign key (id_cardapio) references empresa
 );
 
 create table item_categoria (
   id uuid not null,
   id_empresa uuid not null,
-  id_categoria uuid not null,
+  id_cardapio uuid not null,
+  id_categoria uuid,
   descricao_detalhada varchar(250) not null,
   descricao_simples varchar(100) not null,
   foto oid,
@@ -116,6 +132,7 @@ create table item_categoria (
   destaque boolean default false,
   primary key (id),
   constraint fk_item_categoria_empresa foreign key (id_empresa) references empresa,
+  constraint fk_item_categoria_cardapio foreign key (id_cardapio) references cardapio,
   constraint fk_item_categoria_categoria foreign key (id_categoria) references categoria
 );
 
