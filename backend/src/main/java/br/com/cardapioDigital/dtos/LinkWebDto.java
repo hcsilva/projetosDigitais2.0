@@ -28,5 +28,4 @@ public class LinkWebDto {
     public LinkWeb convertDtoToEntity() {
         return new ModelMapper().map(this, LinkWeb.class);
     }
-
 }

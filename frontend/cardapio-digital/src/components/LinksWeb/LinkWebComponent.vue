@@ -73,7 +73,7 @@ export default class LinkWebComponent extends Vue {
   }
 
   cancelar() {
-    this.$router.push("/link");
+    this.$router.push("/home/link");
   }
 }
 </script>

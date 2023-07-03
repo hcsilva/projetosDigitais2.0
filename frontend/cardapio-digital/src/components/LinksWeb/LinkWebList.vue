@@ -47,7 +47,7 @@ export default class LinkWeb extends Vue {
 
   headers = [
     { text: "Descrição", value: "descricao", width: "40%" },
-    { text: "Link", value: "link" },
+    { text: "Link", value: "url" },
     { text: "Ações", value: "acoes", width: "10%" },
   ];
 

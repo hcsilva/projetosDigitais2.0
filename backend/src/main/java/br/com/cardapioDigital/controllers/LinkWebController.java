@@ -15,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/link")
@@ -51,11 +53,9 @@ public class LinkWebController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<LinkWebDto>> findAll(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+    public ResponseEntity<Page<LinkWeb>> findAll(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<LinkWeb> link = linkService.findAll(pageable);
-        Page<LinkWebDto> linkDto = link.map(links -> new LinkWeb().convertEntityToDto());
-
-        return ResponseEntity.ok().body(linkDto);
+        return ResponseEntity.ok().body(link);
     }
 
     @DeleteMapping("/{id}")

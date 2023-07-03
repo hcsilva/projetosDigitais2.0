@@ -1,7 +1,9 @@
 package br.com.cardapioDigital.models;
 
+import br.com.cardapioDigital.dtos.EnderecoDto;
 import br.com.cardapioDigital.dtos.LinkWebDto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
@@ -15,13 +17,13 @@ import java.util.UUID;
 @Entity
 @Table(name = "LINKS")
 @EqualsAndHashCode(of = "id")
-public class LinkWeb extends VersionedEntity{
+public class LinkWeb extends VersionedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name="ID_EMPRESA")
+    @Column(name = "ID_EMPRESA")
     private UUID empresaId;
 
     @Column(name = "DESCRICAO", length = 300)
@@ -33,5 +35,4 @@ public class LinkWeb extends VersionedEntity{
     public LinkWebDto convertEntityToDto() {
         return new ModelMapper().map(this, LinkWebDto.class);
     }
-
 }
