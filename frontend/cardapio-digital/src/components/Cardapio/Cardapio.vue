@@ -21,19 +21,36 @@
             <div class="title">Manutenção do Cardápio</div>
           </v-flex>
           <v-flex xs="3" class="text-right">
-            <v-btn outlined>
-              <v-icon left> <font-awesome-icon icon="vuejs" /> </v-icon>
-              Preview
-            </v-btn>
+            <v-dialog transition="dialog-bottom-transition" max-width="600">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn outlined v-bind="attrs" v-on="on">
+                  <v-icon left> fas fa-solid fa-sliders </v-icon>
+                  Cardapios
+                </v-btn>
+              </template>
+              <template v-slot:default="dialog">
+                <v-card>
+                  <v-toolbar color="primary" dark
+                    >Manutenção Cardápios</v-toolbar
+                  >
+                  <v-card-text>
+                    <div class="text-h2 pa-12">Hello world!</div>
+                  </v-card-text>
+                  <v-card-actions class="justify-end">
+                    <v-btn text @click="dialog.value = false">Close</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </template>
+            </v-dialog>
 
             <v-btn outlined>
-              <v-icon left> <font-awesome-icon icon="vuejs" /> </v-icon>
-              Cardapios
-            </v-btn>
-
-            <v-btn outlined>
-              <v-icon left> <font-awesome-icon icon="vuejs" /> </v-icon>
+              <v-icon left> fas fa-solid fa-sliders </v-icon>
               Categorias
+            </v-btn>
+
+            <v-btn outlined>
+              <v-icon left color="red"> fa-solid fa-circle </v-icon>
+              Preview
             </v-btn>
           </v-flex>
         </v-layout>
@@ -53,20 +70,49 @@
 
               <v-row no-gutters>
                 <v-col cols="16" sm="6">
-                  <v-sheet class="ma-1">
-                    <v-card class="custom-card" color="#FF5722" height="150">
-                      <div class="inner-border">
-                        <v-row
-                          class="card-content"
-                          align="center"
-                          justify="center"
+                  <v-dialog
+                    transition="dialog-bottom-transition"
+                    max-width="600"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-sheet class="ma-1">
+                          <v-card
+                            class="custom-card"
+                            color="#FF5722"
+                            height="150"
+                             v-bind="attrs" v-on="on"
+                          >
+                            <div class="inner-border">
+                              <v-row
+                                class="card-content"
+                                align="center"
+                                justify="center"
+                              >
+                                <v-icon class="icon" color="white"
+                                  >mdi-plus</v-icon
+                                >
+                                <span class="text">Adicionar novo item</span>
+                              </v-row>
+                            </div>
+                          </v-card>
+                        </v-sheet>
+                    </template>
+                    <template v-slot:default="dialog">
+                      <v-card>
+                        <v-toolbar color="primary" dark
+                          >Novo Item</v-toolbar
                         >
-                          <v-icon class="icon" color="white">mdi-plus</v-icon>
-                          <span class="text">Adicionar novo item</span>
-                        </v-row>
-                      </div>
-                    </v-card>
-                  </v-sheet>
+                        <v-card-text>
+                          <div class="text-h2 pa-12">Hello world!</div>
+                        </v-card-text>
+                        <v-card-actions class="justify-end">
+                          <v-btn text @click="dialog.value = false"
+                            >Close</v-btn
+                          >
+                        </v-card-actions>
+                      </v-card>
+                    </template>
+                  </v-dialog>
                 </v-col>
 
                 <v-col
@@ -303,6 +349,7 @@ export default class Cardapio extends Vue {
   font-size: 0.9rem;
   font-weight: 350;
   line-height: 1;
+  margin-left: 3px;
 }
 .col-sm-6,
 .col-12 {
