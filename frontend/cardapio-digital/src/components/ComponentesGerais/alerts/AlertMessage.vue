@@ -18,6 +18,7 @@ export default class AlertMessage extends Vue {
   private watcherShow(newValue: boolean, oldValue: boolean): void {
     setTimeout(() => {
       this.$emit("showErrorAlert");
+      this.$emit("showSuccessAlert");
     }, 2000);
   }
 

@@ -35,7 +35,6 @@ export default class LinkWeb extends Vue {
   mounted() {
     LinkWebService.buscarTodosLinks()
       .then((response: any) => {
-        console.log(response);
         this.links = response.content;
       })
       .catch((error) => {

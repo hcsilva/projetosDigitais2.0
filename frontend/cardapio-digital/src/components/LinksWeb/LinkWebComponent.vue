@@ -5,7 +5,7 @@
         :message="mensagem"
         :show="showMessage"
         :type="alertType"
-        @showErrorAlert="showMessage = true"
+        @showSuccessAlert="showMessage = false"
       />
       <v-card-title>Cadastro de links</v-card-title>
       <v-card-text>
